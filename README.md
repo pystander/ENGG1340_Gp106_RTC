@@ -6,6 +6,8 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
 
 - Multiple Character Classes (Warrior, Mage, Archer)
 
-- Different Equipments (Weapon, Items)
+- Random mobs and monsters
+
+- Shops and Items (Weapon, Armour, Consumables)
 
 - Level System

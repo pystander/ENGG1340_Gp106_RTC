@@ -1,7 +1,14 @@
 # Road to Castle
 
-## Introduction
 A text-based RPG for HKU ENGG1340 group project.
+
+## Group Members
+
+- Leung Chiu Yuen, Rain
+
+- Ko King Nam, Vincent
+
+## Introduction
 
 The Ultimate Goal is to defeat the monsters amid the road and arive to the Castle.
 

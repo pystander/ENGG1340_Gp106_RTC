@@ -27,4 +27,4 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
 
 - Level and Save System (CR2, CR4)
 
-* CR stands for Code Requirement *
+CR = Code Requirement

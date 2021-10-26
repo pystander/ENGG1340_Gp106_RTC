@@ -2,15 +2,21 @@
 
 A text-based RPG for HKU ENGG1340 group project.
 
+</br>
+
 ## Group Members
 
 - Leung Chiu Yuen, Rain
 
 - Ko King Nam, Vincent
 
+</br>
+
 ## Introduction
 
 The Ultimate Goal is to defeat the monsters amid the road and arive to the Castle.
+
+</br>
 
 ## Features
 - Multiple Character Classes: Warrior, Mage, Archer
@@ -19,6 +25,6 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
 
 - Shops and Items: Weapon, Armour, Consumables
 
-- Level and Save System (CR2)
+- Level and Save System (CR2, CR4)
 
-** CR stands for Code Requirement
+* CR stands for Code Requirement *

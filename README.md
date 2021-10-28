@@ -21,7 +21,7 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
 ## Features
 - Multiple Character Classes: Warrior, Mage, Archer
     - Each class with unique abilities
-    - Files are stored separately (CR5)
+    - Files are stored separately in `.h` and `.cpp` files (CR5)
 
 - Random mobs, monsters, and events
     - Game events occur randomly (CR1)

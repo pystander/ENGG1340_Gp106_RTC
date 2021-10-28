@@ -32,7 +32,7 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
 
 - Level and Save System
     - Multiple saves allowed (CR4)
-    - Attributes (e.g. Health, Level) stored and extracted via equations and calculations (CR2)
+    - Player attributes (e.g. Health, Level) stored and extracted by equations (CR2)
 
 - Game Difficulty
     - Normal

@@ -24,11 +24,18 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
     - Files are stored separately (CR5)
 
 - Random mobs, monsters, and events
-    - Game events and attributes are randomly generated (CR1)
-    - Random shop items: weapon, armour, consumables
+    - Game events occur randomly (CR1)
+    - Monster types and attributes are randomly generated (CR1)
+
+- Shop items: weapon, armour, consumables
+    - Equipment systems (CR3)
 
 - Level and Save System
     - Multiple saves allowed (CR4)
     - Attributes (e.g. Health, Level) stored and extracted via equations and calculations (CR2)
+
+- Game Difficulty
+    - Normal
+    - Hard: randomly generated lower player statistics (CR1)
 
 *CR = Code Requirement

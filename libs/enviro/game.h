@@ -29,6 +29,9 @@ class Game{
 
         // [blocking] Start game
         void start();
+        void exit();
+        void save();
+        void load();
 };
 
 #endif

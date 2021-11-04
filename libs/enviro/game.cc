@@ -12,4 +12,5 @@ Game::Game(int difficulty){
 
 void Game::start(){
     printf("Testing\n");
+    
 }

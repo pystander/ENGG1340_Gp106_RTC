@@ -7,7 +7,7 @@ class GameItem;
 #include <string>
 
 #define PHY_ATTACK  0b0000001
-#define MAG_ATTACK  000b00010
+#define MAG_ATTACK  0b0000010
 #define PHY_RESIST  0b0000100
 #define MAG_RESIST  0b0001000
 #define HEALING     0b0010000
@@ -39,6 +39,7 @@ class GameItem{
         std::string getName();
         int getType();
         int getMiscType();
+        CharacterStat getValues();
 };
 
 #endif

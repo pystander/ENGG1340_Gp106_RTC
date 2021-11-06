@@ -3,33 +3,41 @@
 
 class Game;
 
+#include <stdlib.h>
 #include <vector>
 #include "libs/utils/random_util.h"
 #include "libs/entities/player.h"
 #include "libs/enviro/game_map.h"
 
 #define DIFFICULTY_EASY   0
-#define DIFFICULTY_Normal 1
+#define DIFFICULTY_NORMAL 1
 #define DIFFICULTY_HARD   2
+
+// Maps constants (of course we need a system to "travel" preferably)
+#define WAITING_AREA    0
+#define SPAWN_AREA      1
+#define UNKNOWN_VILLAGE 2
 
 /**
  * Main game.
  */
 class Game{
     private:
-        int difficulty;
-        Player* player;
-        std::vector<GameMap*> maps;
-
         void createPlayer();
         void setupMaps();
 
     public:
+        int difficulty;
+        Player* player;
+        std::vector<GameMap*> maps;
+
         Game(int difficulty);
 
-        // [blocking] Start game
         void start();
-        void exit();
+
+        void updateMaps();
+
+        void exitGame();
         void save();
         void load();
 };

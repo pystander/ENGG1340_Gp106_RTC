@@ -22,6 +22,6 @@ float Random::getFloat(){
 }
 
 int Random::getInt(){
-    return (int)floor((float)this->distribution(this->rng))/(100.0f);
+    return (int)(floor((float)this->distribution(this->rng))/(100.0f));
 }
 

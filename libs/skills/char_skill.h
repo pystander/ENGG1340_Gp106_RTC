@@ -11,7 +11,7 @@ typedef struct CharacterSkill{
     int type;                // type defined in GameItem, eg. PHY_ATTACK | MAG_ATTACK
     int characterType;       // eg. WARRIOR
     int cooldown;            // measured in turns
-    CharacterStat modifier;
+    StatModiferStore modifier;
 } CharacterSkill;
 
 #endif

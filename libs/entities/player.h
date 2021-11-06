@@ -15,18 +15,26 @@ class Player : public GameCharacter{
         // not planning to add skill to mobs
         std::vector<CharacterSkill> skills;
         GameMap* currentLoc;
-        bool enteredGame;
+        GameMatch* recentMatch;
+        bool enteredBattle;
         int money;
     
     public:
-        Player(std::string name);
+        Player(std::string name, int type) : GameCharacter(name, true, type) {}
         GameMap* getCurrentLoc();
-        bool isEnteredGame();
-        int getMoney();
+        bool isInBattle();
+        int getMoneyAmount();
 
-        void enter(GameMap* map);
+        void enter(GameMap*);
         // engage in a battle in the current location
         GameMatch* engage();
+        void disengage();
+
+        // null if not in a battle. It can be ongoing.
+        GameMatch* getRecentMatch();
+
+        void displayInventory();
+        void displayPlayerStatus();
 };
 
 #endif

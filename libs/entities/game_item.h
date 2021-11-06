@@ -1,7 +1,7 @@
 #ifndef GAME_ITEM_H
 #define GAME_ITEM_H
 
-struct CharacterStat;
+struct StatModiferStore;
 class GameItem;
 
 #include <string>
@@ -17,29 +17,33 @@ class GameItem;
 #define MISC_QUEST  0b0001
 #define MISC_KEY    0b0010
 
-typedef struct CharacterStat{
-    float phyAttack; // modifiers
-    float magAttack;
-    float phyResist;
-    float magResist;
-    float healAmount;
+typedef struct StatModiferStore{
+    float phyAttack = -1; // modifiers
+    float magAttack = -1;
+    float phyResist = -1;
+    float magResist = -1;
+    float healAmount = -1;
     bool stun;
-} CharacterStat;
+} StatModiferStore;
 
 class GameItem{
-    private:
+    protected:
         std::string name;
         int type;        // eg. PHY_ATTACK | MAG_ATTACK
         int miscType;    // must have a MISC flag set in "type"
-        CharacterStat itemStat;
+        StatModiferStore itemStat;
     
     public:
         GameItem(std::string name, int type, int miscType) : name(name), type(type), miscType(miscType){};
-        GameItem(std::string name, int type);
+        GameItem(std::string name, int type) : name(name), type(type), miscType(0){};
         std::string getName();
         int getType();
         int getMiscType();
-        CharacterStat getValues();
+        StatModiferStore getItemStat();
+
+        virtual GameItem* copy() = 0;
+
+        void displayInfo();
 };
 
 #endif

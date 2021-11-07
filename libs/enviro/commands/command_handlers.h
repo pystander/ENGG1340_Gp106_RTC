@@ -37,7 +37,7 @@ void battle(Game* game);
 /**
  * @brief [normal] move around the map
  */
-void move(Game* game);
+void enterLoc(Game* game, int index);
 
 /**
  * @brief [normal, engaged] use an item 

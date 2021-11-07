@@ -23,6 +23,7 @@ class Game;
  */
 class Game{
     private:
+        bool started = false;
         void createPlayer();
         void setupMaps();
 
@@ -33,6 +34,9 @@ class Game{
 
         Game(int difficulty);
 
+        bool hasGameStarted();
+        void gameStarted();
+        
         void start();
 
         void updateMaps();

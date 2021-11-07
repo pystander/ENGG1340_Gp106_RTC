@@ -17,13 +17,11 @@ class Player : public GameCharacter{
         GameMap* currentLoc;
         GameMatch* recentMatch;
         bool enteredBattle;
-        int money;
     
     public:
         Player(std::string name, int type) : GameCharacter(name, true, type) {}
         GameMap* getCurrentLoc();
         bool isInBattle();
-        int getMoneyAmount();
 
         void enter(GameMap*);
         // engage in a battle in the current location

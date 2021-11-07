@@ -12,17 +12,21 @@ bool Player::isInBattle(){
     return this->enteredBattle;
 }
 
-int Player::getMoneyAmount(){
-    return this->getMoneyAmount();
-}
-
 void Player::enter(GameMap* map){
-    this->currentLoc = map;
-    // Random rng = Random(0, 1);
-    // 0.4 of chance getting into a battle automatically
-    // if(rng.getFloat() < 0.4){
-    //     this->engage();
-    // }
+    if(this->currentLoc == nullptr || this->currentLoc->getName() == "Waiting Area"){
+        this->currentLoc = map;
+    }else{
+        if(this->currentLoc->canGetTo(map)){
+            this->currentLoc = map;
+            // 0.4 of chance getting into a battle randomly on your way
+            // Random rng = Random(0, 1);
+            // if(rng.getFloat() < 0.4){
+            //     this->engage();
+            // }
+        }else{
+            std::cout << "Cannot get to " << map->getName() << "\n";
+        }
+    }
 }
 
 GameMatch* Player::engage(){
@@ -34,6 +38,7 @@ GameMatch* Player::engage(){
 }
 
 void Player::disengage(){
+    this->currentLoc->cleanCorpse();
     this->recentMatch = nullptr;
     this->enteredBattle = false;
 }

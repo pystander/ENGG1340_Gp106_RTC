@@ -4,7 +4,10 @@
 #include "libs/enviro/game.h"
 
 void startGame(Game* game){
-    game->player->enter(game->maps[SPAWN_AREA]);
+    if(!game->hasGameStarted()){
+        game->player->enter(game->maps[SPAWN_AREA]);
+        game->gameStarted();
+    }
 }
 
 void battle(Game* game){
@@ -12,11 +15,12 @@ void battle(Game* game){
     game->player->enter(game->maps[UNKNOWN_VILLAGE]);
 }
 
-void move(Game* game){
-    // move logic, preferably from one map move to another map
-    // no teleporting?
-    //
-    //Temporarily use battle();
+void enterLoc(Game* game, int index){
+    game->updateMaps();
+    GameMap* map = game->player->getCurrentLoc()->getNeighborByIndex(index);
+    if(map != nullptr){
+        game->player->enter(map);
+    }
 }
 
 void useItem(Game* game, int index){
@@ -77,13 +81,15 @@ void printInventory(Game* game){
 
 void helpBase(Game* game){
     std::cout << "Available commands normally:\n";
-    if(game->player->getCurrentLoc() == game->maps[WAITING_AREA])
+    if(!game->hasGameStarted()){
         std::cout << "start" << "\n";
-    std::cout << "battle" << "\n";
-    std::cout << "engage" << "\n";
-    std::cout << "use <index>" << "\n";
-    std::cout << "wait" << "\n";
-    std::cout << "inventory" << "\n";
-    std::cout << "info" << "\n";
-    std::cout << "help" << "\n";
+    }else{
+        std::cout << "engage" << "\n";
+        std::cout << "enter <index>" << "\n";
+        std::cout << "use <index>" << "\n";
+        std::cout << "wait" << "\n";
+        std::cout << "inventory" << "\n";
+        std::cout << "info" << "\n";
+        std::cout << "help" << "\n";
+    }
 }

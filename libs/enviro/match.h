@@ -13,6 +13,8 @@ class GameMatch{
         std::vector<GameCharacter*> enemies; // enemies brought to the battlefield
         Player* player;
         GameMap* map;
+        const int maxAttackPerRound = 1;
+        int playerAttackLeft = 1; // allows player to attack 1 or multiple times in 1 turn 
 
     public:
         GameMatch(Player* player, GameMap* map) : player(player), map(map) {};

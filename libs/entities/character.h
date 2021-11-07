@@ -29,6 +29,7 @@ class GameCharacter{
         bool is_player;
         bool stunned;  // timeout for 1 round.
         bool is_dead;
+        int money = 0; // will be added to the killer if a person killed
         int level = 0; // default 0, setup() will add one
         // default 0 (enemies will have more than 0 xp, 
         // whoever claim their lives will take their xp)
@@ -76,12 +77,17 @@ class GameCharacter{
         // returns null if index is invalid
         GameItem* getFromInventory(int index);
         GameItem* getEquipped();
+        int getMoneyAmount();
         bool isPlayer();
         bool isStunned();
         bool isDead();
         void setBaseStat(StatModiferStore);
         void addXp(int);
         void addToInventory(GameItem*);
+        void addMoney(int);
+        // returns whether the person has enough money or not 
+        // (success or not)
+        bool subMoney(int);
 
         // setup stats for character
         void setup();

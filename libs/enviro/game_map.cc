@@ -17,6 +17,18 @@ GameMap::GameMap(std::string name, int difficulty) : name(name){
     }
 }
 
+void GameMap::connectTo(GameMap* nextMap){
+    this->neighbors.insert(nextMap);
+    nextMap->neighbors.insert(this);
+}
+
+bool GameMap::canGetTo(GameMap* nextLoc){
+    if(this->neighbors.count(nextLoc)){
+        return true;
+    }
+    return false;
+}
+
 std::string GameMap::getName(){
     return this->name;
 }
@@ -31,6 +43,19 @@ std::vector<GameCharacter*> GameMap::getSomeEnemies(){
         result.push_back(this->enemies[i]);
     }
     return result;
+}
+
+std::set<GameMap*> GameMap::getNeighbors(){
+    return this->neighbors;
+}
+
+GameMap* GameMap::getNeighborByIndex(int index){
+    int i = 0;
+    for(const auto& place: this->neighbors){
+        if(i == index)
+            return place;
+    }
+    return nullptr;
 }
 
 void GameMap::setEnemySpawnRate(double spawnRate){
@@ -66,5 +91,14 @@ void GameMap::displayInfo(){
     for(int i = 0; i < this->enemies.size(); i++){
         GameCharacter* c = this->enemies[i];
         std::cout << "Mob " << i << ": " << c->getName() << "\n";
+    }
+    this->displayNeighbors();
+}
+
+void GameMap::displayNeighbors(){
+    std::cout << "Neighbor locations for " << this->getName() << ":\n";
+    int i = 0;
+    for(const auto& place: this->neighbors){
+        std::cout << "Neighbor " << i++ << ": " << place->getName() << "\n";
     }
 }

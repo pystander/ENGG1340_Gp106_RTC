@@ -22,6 +22,9 @@ void Game::setupMaps(){
     SpawnArea* spawnArea = new SpawnArea(this->difficulty);
     UnknownVillage* unknownVillage = new UnknownVillage(this->difficulty);
 
+    // Connections
+    spawnArea->connectTo(unknownVillage);
+
     // add the area according to the sequence in game.h
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
@@ -31,6 +34,14 @@ void Game::setupMaps(){
 // public
 Game::Game(int difficulty){
     this->difficulty = difficulty;
+}
+
+bool Game::hasGameStarted(){
+    return this->started;
+}
+
+void Game::gameStarted(){
+    this->started = true;
 }
 
 void Game::start(){
@@ -45,8 +56,9 @@ void Game::start(){
         std::cin >> userInput;
         if(userInput == "start"){
             startGame(this);
-        }else if(userInput == "battle"){
-            battle(this);
+        }else if(userInput == "enter"){
+            std::cin >> index;
+            enterLoc(this, index);
         }else if(userInput == "engage"){
             engage(this);
         }else if(userInput == "wait"){

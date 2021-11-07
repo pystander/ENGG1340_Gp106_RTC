@@ -5,11 +5,13 @@ class GameMap;
 
 #include <string>
 #include <vector>
+#include <set>
 #include "libs/entities/character.h"
 
 class GameMap{
     protected:
         std::vector<GameCharacter*> enemies;
+        std::set<GameMap*> neighbors;
         std::string name;
         int maxEnemyReserve;
         double enemySpawnRate;
@@ -21,11 +23,17 @@ class GameMap{
             for(int i = 0; i < this->enemies.size(); i++)
                 free(this->enemies[i]);
         }
+        
+        // bi-direction connect operation
+        void connectTo(GameMap* nextMap);
+        bool canGetTo(GameMap* nextLoc);
 
         std::string getName();
 
         // Will return 1-3 enemies, 0 if none
         std::vector<GameCharacter*> getSomeEnemies();
+        std::set<GameMap*> getNeighbors();
+        GameMap* getNeighborByIndex(int);
 
         /**
          * Spawn random mobs
@@ -41,6 +49,7 @@ class GameMap{
         void update();
         void cleanCorpse(); // will delete dead enemies
         void displayInfo();
+        void displayNeighbors();
 };
 
 #endif

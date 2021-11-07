@@ -15,8 +15,13 @@ bool GameMatch::start(){
 }
 
 void GameMatch::attackEnemy(GameCharacter* from, int index){
-    if(index >= 0 && index < this->enemies.size()){
-        from->attack(this->enemies[index]);
+    if(this->playerAttackLeft > 0){
+        if(index >= 0 && index < this->enemies.size()){
+            from->attack(this->enemies[index]);
+            this->playerAttackLeft--;
+        }
+    }else{
+        std::cout << from->getName() << " cannot keep attacking. Please use 'next', to end the round\n";
     }
 }
 
@@ -27,6 +32,7 @@ void GameMatch::endTurn(){
         this->end();
         // TODO: drop loots for players to get
     }else{
+        this->playerAttackLeft = this->maxAttackPerRound;
         this->enemies[rng.getInt()]->attack(this->player);
     }
 }
@@ -42,11 +48,13 @@ void GameMatch::cleanCorpse(){
 }
 
 void GameMatch::end(){
-    if(this->enemiesLeft() == 0)
-        std::cout << "All enemies are dead\n";
-    std::cout << "Battle ended, leaving battlefield\n";
-    this->player->disengage();
-    this->finished = true;
+    if(!this->finished){
+        if(this->enemiesLeft() == 0)
+            std::cout << "All enemies are dead\n";
+        std::cout << "Battle ended, leaving battlefield\n";
+        this->finished = true;
+        this->player->disengage();
+    }
 }
 
 void GameMatch::displayInfo(){

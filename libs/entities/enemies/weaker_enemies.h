@@ -6,6 +6,7 @@
 class Goblin : public GameCharacter{
     public:
         Goblin() : GameCharacter("Goblin", false, MONSTER){
+            this->money = 150;
             this->xp = 50;
         };
 

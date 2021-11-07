@@ -29,7 +29,7 @@ void GameCharacter::forceLevelup(){
     this->maxHp += majorStat.healAmount + minorStat.healAmount;
     this->maxMana += majorStat.healAmount + minorStat.healAmount;
     this->currentHp = this->maxHp;
-    this->currentMana = this->currentMana;
+    this->currentMana = this->maxMana;
     this->level++;
     this->nextLevelXp = pow(2, this->level) * log(this->level) + 100;
 }
@@ -91,6 +91,10 @@ GameItem* GameCharacter::getEquipped(){
     return this->equippedItem;
 }
 
+int GameCharacter::getMoneyAmount(){
+    return this->money;
+}
+
 bool GameCharacter::isPlayer(){
     return this->is_player;
 }
@@ -118,6 +122,20 @@ void GameCharacter::addXp(int xp){
 void GameCharacter::addToInventory(GameItem* item){
     if(item != nullptr){
         this->inventory.push_back(item);
+    }
+}
+
+
+void GameCharacter::addMoney(int amount){
+    this->money += amount;
+}
+
+bool GameCharacter::subMoney(int amount){
+    if(this->money - amount < 0){
+        return false;
+    }else{
+        this->money -= amount;
+        return true;
     }
 }
 
@@ -172,11 +190,12 @@ void GameCharacter::attack(GameCharacter* character){
     if(phyDamange > 0) totalDamage += phyDamange;
     if(magDamange > 0) totalDamage += magDamange;
     character->currentHp -= totalDamage;
-    std::cout << character->getName() << " has taken " << totalDamage << " damage!\n";
+    std::cout << character->getName() << " took " << totalDamage << " damage!\n";
     if(character->currentHp < 0){
         character->dead();
         std::cout << character->getName() << " is dead\n";
         this->addXp(character->xp);
+        this->money += character->getMoneyAmount();
     }
 }
 
@@ -235,7 +254,7 @@ StatModiferStore GameCharacter::block(){
 }
 
 void GameCharacter::levelup(){
-    if(this->xp > this->nextLevelXp){
+    if(this->xp >= this->nextLevelXp){
         if(this->isPlayer())
             std::cout << this->getName() << " has leveled up to level " << this->level << "\n";
         this->forceLevelup();
@@ -249,10 +268,11 @@ void GameCharacter::dead(){
 void GameCharacter::displayCharacterStatus(){
     StatModiferStore stat = this->baseStat;
     std::cout << "Is dead?       : " << (this->isDead()? "true" : "false") << "\n";
+    std::cout << "Class Type     : " << this->typeStr << "\n";
     std::cout << "Current Level  : " << this->level << "\n";
     std::cout << "Current xp     : " << this->xp << "\n";
     std::cout << "Next level xp  : " << this->nextLevelXp << "\n";
-    std::cout << "Class Type     : " << this->typeStr << "\n";
+    std::cout << "Money          : $" << this->money << "\n";
     std::cout << "Current Hp     : " << this->currentHp   << ", (max: " << this->maxHp << ")" << "\n";
     std::cout << "Current Mana   : " << this->currentMana << ", (max: " << this->maxMana << ")" << "\n";
     std::cout << "Physical Attack: " << stat.phyAttack << ", (add: " << this->additionalStat.phyAttack << ")" << "\n";

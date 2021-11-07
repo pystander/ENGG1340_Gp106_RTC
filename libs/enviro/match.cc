@@ -14,20 +14,20 @@ bool GameMatch::start(){
     return true;
 }
 
-void GameMatch::attack(GameCharacter* from, int index){
+void GameMatch::attackEnemy(GameCharacter* from, int index){
     if(index >= 0 && index < this->enemies.size()){
         from->attack(this->enemies[index]);
-        //better output can be made, eg. difference?
     }
 }
 
 void GameMatch::endTurn(){
     Random rng = Random(0, this->enemies.size());
-    this->enemies[rng.getInt()]->attack(this->player);
     this->cleanCorpse();
     if(this->enemiesLeft() == 0){
         this->end();
         // TODO: drop loots for players to get
+    }else{
+        this->enemies[rng.getInt()]->attack(this->player);
     }
 }
 
@@ -42,13 +42,18 @@ void GameMatch::cleanCorpse(){
 }
 
 void GameMatch::end(){
+    if(this->enemiesLeft() == 0)
+        std::cout << "All enemies are dead\n";
+    std::cout << "Battle ended, leaving battlefield\n";
     this->player->disengage();
     this->finished = true;
 }
 
 void GameMatch::displayInfo(){
     for(int i = 0; i < enemies.size(); i++){
+        std::cout << "~ ~ ~ ~ ~ ~ ~\n";
         std::cout << "Enemy " << i << ": \n";
         enemies[i]->displayCharacterStatus();
+        std::cout << "~ ~ ~ ~ ~ ~ ~\n";
     }
 }

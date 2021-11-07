@@ -12,9 +12,6 @@ class GameCharacter;
 #include "libs/utils/random_util.h"
 #include "libs/entities/items/weapons.h"
 
-#define GAME_ENEMY  0
-#define GAME_PLAYER 1
-
 #define WARRIOR  0 // balanced     (good armor, good attack)
 #define WIZARD   1 // balanced     (normal armor, very good attack)
 #define ASSASSIN 2 // over-powered (very low armor, super good attack)
@@ -27,15 +24,19 @@ class GameCharacter{
         int classType;
         std::vector<GameItem*> inventory;
         GameItem* equippedItem;
+        // add armor...
         Random statRng = Random(0, 100);
         bool is_player;
         bool stunned;  // timeout for 1 round.
         bool is_dead;
         int level = 0; // default 0, setup() will add one
-        int xp = 0;    // default 0
+        // default 0 (enemies will have more than 0 xp, 
+        // whoever claim their lives will take their xp)
+        int xp = 0;
         int nextLevelXp = 100; // calculated in forceLevelup();
         StatModiferStore baseStat; // healAmount and stun will not be used
-        StatModiferStore battleStat; // base should not be modified
+        StatModiferStore additionalStat; // additional to base stat.
+        StatModiferStore modifierStat; // factors, eg. 1.5, 0.5
         float currentHp = 100; // default 100
         float maxHp = 100;
         float currentMana = 100; // default 100
@@ -62,8 +63,6 @@ class GameCharacter{
                 this->typeStr = "MONSTER";
             }
             this->setup();
-            this->inventory.push_back(new WeaponHands());
-            this->equippedItem = this->inventory[0];
         };
         ~GameCharacter(){
             for(int i = 0; i < inventory.size(); i++)
@@ -72,25 +71,31 @@ class GameCharacter{
 
         std::string getName();
         std::string getType(); // classtype in string
-        int getClassType(); 
+        int getClassType();
         std::vector<GameItem*> getInventory();
+        // returns null if index is invalid
+        GameItem* getFromInventory(int index);
         GameItem* getEquipped();
         bool isPlayer();
         bool isStunned();
         bool isDead();
         void setBaseStat(StatModiferStore);
+        void addXp(int);
+        void addToInventory(GameItem*);
 
         // setup stats for character
         void setup();
 
-        // use item will have no effect on weapons
+        // delete an item from inventory
+        void deleteItem(GameItem*);
         void useItem(GameItem*);
         void equipItem(GameItem*); // weapons only
 
         void attack(GameCharacter*);
         // maybe modified by skills. (takes factors as argument)
         void applyModifier(StatModiferStore);
-        void clearModifier();
+        void resetModifier();
+        void recalculateAdditionalStat();
         void heal(GameItem*);
         // used in attack(); to block enemy attack according to your resistance
         StatModiferStore block(); // generate defense values

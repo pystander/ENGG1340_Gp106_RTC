@@ -25,7 +25,7 @@ class GameMatch{
          */
         bool start();
         // index of "enemies"
-        void attack(GameCharacter* from, int index);
+        void attackEnemy(GameCharacter* from, int index);
         // "AI" will return favor
         void endTurn();
         void cleanCorpse();

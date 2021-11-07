@@ -19,6 +19,10 @@ void move(Game* game){
     //Temporarily use battle();
 }
 
+void useItem(Game* game, int index){
+    game->player->useItem(game->player->getInventory()[index]);
+}
+
 void engage(Game* game){
     GameMatch* battle = game->player->engage();
     bool status = battle->start();
@@ -29,25 +33,30 @@ void engage(Game* game){
     std::cout << "Successfully engaged into a battle\n";
     battle->displayInfo();
 
+    int index;
     std::string userInput;
     while(game->player->isInBattle()){
         // stuck inside this loop until disenge() or lose
         std::cout << game->player->getCurrentLoc()->getName() << "(Battle) >> ";
         std::cin >> userInput;
         if(userInput == "attack"){
-            int index;
             std::cin >> index;
             attackEnemy(game, battle, index);
         }else if(userInput == "disengage"){
             disengage(game);
             break;
+        }else if(userInput == "use"){
+            std::cin >> index;
+            useItem(game, index);
         }else if(userInput == "next"){
             battle->endTurn();
         }else if(userInput == "help"){
             helpBattle(game);
         }else if(userInput == "info"){
-            printInfo(game);
+            game->player->displayPlayerStatus();
             battle->displayInfo();
+        }else if(userInput == "inventory"){
+            printInventory(game);
         }
     }
 }
@@ -58,9 +67,12 @@ void gameWait(Game* game){
 }
 
 void printInfo(Game* game){
-    game->player->displayInventory();
     game->player->displayPlayerStatus();
     game->player->getCurrentLoc()->displayInfo();
+}
+
+void printInventory(Game* game){
+    game->player->displayInventory();
 }
 
 void helpBase(Game* game){
@@ -69,7 +81,9 @@ void helpBase(Game* game){
         std::cout << "start" << "\n";
     std::cout << "battle" << "\n";
     std::cout << "engage" << "\n";
+    std::cout << "use <index>" << "\n";
     std::cout << "wait" << "\n";
+    std::cout << "inventory" << "\n";
     std::cout << "info" << "\n";
     std::cout << "help" << "\n";
 }

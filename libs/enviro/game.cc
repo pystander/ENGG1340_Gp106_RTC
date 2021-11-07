@@ -3,6 +3,7 @@
 #include "libs/enviro/maps/hostile_area.h"
 #include "libs/enviro/maps/peaceful_area.h"
 #include "libs/entities/enemies/weaker_enemies.h"
+#include "libs/entities/items/consumables.h"
 #include "libs/enviro/commands/command_handlers.h"
 
 // private
@@ -11,6 +12,8 @@ void Game::createPlayer(){
     this->player = new Player("Player", WARRIOR);
     this->player->enter(this->maps[WAITING_AREA]); // land in the waiting area first
     this->player->getCurrentLoc()->displayInfo();
+    for(int i = 0; i < 5; i++)
+        this->player->addToInventory(new SmallHpPotion());
 }
 
 void Game::setupMaps(){
@@ -36,7 +39,8 @@ void Game::start(){
 
     std::cout << "Game is ready, type 'help' to get a list of available commands\n";
     std::string userInput;
-    while(userInput != "exit" && userInput != "end"){
+    int index;
+    while(userInput != "exit" && userInput != "end" && userInput != "quit"){
         std::cout << this->player->getCurrentLoc()->getName() << " >> ";
         std::cin >> userInput;
         if(userInput == "start"){
@@ -47,8 +51,13 @@ void Game::start(){
             engage(this);
         }else if(userInput == "wait"){
             gameWait(this);
+        }else if(userInput == "use"){
+            std::cin >> index;
+            useItem(this, index);
         }else if(userInput == "info"){
             printInfo(this);
+        }else if(userInput == "inventory"){
+            printInventory(this);
         }else if(userInput == "help"){
             helpBase(this);
         }

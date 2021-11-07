@@ -5,7 +5,7 @@
 
 class WeaponHands : public GameItem{
     public:
-        WeaponHands() : GameItem("Hands", PHY_ATTACK){
+        WeaponHands() : GameItem("Hands", PHY_ATTACK, WEAPON){
             this->itemStat.phyAttack = 5;
         };
 
@@ -16,7 +16,7 @@ class WeaponHands : public GameItem{
 
 class WoodenSword : public GameItem{
     public:
-        WoodenSword() : GameItem("Wooden Sword", PHY_ATTACK){
+        WoodenSword() : GameItem("Wooden Sword", PHY_ATTACK, WEAPON){
             this->itemStat.phyAttack = 15;
         };
 

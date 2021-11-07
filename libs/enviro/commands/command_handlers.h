@@ -22,6 +22,8 @@ void startGame(Game* game);
  */
 void printInfo(Game* game);
 
+void printInventory(Game* game);
+
 /**
  * @brief [normal] display a list of available commands
  */
@@ -36,6 +38,11 @@ void battle(Game* game);
  * @brief [normal] move around the map
  */
 void move(Game* game);
+
+/**
+ * @brief [normal, engaged] use an item 
+ */
+void useItem(Game* game, int index);
 
 /**
  * @brief [normal] engage in a battle in the current location.

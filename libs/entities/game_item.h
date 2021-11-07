@@ -6,44 +6,60 @@ class GameItem;
 
 #include <string>
 
-#define PHY_ATTACK  0b0000001
-#define MAG_ATTACK  0b0000010
-#define PHY_RESIST  0b0000100
-#define MAG_RESIST  0b0001000
-#define HEALING     0b0010000
-#define STUN        0b0100000
-#define MISC        0b1000000
+// Types
+#define PHY_ATTACK    0b0000001
+#define MAG_ATTACK    0b0000010
+#define PHY_RESIST    0b0000100
+#define MAG_RESIST    0b0001000
+#define HEALING       0b0010000 // for healing hp and restoring mana
+#define STUN          0b0100000
+#define ITEM_DETAILS  0b1000000
 
-#define MISC_QUEST  0b0001
-#define MISC_KEY    0b0010
+// Different item category (just few categories, hence integer is used)
+//details
+#define ITEM_QUEST  0b0000001
+#define ITEM_KEY    0b0000010
+#define WEAPON      0b0000100
+#define CONSUMABLE  0b0001000 // consumable takes factors as values (eg. 1.2, 0.5)
+#define ARMOR       0b0010000
+#define RESERVED0   0b0100000
+#define RESERVED1   0b1000000
 
 typedef struct StatModiferStore{
-    float phyAttack = -1; // modifiers
-    float magAttack = -1;
-    float phyResist = -1;
-    float magResist = -1;
-    float healAmount = -1;
+    float phyAttack = 0;
+    float magAttack = 0;
+    float phyResist = 0;
+    float magResist = 0;
+    float healAmount = 0;
+    float manaAmount = 0;
     bool stun;
 } StatModiferStore;
 
+extern int GLOBAL_ID;
+
 class GameItem{
     protected:
+        int id = GLOBAL_ID++;
         std::string name;
         int type;        // eg. PHY_ATTACK | MAG_ATTACK
-        int miscType;    // must have a MISC flag set in "type"
+        int details;
         StatModiferStore itemStat;
     
     public:
-        GameItem(std::string name, int type, int miscType) : name(name), type(type), miscType(miscType){};
-        GameItem(std::string name, int type) : name(name), type(type), miscType(0){};
+        GameItem(std::string name, int type, int details) : name(name), type(type), details(details){};
+        int getId();
         std::string getName();
+        // eg. damage type
         int getType();
-        int getMiscType();
+        // eg. weapon, armor, ...
+        int getItemCategory();
         StatModiferStore getItemStat();
 
         virtual GameItem* copy() = 0;
 
+        void displaySimpleInfo();
         void displayInfo();
+        void showStatisticsOnly();
 };
 
 #endif

@@ -6,7 +6,7 @@
 class Goblin : public GameCharacter{
     public:
         Goblin() : GameCharacter("Goblin", false, MONSTER){
-            
+            this->xp = 50;
         };
 
         // No inventory

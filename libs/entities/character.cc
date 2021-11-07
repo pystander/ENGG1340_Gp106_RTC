@@ -49,8 +49,10 @@ StatModiferStore GameCharacter::genStatWithRng(Random* rng, int flags){
         stat.magAttack = rng->getInt();
     if(flags & MAG_RESIST)
         stat.magResist = rng->getInt();
-    if(flags & HEALING)
+    if(flags & HEALING){
         stat.healAmount = rng->getInt();
+        stat.manaAmount = rng->getInt();
+    }
     if(flags & STUN)
         stat.stun = modifierRng.getFloat() > 0.5? 1 : 0;
     return stat;
@@ -58,20 +60,7 @@ StatModiferStore GameCharacter::genStatWithRng(Random* rng, int flags){
 
 StatModiferStore GameCharacter::genModifier(int flags){
     Random modifierRng = Random(0, 1);
-    StatModiferStore stat;
-    if(flags & PHY_ATTACK)
-        stat.phyAttack = modifierRng.getFloat();
-    if(flags & PHY_RESIST)
-        stat.phyResist = modifierRng.getFloat();
-    if(flags & MAG_ATTACK)
-        stat.magAttack = modifierRng.getFloat();
-    if(flags & MAG_RESIST)
-        stat.magResist = modifierRng.getFloat();
-    if(flags & HEALING)
-        stat.healAmount = modifierRng.getFloat();
-    if(flags & STUN)
-        stat.stun = modifierRng.getFloat() > 0.5? 1 : 0;
-    return stat;
+    return this->genStatWithRng(&modifierRng, flags);
 }
 
 //public
@@ -89,6 +78,13 @@ int GameCharacter::getClassType(){
 
 std::vector<GameItem*> GameCharacter::getInventory(){
     return this->inventory;
+}
+
+GameItem* GameCharacter::getFromInventory(int index){
+    if(index >= 0 && index < this->inventory.size()){
+        return this->inventory[index];
+    }
+    return nullptr;
 }
 
 GameItem* GameCharacter::getEquipped(){
@@ -114,52 +110,117 @@ void GameCharacter::setBaseStat(StatModiferStore stat){
     this->baseStat.magResist = stat.magResist;
 }
 
+void GameCharacter::addXp(int xp){
+    this->xp += xp;
+    this->levelup(); // try to level up
+}
+
+void GameCharacter::addToInventory(GameItem* item){
+    if(item != nullptr){
+        this->inventory.push_back(item);
+    }
+}
+
 void GameCharacter::setup(){
     this->baseStat = this->genStat(PHY_ATTACK | PHY_RESIST | MAG_ATTACK | MAG_RESIST);
+    this->inventory.push_back(new WeaponHands());
+    this->equipItem(this->inventory[0]);
     this->forceLevelup();
+    this->resetModifier();
+    this->recalculateAdditionalStat();
+}
+
+void GameCharacter::deleteItem(GameItem* item){
+    std::vector<GameItem*> newInv;
+    for(int i = 0; i < this->inventory.size(); i++){
+        if(item->getId() != this->inventory[i]->getId()){
+            newInv.push_back(this->inventory[i]);
+        }
+    }
+    this->inventory = newInv;
 }
 
 void GameCharacter::useItem(GameItem* item){
-    // check type
+    if((item->getItemCategory() & CONSUMABLE)){
+        int type = item->getType();
+        this->applyModifier(item->getItemStat());
+        if(type & HEALING){
+            this->heal(item);
+        }
+        deleteItem(item);
+    }else{
+        std::cout << "Cannot use non-consumable item: " << item->getName() << "\n";
+    }
 }
 
-void GameCharacter::equipItem(GameItem* weapon){
-    // check type
-    this->equippedItem = weapon;
+void GameCharacter::equipItem(GameItem* item){
+    if(item->getItemCategory() & WEAPON){
+        this->equippedItem = item;
+    }else if(item->getItemCategory() & ARMOR){
+        // this->armor = item;
+    }else{
+        std::cout << "Cannot equip item: " << item->getName() << "\n";
+    }
+    this->recalculateAdditionalStat();
 }
 
 void GameCharacter::attack(GameCharacter* character){
     StatModiferStore blockAmount = character->block();
     float totalDamage = 0;
-    totalDamage += this->baseStat.phyAttack - blockAmount.phyResist;
-    totalDamage += this->baseStat.magAttack - blockAmount.magResist;
-    totalDamage += this->equippedItem->getItemStat().phyAttack;
-    totalDamage += this->equippedItem->getItemStat().magAttack;
-    if(totalDamage > 0)
-        character->currentHp -= totalDamage;
+    float phyDamange = this->baseStat.phyAttack + this->additionalStat.phyAttack - blockAmount.phyResist;
+    float magDamange = this->baseStat.magAttack + this->additionalStat.magAttack - blockAmount.magResist;
+    if(phyDamange > 0) totalDamage += phyDamange;
+    if(magDamange > 0) totalDamage += magDamange;
+    character->currentHp -= totalDamage;
+    std::cout << character->getName() << " has taken " << totalDamage << " damage!\n";
     if(character->currentHp < 0){
         character->dead();
+        std::cout << character->getName() << " is dead\n";
+        this->addXp(character->xp);
     }
 }
 
 void GameCharacter::applyModifier(StatModiferStore modifier){
-    if(modifier.phyAttack != -1)
-        this->baseStat.phyAttack *= modifier.phyAttack;
-    if(modifier.phyResist != -1)
-        this->baseStat.phyResist *= modifier.phyResist;
-    if(modifier.magAttack != -1)
-        this->baseStat.magAttack *= modifier.magAttack;
-    if(modifier.magResist != -1)
-        this->baseStat.magResist *= modifier.magResist;
+    // do not multiply by 0 to reset the whole stat.
+    this->modifierStat.phyAttack *= modifier.phyAttack == 0? 1 : modifier.phyAttack;
+    this->modifierStat.phyResist *= modifier.phyResist == 0? 1 : modifier.phyResist;
+    this->modifierStat.magAttack *= modifier.magAttack == 0? 1 : modifier.magAttack;
+    this->modifierStat.magResist *= modifier.magResist == 0? 1 : modifier.magResist;
 }
 
-void GameCharacter::clearModifier(){
-    this->battleStat = this->baseStat;
+void GameCharacter::resetModifier(){
+    this->modifierStat.phyAttack = 1;
+    this->modifierStat.phyResist = 1;
+    this->modifierStat.magAttack = 1;
+    this->modifierStat.magResist = 1;
+}
+
+void GameCharacter::recalculateAdditionalStat(){
+    StatModiferStore equippedItemStat = this->equippedItem->getItemStat();
+    this->additionalStat.phyAttack = equippedItemStat.phyAttack * this->modifierStat.phyAttack;
+    this->additionalStat.phyResist = equippedItemStat.phyResist * this->modifierStat.phyResist;
+    this->additionalStat.magAttack = equippedItemStat.magAttack * this->modifierStat.magAttack;
+    this->additionalStat.magResist = equippedItemStat.magResist * this->modifierStat.magResist;
+
+    // armor calculations...
 }
 
 void GameCharacter::heal(GameItem* item){
-    if(item->getType() & HEALING)
-        this->currentHp += item->getItemStat().healAmount;
+    StatModiferStore stat = item->getItemStat();
+    if(item->getType() & HEALING){
+        if(stat.healAmount != 0){
+            this->currentHp += item->getItemStat().healAmount;
+            if(this->currentHp > this->maxHp)
+                this->currentHp = this->maxHp;
+            std::cout << "You healed for " << item->getItemStat().healAmount << " HP\n";
+        }
+        if(stat.manaAmount != 0){
+            this->currentMana += item->getItemStat().manaAmount;
+            if(this->currentMana > this->maxMana)
+                this->currentMana = this->maxMana;
+            std::cout << "Added " << item->getItemStat().manaAmount << " points of mana\n";
+        }
+    }
 }
 
 StatModiferStore GameCharacter::block(){
@@ -174,7 +235,9 @@ StatModiferStore GameCharacter::block(){
 }
 
 void GameCharacter::levelup(){
-    if(xp > this->nextLevelXp){
+    if(this->xp > this->nextLevelXp){
+        if(this->isPlayer())
+            std::cout << this->getName() << " has leveled up to level " << this->level << "\n";
         this->forceLevelup();
     }
 }
@@ -187,11 +250,13 @@ void GameCharacter::displayCharacterStatus(){
     StatModiferStore stat = this->baseStat;
     std::cout << "Is dead?       : " << (this->isDead()? "true" : "false") << "\n";
     std::cout << "Current Level  : " << this->level << "\n";
+    std::cout << "Current xp     : " << this->xp << "\n";
+    std::cout << "Next level xp  : " << this->nextLevelXp << "\n";
     std::cout << "Class Type     : " << this->typeStr << "\n";
-    std::cout << "Current Hp     : " << this->currentHp << "\n";
-    std::cout << "Current Mana   : " << this->currentMana << "\n";
-    std::cout << "Physical Attack: " << stat.phyAttack << "\n";
-    std::cout << "Physical Resist: " << stat.phyResist << "\n";
-    std::cout << "Magical  Attack: " << stat.magAttack << "\n";
-    std::cout << "Magical  Resist: " << stat.magResist << "\n";
+    std::cout << "Current Hp     : " << this->currentHp   << ", (max: " << this->maxHp << ")" << "\n";
+    std::cout << "Current Mana   : " << this->currentMana << ", (max: " << this->maxMana << ")" << "\n";
+    std::cout << "Physical Attack: " << stat.phyAttack << ", (add: " << this->additionalStat.phyAttack << ")" << "\n";
+    std::cout << "Physical Resist: " << stat.phyResist << ", (add: " << this->additionalStat.phyResist << ")" << "\n";
+    std::cout << "Magical  Attack: " << stat.magAttack << ", (add: " << this->additionalStat.magAttack << ")" << "\n";
+    std::cout << "Magical  Resist: " << stat.magResist << ", (add: " << this->additionalStat.magResist << ")" << "\n";
 }

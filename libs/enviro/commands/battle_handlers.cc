@@ -3,19 +3,23 @@
 
 void disengage(Game* game){
     std::cout << "Leaving battlefield\n";
-    if(game->player->isInBattle())
+    if(game->player->isInBattle()){
         game->player->disengage();
+        game->player->getCurrentLoc()->cleanCorpse();
+    }
 }
 
 void attackEnemy(Game* game, GameMatch* battle, int index){
-    battle->attack(game->player, index);
+    battle->attackEnemy(game->player, index);
 }
 
 void helpBattle(Game* game){
     std::cout << "Available commands while in battle:\n";
     std::cout << "next" << "\n";
     std::cout << "disengage" << "\n";
-    std::cout << "attack" << "\n";
+    std::cout << "attack <index>" << "\n";
+    std::cout << "use <index>" << "\n";
+    std::cout << "inventory" << "\n";
     std::cout << "info" << "\n";
     std::cout << "help" << "\n";
 }

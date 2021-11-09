@@ -36,7 +36,7 @@ void engage(Game* game){
     std::string userInput;
     while(game->player->isInBattle()){
         // [engaged] commands
-        // stuck inside this loop until disenge() or lose or all dead
+        // stuck inside this loop until disengage() or lose or all dead
         std::cout << game->player->getCurrentLoc()->getName() << "(Battle) >> ";
         std::cin >> userInput;
         if(userInput == "attack"){

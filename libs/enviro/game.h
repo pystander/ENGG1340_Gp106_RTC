@@ -17,6 +17,7 @@ class Game;
 #define WAITING_AREA    0
 #define SPAWN_AREA      1
 #define UNKNOWN_VILLAGE 2
+#define LOST_WOODS      3
 
 /**
  * Main game.

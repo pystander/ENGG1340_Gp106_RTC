@@ -14,4 +14,15 @@ class UnknownVillage : public GameMap{
         }
 };
 
+class LostWoods : public GameMap{
+    public:
+        LostWoods(int difficulty) : GameMap("Lost Woods", difficulty){};
+
+        GameCharacter* spawnRandomMobs(){
+            GameCharacter* enemy = new Wolf();
+            GameCharacter* enemy = new DarkFairy();
+            return enemy;
+        }
+};
+
 #endif

@@ -21,4 +21,13 @@ class WaitingArea : public GameMap{
         }
 };
 
+class ShopArea : public GameMap{
+    public:
+        ShopArea(int difficulty) : GameMap("Shop Area", difficulty){};
+
+        GameCharacter* spawnRandomMobs(){
+            return nullptr;
+        }
+};
+
 #endif

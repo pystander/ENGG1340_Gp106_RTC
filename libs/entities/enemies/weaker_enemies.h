@@ -18,7 +18,7 @@ class Goblin : public GameCharacter{
 class Wolf : public GameCharacter{
     public:
         Wolf() : GameCharacter("Wolf", false, MONSTER){
-            this->baseStat.magAttack = 50;
+            this->baseStat.magAttack = 35;
             this->money = 200;
             this->xp = 70;
         };
@@ -30,7 +30,19 @@ class Wolf : public GameCharacter{
 class DarkFairy : public GameCharacter{
     public:
         DarkFairy() : GameCharacter("Dark Fairy", false, MONSTER){
-            this->baseStat.magAttack = 70;
+            this->baseStat.magAttack = 50;
+            this->money = 250;
+            this->xp = 100;
+        };
+
+        // No inventory
+        void displayInventory(){}
+};
+
+class Dryad : public GameCharacter{
+    public:
+        Dryad() : GameCharacter("Dryad", false, MONSTER){
+            this->baseStat.magAttack = 50;
             this->money = 250;
             this->xp = 100;
         };

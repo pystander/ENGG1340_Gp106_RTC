@@ -30,7 +30,7 @@ void Player::enter(GameMap* map){
 }
 
 GameMatch* Player::engage(){
-    free(this->recentMatch);
+    delete this->recentMatch;
     GameMatch* match = new GameMatch(this, this->currentLoc);
     this->recentMatch = match;
     this->enteredBattle = true;

@@ -10,11 +10,6 @@ void startGame(Game* game){
     }
 }
 
-void battle(Game* game){
-    game->updateMaps();
-    game->player->enter(game->maps[UNKNOWN_VILLAGE]);
-}
-
 void enterLoc(Game* game, int index){
     game->updateMaps();
     GameMap* map = game->player->getCurrentLoc()->getNeighborByIndex(index);
@@ -40,7 +35,8 @@ void engage(Game* game){
     int index;
     std::string userInput;
     while(game->player->isInBattle()){
-        // stuck inside this loop until disenge() or lose
+        // [engaged] commands
+        // stuck inside this loop until disenge() or lose or all dead
         std::cout << game->player->getCurrentLoc()->getName() << "(Battle) >> ";
         std::cin >> userInput;
         if(userInput == "attack"){

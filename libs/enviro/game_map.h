@@ -21,7 +21,7 @@ class GameMap{
         GameMap(std::string name, int difficulty);
         ~GameMap(){
             for(int i = 0; i < this->enemies.size(); i++)
-                free(this->enemies[i]);
+                delete this->enemies[i];
         }
         
         // bi-direction connect operation

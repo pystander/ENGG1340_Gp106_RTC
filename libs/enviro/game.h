@@ -18,6 +18,7 @@ class Game;
 #define SPAWN_AREA      1
 #define UNKNOWN_VILLAGE 2
 #define LOST_WOODS      3
+#define DAWN_DUNGEON    4
 
 /**
  * Main game.

@@ -59,4 +59,15 @@ class PaleJustice : public GameItem{
         }
 };
 
+class MithrilSword : public GameItem{
+    public:
+        MithrilSword() : GameItem("Mithril Sword", MAG_ATTACK, WEAPON){
+            this->itemStat.magAttack = 20;
+        };
+
+        GameItem* copy(){
+            return new MithrilSword();
+        }
+};
+
 #endif

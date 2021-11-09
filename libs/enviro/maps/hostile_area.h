@@ -26,4 +26,15 @@ class LostWoods : public GameMap{
         }
 };
 
+class DawnDungeon : public GameMap{
+    public:
+        DawnDungeon(int difficulty) : GameMap("Dungeon of the Dawn", difficulty){};
+
+        GameCharacter* spawnRandomMobs(){
+            GameCharacter* enemy = new Zombie();
+            GameCharacter* enemy = new Spirit();
+            return enemy;
+        }
+};
+
 #endif

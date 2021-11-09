@@ -22,15 +22,18 @@ void Game::setupMaps(){
     SpawnArea* spawnArea = new SpawnArea(this->difficulty);
     UnknownVillage* unknownVillage = new UnknownVillage(this->difficulty);
     LostWoods* lostWoods = new LostWoods(this->difficulty);
+    DawnDungeon* dawnDungeon = new DawnDungeon(this->difficulty);
 
     // Connections
     spawnArea->connectTo(unknownVillage);
     unknownVillage->connectTo(lostWoods);
+    unknownVillage->connectTo(dawnDungeon);
 
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
     this->maps.push_back(unknownVillage);
     this->maps.push_back(lostWoods);
+    this->maps.push_back(dawnDungeon);
 }
 
 // public

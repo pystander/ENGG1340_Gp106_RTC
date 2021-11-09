@@ -40,15 +40,55 @@ class ExtraHpPotion : public GameItem{
         }
 };
 
+// Easter Egg - Harry Potter
 class PhoenixTear : public GameItem{
     public:
         PhoenixTear() : GameItem("Phoenix Tear", HEALING, CONSUMABLE){
             Random rng = Random(80, 100);
             this->itemStat.healAmount = rng.getInt();
+            
+            Random rng = Random(80, 100);
+            this->itemStat.manaAmount = rng.getInt();
         };
 
         GameItem* copy(){
             return new PhoenixTear();
+        }
+};
+
+class SmallMpPotion : public GameItem{
+    public:
+        SmallMpPotion() : GameItem("Small MP Potion", HEALING, CONSUMABLE){
+            Random rng = Random(20, 30);
+            this->itemStat.manaAmount = rng.getInt();
+        };
+
+        GameItem* copy(){
+            return new SmallMpPotion();
+        }
+};
+
+class MediumMpPotion : public GameItem{
+    public:
+        MediumMpPotion() : GameItem("Medium MP Potion", HEALING, CONSUMABLE){
+            Random rng = Random(50, 70);
+            this->itemStat.manaAmount = rng.getInt();
+        };
+
+        GameItem* copy(){
+            return new MediumMpPotion();
+        }
+};
+
+class ExtraMpPotion : public GameItem{
+    public:
+        ExtraMpPotion() : GameItem("Extra MP Potion", HEALING, CONSUMABLE){
+            Random rng = Random(80, 100);
+            this->itemStat.manaAmount = rng.getInt();
+        };
+
+        GameItem* copy(){
+            return new ExtraMpPotion();
         }
 };
 

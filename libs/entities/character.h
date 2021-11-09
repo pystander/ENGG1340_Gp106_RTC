@@ -24,7 +24,7 @@ class GameCharacter{
         int classType;
         std::vector<GameItem*> inventory;
         GameItem* equippedItem;
-        // add armor...
+        GameItem* armor;
         Random statRng = Random(0, 100);
         bool is_player;
         bool stunned;  // timeout for 1 round.
@@ -36,7 +36,7 @@ class GameCharacter{
         int xp = 0;
         int nextLevelXp = 100; // calculated in forceLevelup();
         StatModiferStore baseStat; // healAmount and stun will not be used
-        StatModiferStore additionalStat; // additional to base stat.
+        StatModiferStore additionalStat; // additional to base stat. (eg. equipment stat.)
         StatModiferStore modifierStat; // factors, eg. 1.5, 0.5
         float currentHp = 100; // default 100
         float maxHp = 100;
@@ -67,7 +67,7 @@ class GameCharacter{
         };
         ~GameCharacter(){
             for(int i = 0; i < inventory.size(); i++)
-                free(inventory[i]);
+                delete inventory[i];
         }
 
         std::string getName();

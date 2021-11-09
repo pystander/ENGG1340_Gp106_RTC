@@ -41,7 +41,7 @@ class GameItem{
     protected:
         int id = GLOBAL_ID++;
         std::string name;
-        int type;        // eg. PHY_ATTACK | MAG_ATTACK
+        int type;        // eg. PHY_ATTACK | MAG_ATTACK | ITEM_DETAILS
         int details;
         StatModiferStore itemStat;
     

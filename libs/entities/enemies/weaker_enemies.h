@@ -5,7 +5,8 @@
 
 class Goblin : public GameCharacter{
     public:
-        Goblin() : GameCharacter("Goblin", false, MONSTER){
+        Goblin() : GameCharacter("Goblin", false, WARRIOR){
+            this->baseStat.magAttack = 1000;
             this->money = 150;
             this->xp = 50;
         };

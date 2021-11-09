@@ -25,7 +25,6 @@ void Game::setupMaps(){
     // Connections
     spawnArea->connectTo(unknownVillage);
 
-    // add the area according to the sequence in game.h
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
     this->maps.push_back(unknownVillage);
@@ -54,6 +53,7 @@ void Game::start(){
     while(userInput != "exit" && userInput != "end" && userInput != "quit"){
         std::cout << this->player->getCurrentLoc()->getName() << " >> ";
         std::cin >> userInput;
+        // [normal] commands
         if(userInput == "start"){
             startGame(this);
         }else if(userInput == "enter"){

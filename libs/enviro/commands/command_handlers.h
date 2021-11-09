@@ -25,14 +25,14 @@ void printInfo(Game* game);
 void printInventory(Game* game);
 
 /**
+ * @brief [normal] print shop items
+ */
+void printShopItems(Game* game);
+
+/**
  * @brief [normal] display a list of available commands
  */
 void helpBase(Game* game);
-
-/**
- * @brief [temporary] enter a battle area (UnknownVillage)
- */
-void battle(Game* game);
 
 /**
  * @brief [normal] move around the map

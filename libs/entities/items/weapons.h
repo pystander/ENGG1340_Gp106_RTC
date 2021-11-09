@@ -25,4 +25,38 @@ class WoodenSword : public GameItem{
         }
 };
 
+class BronzeDagger : public GameItem{
+    public:
+        BronzeDagger() : GameItem("Bronze Dagger", PHY_ATTACK, WEAPON){
+            this->itemStat.phyAttack = 20;
+        };
+
+        GameItem* copy(){
+            return new BronzeDagger();
+        }
+};
+
+class IronScimitar : public GameItem{
+    public:
+        IronScimitar() : GameItem("Iron Scimitar", PHY_ATTACK, WEAPON){
+            this->itemStat.phyAttack = 25;
+        };
+
+        GameItem* copy(){
+            return new IronScimitar();
+        }
+};
+
+// Easter Egg - Icewind Dale
+class PaleJustice : public GameItem{
+    public:
+        PaleJustice() : GameItem("Pale Justice", PHY_ATTACK, WEAPON){
+            this->itemStat.phyAttack = 10;
+        };
+
+        GameItem* copy(){
+            return new PaleJustice();
+        }
+};
+
 #endif

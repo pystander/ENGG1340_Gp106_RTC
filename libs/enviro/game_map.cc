@@ -52,10 +52,42 @@ std::set<GameMap*> GameMap::getNeighbors(){
 GameMap* GameMap::getNeighborByIndex(int index){
     int i = 0;
     for(const auto& place: this->neighbors){
-        if(i == index)
+        if(i++ == index)
             return place;
     }
     return nullptr;
+}
+
+int GameMap::getShopType(){
+    return this->shopType;
+}
+
+void GameMap::buyItem(GameCharacter* buyer, int index){
+    if(index >= 0 && index < this->itemsOnSold.size()){
+        GameItem* itemBeBought = this->itemsOnSold[index];
+        if(buyer->getMoneyAmount() >= itemBeBought->getValueMoney()){
+            buyer->subMoney(itemBeBought->getValueMoney());
+            buyer->addToInventory(itemBeBought->copy());
+            std::cout << "You bought " << itemBeBought->getName() << " for " << itemBeBought->getValueMoney() << "\n";
+        }else
+            std::cout << "You do not have enough money to buy " << itemBeBought->getName() << "\n";
+    }else{
+        std::cout << "Cannot buy item with index: " << index << "\n";
+    }
+}
+
+void GameMap::sellItem(GameCharacter* seller, int index){
+    GameItem* item = seller->getFromInventory(index);
+    if(item != nullptr){
+        if(item->canSell()){
+            seller->addMoney(item->getValueMoney());
+            seller->deleteItem(item);
+            std::cout << "You sold " << item->getName() << " for " << item->getValueMoney() << "\n";
+        }else
+            std::cout << "You cannot sell " << item->getName() << "\n";
+    }else{
+        std::cout << "Cannot sell item with index: " << index << "\n";
+    }
 }
 
 void GameMap::setEnemySpawnRate(double spawnRate){
@@ -86,6 +118,12 @@ void GameMap::cleanCorpse(){
 
 void GameMap::displayInfo(){
     std::cout << "Map name: " << this->name << "\n";
+    if(this->shopType & SHOP_ARMOR){
+        std::cout << "Shop type: Armor shop\n";
+    }else if(this->shopType & SHOP_WEAPON){
+        std::cout << "Shop type: Weapon shop\n";
+    }else if(this->shopType & SHOP_CONSUMABLES)
+        std::cout << "Shop type: Consumable shop\n";
     if(this->enemies.size() > 0)
         std::cout << "Showing present mobs:\n";
     for(int i = 0; i < this->enemies.size(); i++){
@@ -100,5 +138,18 @@ void GameMap::displayNeighbors(){
     int i = 0;
     for(const auto& place: this->neighbors){
         std::cout << "Neighbor " << i++ << ": " << place->getName() << "\n";
+    }
+}
+
+void GameMap::displayShopItems(){
+    if(this->shopType & NOT_SHOP){
+        std::cout << "You are not in a shop currently\n";
+        return;
+    }
+    std::cout << "Shop items available:\n";
+    for(int i = 0; i < this->itemsOnSold.size(); i++){
+        std::cout << "------------------------\n";
+        std::cout << "Item " << i << ":\n";
+        this->itemsOnSold[i]->displayInfo();
     }
 }

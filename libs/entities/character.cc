@@ -31,7 +31,7 @@ void GameCharacter::forceLevelup(){
     this->currentHp = this->maxHp;
     this->currentMana = this->maxMana;
     this->level++;
-    this->nextLevelXp = pow(2, this->level) * log(this->level) + 100;
+    this->nextLevelXp = pow(2, this->level) * log(this->level) + this->level*100;
 }
 
 StatModiferStore GameCharacter::genStat(int flags){
@@ -267,6 +267,7 @@ void GameCharacter::dead(){
 
 void GameCharacter::displayCharacterStatus(){
     StatModiferStore stat = this->baseStat;
+    std::cout << "Name           : " << this->name << "\n";
     std::cout << "Is dead?       : " << (this->isDead()? "true" : "false") << "\n";
     std::cout << "Class Type     : " << this->typeStr << "\n";
     std::cout << "Current Level  : " << this->level << "\n";

@@ -8,6 +8,11 @@ class GameMap;
 #include <set>
 #include "libs/entities/character.h"
 
+#define NOT_SHOP         0b0001
+#define SHOP_WEAPON      0b0010
+#define SHOP_ARMOR       0b0100
+#define SHOP_CONSUMABLES 0b1000
+
 class GameMap{
     protected:
         std::vector<GameCharacter*> enemies;
@@ -15,6 +20,10 @@ class GameMap{
         std::string name;
         int maxEnemyReserve;
         double enemySpawnRate;
+
+        // For shops
+        int shopType = NOT_SHOP;           // eg. NOT_SHOP for being not a shop.
+        std::vector<GameItem*> itemsOnSold;
 
     public:
         // spawn rate is defined inside the constructor
@@ -35,6 +44,12 @@ class GameMap{
         std::set<GameMap*> getNeighbors();
         GameMap* getNeighborByIndex(int);
 
+        int getShopType();
+        // index from of itemsOnSold
+        void buyItem(GameCharacter* buyer, int index);
+        // index of inventory
+        void sellItem(GameCharacter* seller, int index);
+
         /**
          * Spawn random mobs
          * @return GameCharacter* nullptr if the map is peaceful.
@@ -50,6 +65,7 @@ class GameMap{
         void cleanCorpse(); // will delete dead enemies
         void displayInfo();
         void displayNeighbors();
+        void displayShopItems();
 };
 
 #endif

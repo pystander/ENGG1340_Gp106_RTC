@@ -30,6 +30,8 @@ class Player : public GameCharacter{
 
         // null if not in a battle. It can be ongoing.
         GameMatch* getRecentMatch();
+        void buyItem(int index);
+        void sellItem(int index);
 
         void displayInventory();
         void displayPlayerStatus();

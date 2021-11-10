@@ -6,6 +6,7 @@
 class WeaponHands : public GameItem{
     public:
         WeaponHands() : GameItem("Hands", PHY_ATTACK, WEAPON){
+            this->can_sell = false;
             this->itemStat.phyAttack = 5;
         };
 

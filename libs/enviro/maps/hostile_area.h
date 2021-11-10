@@ -9,9 +9,11 @@ class UnknownVillage : public GameMap{
         UnknownVillage(int difficulty) : GameMap("Unknown Village", difficulty){};
 
         GameCharacter* spawnRandomMobs(){
-            GameCharacter* enemy = new Goblin();
-            GameCharacter* enemy = new Wolf();
-            return enemy;
+            Random rng = Random(0, 1);
+            if(rng.getFloat() < 0.5){
+                return new Goblin();
+            }
+            return new Wolf();
         }
 };
 
@@ -20,9 +22,11 @@ class LostWoods : public GameMap{
         LostWoods(int difficulty) : GameMap("The Lost Woods", difficulty){};
 
         GameCharacter* spawnRandomMobs(){
-            GameCharacter* enemy = new DarkFairy();
-            GameCharacter* enemy = new Dryad();
-            return enemy;
+            Random rng = Random(0, 1);
+            if(rng.getFloat() < 0.5){
+                return new DarkFairy();
+            }
+            return new Dryad();
         }
 };
 
@@ -31,9 +35,11 @@ class DawnDungeon : public GameMap{
         DawnDungeon(int difficulty) : GameMap("Dungeon of the Dawn", difficulty){};
 
         GameCharacter* spawnRandomMobs(){
-            GameCharacter* enemy = new Zombie();
-            GameCharacter* enemy = new Spirit();
-            return enemy;
+            Random rng = Random(0, 1);
+            if(rng.getFloat() < 0.3){
+                return new Zombie();
+            }
+            return new Spirit();
         }
 };
 

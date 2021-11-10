@@ -47,6 +47,24 @@ GameMatch* Player::getRecentMatch(){
     return this->recentMatch;
 }
 
+void Player::buyItem(int index){
+    GameMap* currentLoc = this->getCurrentLoc();
+    if(currentLoc->getShopType() & NOT_SHOP){
+        std::cout << "You are not in a shop\n";
+    }else{
+        currentLoc->buyItem(this, index);
+    }
+}
+
+void Player::sellItem(int index){
+    GameMap* currentLoc = this->getCurrentLoc();
+    if(currentLoc->getShopType() & NOT_SHOP){
+        std::cout << "You are not in a shop\n";
+    }else{
+        currentLoc->sellItem(this, index);
+    }
+}
+
 void Player::displayInventory(){
     std::cout << "Currently equipped item: " << this->equippedItem->getName() << "\n";
     std::vector<GameItem*> inv = this->inventory;

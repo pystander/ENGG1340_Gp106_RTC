@@ -2,6 +2,7 @@
 #define PEACEFUL_AREA_H
 
 #include "libs/enviro/game_map.h"
+#include "libs/entities/items/consumables.h"
 
 class SpawnArea : public GameMap{
     public:
@@ -21,9 +22,14 @@ class WaitingArea : public GameMap{
         }
 };
 
-class ShopArea : public GameMap{
+class ConsumableShop : public GameMap{
     public:
-        ShopArea(int difficulty) : GameMap("Shop Area", difficulty){};
+        ConsumableShop(int difficulty) : GameMap("Consumable Shop", difficulty){
+            this->shopType = SHOP_CONSUMABLES;
+            this->itemsOnSold.push_back(new SmallHpPotion());
+            this->itemsOnSold.push_back(new MediumHpPotion());
+            this->itemsOnSold.push_back(new ExtraHpPotion());
+        };
 
         GameCharacter* spawnRandomMobs(){
             return nullptr;

@@ -10,16 +10,29 @@ void startGame(Game* game){
     }
 }
 
+void buyItem(Game* game, int index){
+    game->player->buyItem(index);
+}
+
+void sellItem(Game* game, int index){
+    game->player->sellItem(index);
+}
+
 void enterLoc(Game* game, int index){
-    game->updateMaps();
     GameMap* map = game->player->getCurrentLoc()->getNeighborByIndex(index);
     if(map != nullptr){
+        game->updateMaps();
         game->player->enter(map);
-    }
+    }else
+        std::cout << "Cannot find neighbor with index: " << index << "\n";
 }
 
 void useItem(Game* game, int index){
-    game->player->useItem(game->player->getInventory()[index]);
+    GameItem* item = game->player->getFromInventory(index);
+    if(item != nullptr){
+        game->player->useItem(item);
+    }else
+        std::cout << "Cannot use item with index: " << index << "\n";
 }
 
 void engage(Game* game){
@@ -75,6 +88,11 @@ void printInventory(Game* game){
     game->player->displayInventory();
 }
 
+void printShopItems(Game* game){
+    GameMap* currentLoc = game->player->getCurrentLoc();
+    currentLoc->displayShopItems();
+}
+
 void helpBase(Game* game){
     std::cout << "Available commands normally:\n";
     if(!game->hasGameStarted()){
@@ -83,6 +101,9 @@ void helpBase(Game* game){
         std::cout << "engage" << "\n";
         std::cout << "enter <index>" << "\n";
         std::cout << "use <index>" << "\n";
+        std::cout << "buy <index>" << "\n";
+        std::cout << "sell <index>" << "\n";
+        std::cout << "shop" << "\n";
         std::cout << "wait" << "\n";
         std::cout << "inventory" << "\n";
         std::cout << "info" << "\n";

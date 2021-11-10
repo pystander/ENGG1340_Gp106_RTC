@@ -12,6 +12,7 @@ void Game::createPlayer(){
     this->player = new Player("Player", WARRIOR);
     this->player->enter(this->maps[WAITING_AREA]); // land in the waiting area first
     this->player->getCurrentLoc()->displayInfo();
+    this->player->addMoney(500);
     for(int i = 0; i < 5; i++)
         this->player->addToInventory(new SmallHpPotion());
 }
@@ -23,14 +24,17 @@ void Game::setupMaps(){
     UnknownVillage* unknownVillage = new UnknownVillage(this->difficulty);
     LostWoods* lostWoods = new LostWoods(this->difficulty);
     DawnDungeon* dawnDungeon = new DawnDungeon(this->difficulty);
+    ConsumableShop* consumableShop = new ConsumableShop(this->difficulty);
 
     // Connections
     spawnArea->connectTo(unknownVillage);
+    spawnArea->connectTo(consumableShop);
     unknownVillage->connectTo(lostWoods);
     unknownVillage->connectTo(dawnDungeon);
 
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
+    this->maps.push_back(consumableShop);
     this->maps.push_back(unknownVillage);
     this->maps.push_back(lostWoods);
     this->maps.push_back(dawnDungeon);
@@ -60,24 +64,38 @@ void Game::start(){
         std::cout << this->player->getCurrentLoc()->getName() << " >> ";
         std::cin >> userInput;
         // [normal] commands
-        if(userInput == "start"){
-            startGame(this);
-        }else if(userInput == "enter"){
-            std::cin >> index;
-            enterLoc(this, index);
-        }else if(userInput == "engage"){
-            engage(this);
-        }else if(userInput == "wait"){
-            gameWait(this);
-        }else if(userInput == "use"){
-            std::cin >> index;
-            useItem(this, index);
-        }else if(userInput == "info"){
-            printInfo(this);
-        }else if(userInput == "inventory"){
-            printInventory(this);
-        }else if(userInput == "help"){
-            helpBase(this);
+        if(!this->hasGameStarted()){
+            if(userInput == "start"){
+                startGame(this);
+            }else if(userInput == "help"){
+                helpBase(this);
+            }
+        }else{
+            if(userInput == "enter"){
+                std::cin >> index;
+                enterLoc(this, index);
+            }else if(userInput == "engage"){
+                engage(this);
+            }else if(userInput == "wait"){
+                gameWait(this);
+            }else if(userInput == "use"){
+                std::cin >> index;
+                useItem(this, index);
+            }else if(userInput == "buy"){
+                std::cin >> index;
+                buyItem(this, index);
+            }else if(userInput == "sell"){
+                std::cin >> index;
+                sellItem(this, index);
+            }else if(userInput == "shop"){
+                printShopItems(this);
+            }else if(userInput == "info"){
+                printInfo(this);
+            }else if(userInput == "inventory"){
+                printInventory(this);
+            }else if(userInput == "help"){
+                helpBase(this);
+            }
         }
     }
 }

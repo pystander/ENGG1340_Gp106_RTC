@@ -85,6 +85,7 @@ class GameCharacter{
         void addXp(int);
         void addToInventory(GameItem*);
         void addMoney(int);
+        // subtracts the amount of money.
         // returns whether the person has enough money or not 
         // (success or not)
         bool subMoney(int);

@@ -35,6 +35,16 @@ void printShopItems(Game* game);
 void helpBase(Game* game);
 
 /**
+ * @brief [normal] buy item from a shop 
+ */
+void buyItem(Game* game, int index);
+
+/**
+ * @brief [normal] sell item from inventory 
+ */
+void sellItem(Game* game, int index);
+
+/**
  * @brief [normal] move around the map
  */
 void enterLoc(Game* game, int index);

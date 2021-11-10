@@ -10,6 +10,15 @@ class FireDragon : public GameCharacter{
             this->baseStat.magAttack = 275;
             this->money = 1000;
             this->xp = 700;
+            
+            // Deal with mana and hp differently
+            // Set the currentHp to max as well.
+            this->maxHp = 500;
+            this->currentHp = this->maxHp;
+            
+            // feel free to raise its level
+            for(int i = 0; i < 100; i++)
+                this->forceLevelup();
         };
 
         // No inventory
@@ -24,6 +33,14 @@ class LichKing : public GameCharacter{
             this->baseStat.magAttack = 300;
             this->money = 1500;
             this->xp = 1200;
+            
+            // Deal with mana and hp differently
+            // Set the currentHp to max as well.
+            this->maxHp = 300;
+            this->currentHp = this->maxHp;
+
+            for(int i = 0; i < 100; i++)
+                this->forceLevelup();
         };
 
         // No inventory

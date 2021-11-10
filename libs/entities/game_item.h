@@ -41,18 +41,22 @@ class GameItem{
     protected:
         int id = GLOBAL_ID++;
         std::string name;
+        bool can_sell = true; // eg. Hands cannot be sold
         int type;        // eg. PHY_ATTACK | MAG_ATTACK | ITEM_DETAILS
         int details;
+        int valueMoney = 0;  // how much this item is valued in the market?
         StatModiferStore itemStat;
     
     public:
         GameItem(std::string name, int type, int details) : name(name), type(type), details(details){};
         int getId();
         std::string getName();
+        bool canSell();
         // eg. damage type
         int getType();
         // eg. weapon, armor, ...
         int getItemCategory();
+        int getValueMoney();
         StatModiferStore getItemStat();
 
         virtual GameItem* copy() = 0;

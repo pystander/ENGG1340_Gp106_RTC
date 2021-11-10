@@ -12,12 +12,20 @@ std::string GameItem::getName(){
     return this->name;
 }
 
+bool GameItem::canSell(){
+    return this->can_sell;
+}
+
 int GameItem::getType(){
     return this->type;
 }
 
 int GameItem::getItemCategory(){
     return this->details;
+}
+
+int GameItem::getValueMoney(){
+    return this->valueMoney;
 }
 
 StatModiferStore GameItem::getItemStat(){
@@ -65,6 +73,7 @@ void GameItem::showStatisticsOnly(){
     StatModiferStore stat = this->itemStat;
     int details = this->details;
     if(details & CONSUMABLE){
+        std::cout << "Item Value          : " << this->valueMoney << "\n";
         std::cout << "Heal     Amount     : " << stat.healAmount << "\n";
         std::cout << "Physical Attack (by): " << stat.phyAttack << "\n";
         std::cout << "Physical Resist (by): " << stat.phyResist << "\n";
@@ -72,6 +81,7 @@ void GameItem::showStatisticsOnly(){
         std::cout << "Magical  Resist (by): " << stat.magResist << "\n";
         std::cout << "Stuns               : " << (stat.stun? "true" : "false") << "\n";
     }else{
+        std::cout << "Item Value          : " << this->valueMoney << "\n";
         std::cout << "Heal     Amount: " << stat.healAmount << "\n";
         std::cout << "Physical Attack: " << stat.phyAttack << "\n";
         std::cout << "Physical Resist: " << stat.phyResist << "\n";

@@ -9,16 +9,15 @@ class Goblin : public GameCharacter{
         Goblin() : GameCharacter("Goblin", false, MONSTER){
             // Base stats
             this->maxHp = 100;
-            this->baseStat.phyAttack = 35;
-            this->baseStat.phyResist = 2;
+            this->baseStat.phyAttack = 40;
+            this->baseStat.phyResist = 5;
 
             // Random loots;
             this->money = Random(30, 50).getInt();
             this->xp = Random(20, 50).getInt();
 
             // Level
-            const int level = 1;
-            for(int i = 0; i < level; i++)
+            for(int i = 0; i < 1; i++)
                 this->forceLevelup();
 
             // Initialize HP
@@ -34,16 +33,15 @@ class Wolf : public GameCharacter{
         Wolf() : GameCharacter("Wolf", false, MONSTER){
             // Base stats
             this->maxHp = 150;
-            this->baseStat.phyAttack = 40;
-            this->baseStat.phyResist = 3;
+            this->baseStat.phyAttack = 50;
+            this->baseStat.phyResist = 9;
 
             // Random loots
             this->money = Random(70, 120).getInt();
             this->xp = Random(50, 70).getInt();
 
             // Level
-            const int level = 3;
-            for(int i = 0; i < level; i++)
+            for(int i = 0; i < 3; i++)
                 this->forceLevelup();
 
             // Initialize HP
@@ -60,15 +58,15 @@ class DarkFairy : public GameCharacter{
             // Base stats
             this->maxHp = 120;
             this->baseStat.magAttack = 50;
-            this->baseStat.phyResist = 5;
+            this->baseStat.phyResist = 7;
+            this->baseStat.magResist = 3;
 
             // Random loots
             this->money = Random(210, 250).getInt();
             this->xp = Random(60, 90).getInt();
 
             // Level
-            const int level = 7;
-            for(int i = 0; i < level; i++)
+            for(int i = 0; i < 7; i++)
                 this->forceLevelup();
 
             // Initialize HP
@@ -85,15 +83,14 @@ class Dryad : public GameCharacter{
             // Base stats
             this->maxHp = 150;
             this->baseStat.phyAttack = 70;
-            this->baseStat.phyResist = 7;
+            this->baseStat.phyResist = 15;
 
             // Random loots
             this->money = Random(230, 275).getInt();
             this->xp = Random(80, 120).getInt();
 
             // Level
-            const int level = 9;
-            for(int i = 0; i < level; i++)
+            for(int i = 0; i < 9; i++)
                 this->forceLevelup();
 
             // Initialize HP
@@ -108,17 +105,16 @@ class Zombie : public GameCharacter{
     public:
         Zombie() : GameCharacter("Zombie", false, MONSTER){
             // Base stats
-            this->maxHp = 150;
+            this->maxHp = 250;
             this->baseStat.phyAttack = 40;
-            this->baseStat.phyResist = 15;
+            this->baseStat.phyResist = 25;
 
             // Random loots
             this->money = Random(250, 290).getInt();
             this->xp = Random(100, 150).getInt();
 
             // Level
-            const int level = 10;
-            for(int i = 0; i < level; i++)
+            for(int i = 0; i < 10; i++)
                 this->forceLevelup();
 
             // Initialize HP
@@ -133,8 +129,8 @@ class Spirit : public GameCharacter{
     public:
         Spirit() : GameCharacter("Spirit", false, MONSTER){
             this->maxHp = 50;
-            this->baseStat.magAttack = 50;
-            this->baseStat.phyResist = -1; // Immune to physical attack
+            this->baseStat.magAttack = 70;
+            // this->baseStat.phyResist = -1; // Immune to physical attack
             this->baseStat.magResist = 25;
 
             // Random loots

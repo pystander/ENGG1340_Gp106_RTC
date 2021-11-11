@@ -52,6 +52,8 @@ class PhoenixTear : public GameItem{
             
             Random rng2 = Random(80, 100);
             this->itemStat.manaAmount = rng2.getInt();
+
+            this->valueMoney = 300;
         };
 
         GameItem* copy(){
@@ -64,6 +66,7 @@ class SmallMpPotion : public GameItem{
         SmallMpPotion() : GameItem("Small MP Potion", HEALING, CONSUMABLE){
             Random rng = Random(20, 30);
             this->itemStat.manaAmount = rng.getInt();
+            this->valueMoney = 30;
         };
 
         GameItem* copy(){
@@ -76,6 +79,7 @@ class MediumMpPotion : public GameItem{
         MediumMpPotion() : GameItem("Medium MP Potion", HEALING, CONSUMABLE){
             Random rng = Random(50, 70);
             this->itemStat.manaAmount = rng.getInt();
+            this->valueMoney = 60;
         };
 
         GameItem* copy(){
@@ -88,8 +92,9 @@ class ExtraMpPotion : public GameItem{
         ExtraMpPotion() : GameItem("Extra MP Potion", HEALING, CONSUMABLE){
             Random rng = Random(80, 100);
             this->itemStat.manaAmount = rng.getInt();
+            this->valueMoney = 90;
         };
-
+        
         GameItem* copy(){
             return new ExtraMpPotion();
         }

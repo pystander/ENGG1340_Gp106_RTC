@@ -19,6 +19,7 @@ class WoodenSword : public GameItem{
     public:
         WoodenSword() : GameItem("Wooden Sword", PHY_ATTACK, WEAPON){
             this->itemStat.phyAttack = 15;
+            this->valueMoney = 100;
         };
 
         GameItem* copy(){
@@ -30,6 +31,7 @@ class BronzeDagger : public GameItem{
     public:
         BronzeDagger() : GameItem("Bronze Dagger", PHY_ATTACK, WEAPON){
             this->itemStat.phyAttack = 20;
+            this->valueMoney = 300;
         };
 
         GameItem* copy(){
@@ -41,6 +43,7 @@ class IronScimitar : public GameItem{
     public:
         IronScimitar() : GameItem("Iron Scimitar", PHY_ATTACK, WEAPON){
             this->itemStat.phyAttack = 25;
+            this->valueMoney = 750;
         };
 
         GameItem* copy(){
@@ -60,14 +63,39 @@ class PaleJustice : public GameItem{
         }
 };
 
+class WoodenWand : public GameItem{
+    public:
+        WoodenWand() : GameItem("Wooden Wand", MAG_ATTACK, WEAPON){
+            this->itemStat.magAttack = 20;
+            this->valueMoney = 200;
+        };
+        
+        GameItem* copy(){
+            return new WoodenWand();
+        }
+};
+
 class MithrilSword : public GameItem{
     public:
         MithrilSword() : GameItem("Mithril Sword", MAG_ATTACK, WEAPON){
-            this->itemStat.magAttack = 20;
+            this->itemStat.magAttack = 30;
+            this->valueMoney = 600;
         };
 
         GameItem* copy(){
             return new MithrilSword();
+        }
+};
+
+class MageStaff : public GameItem{
+    public:
+        MageStaff() : GameItem("Mage Staff", MAG_ATTACK, WEAPON){
+            this->itemStat.magAttack = 50;
+            this->valueMoney = 1200;
+        };
+
+        GameItem* copy(){
+            return new MageStaff();
         }
 };
 

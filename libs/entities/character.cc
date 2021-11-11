@@ -125,7 +125,6 @@ void GameCharacter::addToInventory(GameItem* item){
     }
 }
 
-
 void GameCharacter::addMoney(int amount){
     this->money += amount;
 }

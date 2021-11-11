@@ -25,16 +25,23 @@ void Game::setupMaps(){
     LostWoods* lostWoods = new LostWoods(this->difficulty);
     DawnDungeon* dawnDungeon = new DawnDungeon(this->difficulty);
     ConsumableShop* consumableShop = new ConsumableShop(this->difficulty);
+    WeaponShop* weaponShop = new WeaponShop(this->difficulty);
+    ArmorShop* armorShop = new ArmorShop(this->difficulty);
 
     // Connections
     spawnArea->connectTo(unknownVillage);
     spawnArea->connectTo(consumableShop);
+    spawnArea->connectTo(weaponShop);
+    spawnArea->connectTo(armorShop);
+
     unknownVillage->connectTo(lostWoods);
     unknownVillage->connectTo(dawnDungeon);
-
+    
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
     this->maps.push_back(consumableShop);
+    this->maps.push_back(weaponShop);
+    this->maps.push_back(armorShop);
     this->maps.push_back(unknownVillage);
     this->maps.push_back(lostWoods);
     this->maps.push_back(dawnDungeon);

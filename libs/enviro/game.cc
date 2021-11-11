@@ -34,7 +34,7 @@ void Game::setupMaps(){
 
     // Boss maps
     Castle_F1* castle_F1 = new Castle_F1(this->difficulty);
-    Castle_F2* castle_F2 = new Castle_F1(this->difficulty);
+    Castle_F2* castle_F2 = new Castle_F2(this->difficulty);
 
     // Connections
     spawnArea->connectTo(unknownVillage);

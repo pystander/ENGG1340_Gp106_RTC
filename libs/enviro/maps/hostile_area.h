@@ -3,6 +3,7 @@
 
 #include "libs/enviro/game_map.h"
 #include "libs/entities/enemies/weaker_enemies.h"
+#include "libs/entities/enemies/bosses.h"
 
 class UnknownVillage : public GameMap{
     public:
@@ -40,6 +41,24 @@ class DawnDungeon : public GameMap{
                 return new Zombie();
             }
             return new Spirit();
+        }
+};
+
+class Castle_F1 : public GameMap{
+    public:
+        Castle_F1(int difficulty) : GameMap("The Castle - 1/F", difficulty){};
+
+        GameCharacter* spawnRandomMobs(){
+            return new FireDragon();
+        }
+};
+
+class Castle_F2 : public GameMap{
+    public:
+        Castle_F2(int difficulty) : GameMap("The Castle - 2/F", difficulty){};
+
+        GameCharacter* spawnRandomMobs(){
+            return new LichKing();
         }
 };
 

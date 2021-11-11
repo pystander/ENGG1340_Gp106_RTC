@@ -112,7 +112,7 @@ class Zombie : public GameCharacter{
             this->baseStat.phyAttack = 40;
             this->baseStat.phyResist = 15;
 
-            // Loots
+            // Random loots
             this->money = Random(250, 290).getInt();
             this->xp = Random(100, 150).getInt();
 
@@ -120,7 +120,7 @@ class Zombie : public GameCharacter{
             const int level = 10;
             for(int i = 0; i < level; i++)
                 this->forceLevelup();
-            
+
             // Initialize HP
             this->currentHp = this->maxHp;
         };
@@ -144,7 +144,7 @@ class Spirit : public GameCharacter{
             // Level
             for(int i = 0; i < 10; i++)
                 this->forceLevelup();
-            
+
             // Initialize HP
             this->currentHp = this->maxHp;
         };

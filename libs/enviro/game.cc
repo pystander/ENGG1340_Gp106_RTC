@@ -19,14 +19,22 @@ void Game::createPlayer(){
 
 void Game::setupMaps(){
     std::cout << "Setting up maps...\n";
+
+    // Peaceful maps
     WaitingArea* waitingArea = new WaitingArea(this->difficulty);
     SpawnArea* spawnArea = new SpawnArea(this->difficulty);
-    UnknownVillage* unknownVillage = new UnknownVillage(this->difficulty);
-    LostWoods* lostWoods = new LostWoods(this->difficulty);
-    DawnDungeon* dawnDungeon = new DawnDungeon(this->difficulty);
     ConsumableShop* consumableShop = new ConsumableShop(this->difficulty);
     WeaponShop* weaponShop = new WeaponShop(this->difficulty);
     ArmorShop* armorShop = new ArmorShop(this->difficulty);
+
+    // Hostile maps
+    UnknownVillage* unknownVillage = new UnknownVillage(this->difficulty);
+    LostWoods* lostWoods = new LostWoods(this->difficulty);
+    DawnDungeon* dawnDungeon = new DawnDungeon(this->difficulty);
+
+    // Boss maps
+    Castle_F1* castle_F1 = new Castle_F1(this->difficulty);
+    Castle_F2* castle_F2 = new Castle_F1(this->difficulty);
 
     // Connections
     spawnArea->connectTo(unknownVillage);
@@ -36,7 +44,9 @@ void Game::setupMaps(){
 
     unknownVillage->connectTo(lostWoods);
     unknownVillage->connectTo(dawnDungeon);
-    
+    dawnDungeon->connectTo(castle_F1);
+    castle_F1->connectTo(castle_F2);
+
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
     this->maps.push_back(consumableShop);
@@ -45,6 +55,8 @@ void Game::setupMaps(){
     this->maps.push_back(unknownVillage);
     this->maps.push_back(lostWoods);
     this->maps.push_back(dawnDungeon);
+    this->maps.push_back(castle_F1);
+    this->maps.push_back(castle_F2);
 }
 
 // public

@@ -97,6 +97,10 @@ void helpBase(Game* game){
     std::cout << "Available commands normally:\n";
     if(!game->hasGameStarted()){
         std::cout << "start" << "\n";
+        std::cout << "exit" << "\n";
+        std::cout << "end" << "\n";
+        std::cout << "quit" << "\n";
+        std::cout << "help" << "\n";
     }else{
         std::cout << "engage" << "\n";
         std::cout << "enter <index>" << "\n";
@@ -108,5 +112,8 @@ void helpBase(Game* game){
         std::cout << "inventory" << "\n";
         std::cout << "info" << "\n";
         std::cout << "help" << "\n";
+        std::cout << "exit" << "\n";
+        std::cout << "end" << "\n";
+        std::cout << "quit" << "\n";
     }
 }

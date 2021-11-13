@@ -75,6 +75,16 @@ void gameWait(Game* game);
 void attackEnemy(Game* game, GameMatch* battle, int index);
 
 /**
+ * @brief [engaged] loot in the battle field
+ */
+void lootItem(Game* game, GameMatch* battle, int index);
+
+/**
+ * @brief [engaged] loot all items in the battle field
+ */
+void lootAllItems(Game* game, GameMatch* battle);
+
+/**
  * @brief [engaged] get a list of available commands
  */
 void helpBattle(Game* game);

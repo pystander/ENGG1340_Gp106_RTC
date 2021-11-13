@@ -1,5 +1,8 @@
 #include <iostream>
+#include <vector>
 #include "libs/enviro/match.h"
+#include "libs/entities/character.h"
+#include "libs/utils/colored_output.h"
 
 int GameMatch::enemiesLeft(){
     return this->enemies.size();
@@ -21,7 +24,7 @@ void GameMatch::attackEnemy(GameCharacter* from, int index){
             this->playerAttackLeft--;
         }
     }else{
-        std::cout << from->getName() << " cannot keep attacking. Please use 'next', to end the round\n";
+        ColoredOutput::green(from->getName()) << " cannot keep attacking. Please use 'next', to end the round\n";
     }
 }
 
@@ -40,8 +43,14 @@ void GameMatch::endTurn(){
 void GameMatch::cleanCorpse(){
     std::vector<GameCharacter*> cleaned;
     for(int i = 0; i < this->enemies.size(); i++){
-        if(!this->enemies[i]->isDead()){
-            cleaned.push_back(this->enemies[i]);
+        GameCharacter* enemy = this->enemies[i];
+        if(!enemy->isDead()){
+            cleaned.push_back(enemy);
+        }else{
+            std::vector<GameItem*> lootsDropped = enemy->dropRandomLoots();
+            for(int j = 0; j < lootsDropped.size(); j++){
+                this->loots.push_back(lootsDropped[j]);
+            }
         }
     }
     this->enemies = cleaned;
@@ -51,17 +60,46 @@ void GameMatch::end(){
     if(!this->finished){
         if(this->enemiesLeft() == 0)
             std::cout << "All enemies are dead\n";
-        std::cout << "Battle ended, leaving battlefield\n";
+        ColoredOutput::blue("Battle ended, leaving battlefield\n");
         this->finished = true;
         this->player->disengage();
     }
 }
 
+void GameMatch::loot(GameCharacter* player, int index){
+    if(index >= 0 && index < this->loots.size()){
+        player->addToInventory(this->loots[index]);
+        std::cout << "Added item "; ColoredOutput::blue(this->loots[index]->getName()) << " to your inventory\n";
+        //remove item from vector
+        this->loots.erase(this->loots.begin() + index);
+    }else{
+        std::cout << "Cannot loot item of index: "; ColoredOutput::red(index) << "\n";
+    }
+}
+
+void GameMatch::lootAll(GameCharacter* player){
+    for(int i = 0; i < this->loots.size(); i++){
+        this->loot(player, i);
+    }
+}
+
 void GameMatch::displayInfo(){
+    if(this->loots.size() > 0){
+        ColoredOutput::blue("Loots available:\n");
+    }
+    for(int i = 0; i < this->loots.size(); i++){
+        ColoredOutput::cyan("~ ~ ~ ~ ~ ~ ~\n");
+        std::cout << "Item "; ColoredOutput::cyan(i) << ": \n";
+        this->loots[i]->displaySimpleInfo();
+    }
+    
+    if(enemies.size() > 0){
+        ColoredOutput::blue("Enemies remaining:\n");
+    }else
+        ColoredOutput::red("No more enemies in the match\n");
     for(int i = 0; i < enemies.size(); i++){
-        std::cout << "~ ~ ~ ~ ~ ~ ~\n";
-        std::cout << "Enemy " << i << ": \n";
+        ColoredOutput::cyan("~ ~ ~ ~ ~ ~ ~\n");
+        std::cout << "Enemy "; ColoredOutput::cyan(i) << ": \n";
         enemies[i]->displayCharacterStatus();
-        std::cout << "~ ~ ~ ~ ~ ~ ~\n";
     }
 }

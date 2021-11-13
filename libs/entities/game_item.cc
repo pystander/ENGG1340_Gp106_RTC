@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libs/entities/game_item.h"
+#include "libs/utils/colored_output.h"
 
 int GLOBAL_ID = 0;
 
@@ -33,13 +34,13 @@ StatModiferStore GameItem::getItemStat(){
 }
 
 void GameItem::displaySimpleInfo(){
-    std::cout << "Name: " << name << "\n";
-    std::cout << "Item statistics:\n";
+    std::cout << "Name: "; ColoredOutput::green(this->name) << "\n";
+    ColoredOutput::red("Item statistics:\n");
     this->showStatisticsOnly();
 }
 
 void GameItem::displayInfo(){
-    std::cout << "Name: " << name << ", Type: [";
+    std::cout << "Name: "; ColoredOutput::green(this->name) << ", Type: [";
     int flags = this->type;
     if(flags & PHY_ATTACK)
         std::cout << "PHY Damage,";
@@ -58,13 +59,13 @@ void GameItem::displayInfo(){
     if(details & ITEM_QUEST)
         std::cout << "Quest,";
     if(details & ITEM_KEY)
-        std::cout << "Key";
+        std::cout << "Key,";
     if(details & WEAPON)
-        std::cout << "Weapon";
+        std::cout << "Weapon,";
     if(details & CONSUMABLE)
-        std::cout << "Consumable";
+        std::cout << "Consumable,";
     if(details & ARMOR)
-        std::cout << "Armor";
+        std::cout << "Armor,";
     std::cout << "], Item statistics:\n";
     this->showStatisticsOnly();
 }
@@ -73,20 +74,22 @@ void GameItem::showStatisticsOnly(){
     StatModiferStore stat = this->itemStat;
     int details = this->details;
     if(details & CONSUMABLE){
-        std::cout << "Item Value          : " << this->valueMoney << "\n";
-        std::cout << "Heal     Amount     : " << stat.healAmount << "\n";
-        std::cout << "Physical Attack (by): " << stat.phyAttack << "\n";
-        std::cout << "Physical Resist (by): " << stat.phyResist << "\n";
-        std::cout << "Magical  Attack (by): " << stat.magAttack << "\n";
-        std::cout << "Magical  Resist (by): " << stat.magResist << "\n";
-        std::cout << "Stuns               : " << (stat.stun? "true" : "false") << "\n";
+        std::cout << "Item Value          : $"; ColoredOutput::greenStart() << this->valueMoney << "\n"; ColoredOutput::reset();
+        std::cout << "Heal     Amount     : " ; ColoredOutput::greenStart() << stat.healAmount << "\n"; ColoredOutput::reset();
+        std::cout << "Physical Attack (by): " ; ColoredOutput::greenStart() << stat.phyAttack << "\n"; ColoredOutput::reset();
+        std::cout << "Physical Resist (by): " ; ColoredOutput::greenStart() << stat.phyResist << "\n"; ColoredOutput::reset();
+        std::cout << "Magical  Attack (by): " ; ColoredOutput::greenStart() << stat.magAttack << "\n"; ColoredOutput::reset();
+        std::cout << "Magical  Resist (by): " ; ColoredOutput::greenStart() << stat.magResist << "\n"; ColoredOutput::reset();
+        std::cout << "Stuns               : " ; ColoredOutput::greenStart() << (stat.stun? "true" : "false") << "\n"; ColoredOutput::reset();
+        std::cout << "Sellable            : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
     }else{
-        std::cout << "Item Value          : " << this->valueMoney << "\n";
-        std::cout << "Heal     Amount: " << stat.healAmount << "\n";
-        std::cout << "Physical Attack: " << stat.phyAttack << "\n";
-        std::cout << "Physical Resist: " << stat.phyResist << "\n";
-        std::cout << "Magical  Attack: " << stat.magAttack << "\n";
-        std::cout << "Magical  Resist: " << stat.magResist << "\n";
-        std::cout << "Stuns          : " << (stat.stun? "true" : "false") << "\n";
+        std::cout << "Item Value     : $"; ColoredOutput::greenStart() << this->valueMoney << "\n"; ColoredOutput::reset();
+        std::cout << "Heal     Amount: " ; ColoredOutput::greenStart() << stat.healAmount << "\n"; ColoredOutput::reset();
+        std::cout << "Physical Attack: " ; ColoredOutput::greenStart() << stat.phyAttack << "\n"; ColoredOutput::reset();
+        std::cout << "Physical Resist: " ; ColoredOutput::greenStart() << stat.phyResist << "\n"; ColoredOutput::reset();
+        std::cout << "Magical  Attack: " ; ColoredOutput::greenStart() << stat.magAttack << "\n"; ColoredOutput::reset();
+        std::cout << "Magical  Resist: " ; ColoredOutput::greenStart() << stat.magResist << "\n"; ColoredOutput::reset();
+        std::cout << "Stuns          : " ; ColoredOutput::greenStart() << (stat.stun? "true" : "false") << "\n"; ColoredOutput::reset();
+        std::cout << "Sellable       : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
     }
 }

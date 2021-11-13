@@ -8,7 +8,6 @@ class FireDragon : public GameCharacter{
     public:
         FireDragon() : GameCharacter("Fire Dragon", false, MONSTER){
             // Base stats
-            this->maxHp = 500;
             this->baseStat.phyAttack = 200;
             this->baseStat.magAttack = 250;
             this->baseStat.phyResist = 75;
@@ -20,7 +19,15 @@ class FireDragon : public GameCharacter{
 
             for(int i = 0; i < 50; i++)
                 this->forceLevelup();
+
+            // Hp Fixed
+            this->maxHp = 500;
+            this->currentHp = this->maxHp;
         };
+
+        std::vector<GameItem*> dropRandomLoots(){
+            return std::vector<GameItem*>();
+        }
 
         // No inventory
         void displayInventory(){}
@@ -31,7 +38,6 @@ class LichKing : public GameCharacter{
     public:
         LichKing() : GameCharacter("The Lich King", false, MONSTER){
             // Base stats
-            this->maxHp = 500;
             this->baseStat.phyAttack = 300;
             this->baseStat.magAttack = 300;
 
@@ -42,7 +48,15 @@ class LichKing : public GameCharacter{
             // Level
             for(int i = 0; i < 70; i++)
                 this->forceLevelup();
+
+            // Hp Fixed
+            this->maxHp = 500;
+            this->currentHp = this->maxHp;
         };
+        
+        std::vector<GameItem*> dropRandomLoots(){
+            return std::vector<GameItem*>();
+        }
 
         // No inventory
         void displayInventory(){}

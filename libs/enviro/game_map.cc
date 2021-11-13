@@ -1,5 +1,6 @@
 #include "libs/enviro/game_map.h"
 #include "libs/enviro/game.h"
+#include "libs/utils/colored_output.h"
 
 #include <iostream>
 #include <string>
@@ -68,11 +69,12 @@ void GameMap::buyItem(GameCharacter* buyer, int index){
         if(buyer->getMoneyAmount() >= itemBeBought->getValueMoney()){
             buyer->subMoney(itemBeBought->getValueMoney());
             buyer->addToInventory(itemBeBought->copy());
-            std::cout << "You bought " << itemBeBought->getName() << " for " << itemBeBought->getValueMoney() << "\n";
-        }else
-            std::cout << "You do not have enough money to buy " << itemBeBought->getName() << "\n";
+            std::cout << "You bought "; ColoredOutput::green(itemBeBought->getName()) << " for "; ColoredOutput::green(itemBeBought->getValueMoney()) << "\n";
+        }else{
+            std::cout << "You do not have enough money to buy "; ColoredOutput::green(itemBeBought->getName()) << "\n";
+        }
     }else{
-        std::cout << "Cannot buy item with index: " << index << "\n";
+        std::cout << "Cannot buy item with index: "; ColoredOutput::green(index) << "\n";
     }
 }
 
@@ -80,13 +82,24 @@ void GameMap::sellItem(GameCharacter* seller, int index){
     GameItem* item = seller->getFromInventory(index);
     if(item != nullptr){
         if(item->canSell()){
+            if(this->shopType == SHOP_WEAPON && item->getItemCategory() != WEAPON){
+                std::cout << "You need to sell weapons at a "; ColoredOutput::blue("Weapon Shop") << "\n";
+                return;
+            }else if(this->shopType == SHOP_ARMOR && item->getItemCategory() != ARMOR){
+                std::cout << "You need to sell armors at an "; ColoredOutput::blue("Armor Shop") << "\n";
+                return;
+            }else if(this->shopType == SHOP_CONSUMABLES && item->getItemCategory() != CONSUMABLE){
+                std::cout << "You need to sell consumables at a "; ColoredOutput::blue("Consumable Shop") << "\n";
+                return;
+            }
             seller->addMoney(item->getValueMoney());
             seller->deleteItem(item);
-            std::cout << "You sold " << item->getName() << " for " << item->getValueMoney() << "\n";
-        }else
-            std::cout << "You cannot sell " << item->getName() << "\n";
+            std::cout << "You sold "; ColoredOutput::green(item->getName()) << " for " << item->getValueMoney() << "\n";
+        }else{
+            std::cout << "You cannot sell "; ColoredOutput::green(item->getName()) << "\n";
+        }
     }else{
-        std::cout << "Cannot sell item with index: " << index << "\n";
+        std::cout << "Cannot sell item with index: "; ColoredOutput::green(index) << "\n";
     }
 }
 
@@ -117,7 +130,8 @@ void GameMap::cleanCorpse(){
 }
 
 void GameMap::displayInfo(){
-    std::cout << "Map name: " << this->name << "\n";
+    ColoredOutput::blue("Showing map info:\n");
+    std::cout << "Map name: "; ColoredOutput::green(this->name); std::cout << "\n";
     if(this->shopType & SHOP_ARMOR){
         std::cout << "Shop type: Armor shop\n";
     }else if(this->shopType & SHOP_WEAPON){
@@ -125,31 +139,31 @@ void GameMap::displayInfo(){
     }else if(this->shopType & SHOP_CONSUMABLES)
         std::cout << "Shop type: Consumable shop\n";
     if(this->enemies.size() > 0)
-        std::cout << "Showing present mobs:\n";
+        ColoredOutput::blue("Showing present mobs:\n");
     for(int i = 0; i < this->enemies.size(); i++){
         GameCharacter* c = this->enemies[i];
-        std::cout << "Mob " << i << ": " << c->getName() << "\n";
+        std::cout << "Mob "; ColoredOutput::cyan(i) << ": "; ColoredOutput::green(c->getName()) << "\n";
     }
     this->displayNeighbors();
 }
 
 void GameMap::displayNeighbors(){
-    std::cout << "Neighbor locations for " << this->getName() << ":\n";
+    ColoredOutput::blue("Neighbor locations for " + this->getName() + ":\n");
     int i = 0;
     for(const auto& place: this->neighbors){
-        std::cout << "Neighbor " << i++ << ": " << place->getName() << "\n";
+        std::cout << "Neighbor "; ColoredOutput::cyan(i++) << ": "; ColoredOutput::green(place->getName()) << "\n";
     }
 }
 
 void GameMap::displayShopItems(){
     if(this->shopType & NOT_SHOP){
-        std::cout << "You are not in a shop currently\n";
+        ColoredOutput::red("You are not in a shop currently\n");
         return;
     }
-    std::cout << "Shop items available:\n";
+    ColoredOutput::blue("Shop items available:\n");
     for(int i = 0; i < this->itemsOnSold.size(); i++){
-        std::cout << "------------------------\n";
-        std::cout << "Item " << i << ":\n";
+        ColoredOutput::cyan("------------------------\n");
+        std::cout << "Item "; ColoredOutput::cyan(i) << ":\n";
         this->itemsOnSold[i]->displayInfo();
     }
 }

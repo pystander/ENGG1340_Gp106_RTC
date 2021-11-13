@@ -44,7 +44,11 @@ class Game{
         void updateMaps();
 
         void exitGame();
+
+        // only player stat is saved
         void save();
+
+        // only player stat can be loaded
         void load();
 };
 

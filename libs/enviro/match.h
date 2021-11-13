@@ -3,14 +3,17 @@
 
 class GameMatch;
 
+#include <vector>
 #include "libs/enviro/game_map.h"
 #include "libs/entities/player.h"
+#include "libs/entities/game_item.h"
 
 // Used when a match (battle) starts.
 class GameMatch{
     private:
         bool finished = false;
         std::vector<GameCharacter*> enemies; // enemies brought to the battlefield
+        std::vector<GameItem*> loots; // loots available for collection
         Player* player;
         GameMap* map;
         const int maxAttackPerRound = 1;
@@ -30,8 +33,12 @@ class GameMatch{
         void attackEnemy(GameCharacter* from, int index);
         // "AI" will return favor
         void endTurn();
+        // collect loot on corpses as well
         void cleanCorpse();
         void end();
+
+        void loot(GameCharacter* player, int index);
+        void lootAll(GameCharacter* player);
 
         void displayInfo();
 };

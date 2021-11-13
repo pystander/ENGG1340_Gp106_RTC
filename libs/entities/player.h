@@ -23,6 +23,7 @@ class Player : public GameCharacter{
         GameMap* getCurrentLoc();
         bool isInBattle();
 
+        void forceEnter(GameMap*);
         void enter(GameMap*);
         // engage in a battle in the current location
         GameMatch* engage();
@@ -32,6 +33,8 @@ class Player : public GameCharacter{
         GameMatch* getRecentMatch();
         void buyItem(int index);
         void sellItem(int index);
+
+        std::vector<GameItem*> dropRandomLoots();
 
         void displayInventory();
         void displayPlayerStatus();

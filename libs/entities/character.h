@@ -21,14 +21,14 @@ class GameCharacter{
     protected:
         std::string name;
         std::string typeStr; // eg. warrior, wizard, assassin
-        int classType;
+        int classType;       // eg. WARRIOR (0)
         std::vector<GameItem*> inventory;
-        GameItem* equippedItem;
-        GameItem* armor;
+        GameItem* equippedItem = nullptr;
+        GameItem* armor = nullptr;
         Random statRng = Random(0, 100);
         bool is_player;
-        bool stunned;  // timeout for 1 round.
-        bool is_dead;
+        bool stunned = false;  // timeout for 1 round. (may not be implemented)
+        bool is_dead = false;
         int money = 0; // will be added to the killer if a person killed
         int level = 0; // default 0, setup() will add one
         // default 0 (enemies will have more than 0 xp, 
@@ -108,6 +108,8 @@ class GameCharacter{
         StatModiferStore block(); // generate defense values
         void levelup();
         void dead();
+
+        virtual std::vector<GameItem*> dropRandomLoots() = 0;
 
         virtual void displayInventory() = 0; // print
         void displayCharacterStatus(); // print

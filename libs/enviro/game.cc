@@ -1,4 +1,5 @@
 #include <iostream>
+#include "libs/utils/colored_output.h"
 #include "libs/enviro/game.h"
 #include "libs/enviro/maps/hostile_area.h"
 #include "libs/enviro/maps/peaceful_area.h"
@@ -10,7 +11,7 @@
 void Game::createPlayer(){
     std::cout << "Creating player...\n";
     this->player = new Player("Player", WARRIOR);
-    this->player->enter(this->maps[WAITING_AREA]); // land in the waiting area first
+    this->player->forceEnter(this->maps[WAITING_AREA]); // land in the waiting area first
     this->player->getCurrentLoc()->displayInfo();
     this->player->addMoney(500);
     for(int i = 0; i < 5; i++)
@@ -80,7 +81,7 @@ void Game::start(){
     std::string userInput;
     int index;
     while(userInput != "exit" && userInput != "end" && userInput != "quit"){
-        std::cout << this->player->getCurrentLoc()->getName() << " >> ";
+        ColoredOutput::red(this->player->getCurrentLoc()->getName()) << " >> ";
         std::cin >> userInput;
         // [normal] commands
         if(!this->hasGameStarted()){
@@ -115,6 +116,17 @@ void Game::start(){
             }else if(userInput == "help"){
                 helpBase(this);
             }
+        }
+
+        if(this->player->isDead()){
+            for(int i = 0; i < 10; i++)
+                std::cout << ".\n";
+            ColoredOutput::red("You are dead. Resetting...\n");
+            for(int i = 0; i < 10; i++)
+                std::cout << ".\n";
+            this->started = false;
+            delete this->player;
+            this->createPlayer();
         }
     }
 }

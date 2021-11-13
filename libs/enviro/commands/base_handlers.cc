@@ -2,10 +2,11 @@
 #include <string>
 #include "libs/enviro/commands/command_handlers.h"
 #include "libs/enviro/game.h"
+#include "libs/utils/colored_output.h"
 
 void startGame(Game* game){
     if(!game->hasGameStarted()){
-        game->player->enter(game->maps[SPAWN_AREA]);
+        game->player->forceEnter(game->maps[SPAWN_AREA]);
         game->gameStarted();
     }
 }
@@ -23,23 +24,25 @@ void enterLoc(Game* game, int index){
     if(map != nullptr){
         game->updateMaps();
         game->player->enter(map);
-    }else
-        std::cout << "Cannot find neighbor with index: " << index << "\n";
+    }else{
+        std::cout << "Cannot find neighbor with index: "; ColoredOutput::green(index) << "\n";
+    }
 }
 
 void useItem(Game* game, int index){
     GameItem* item = game->player->getFromInventory(index);
     if(item != nullptr){
         game->player->useItem(item);
-    }else
-        std::cout << "Cannot use item with index: " << index << "\n";
+    }else{
+        std::cout << "Cannot use item with index: "; ColoredOutput::green(index) << "\n";
+    }
 }
 
 void engage(Game* game){
     GameMatch* battle = game->player->engage();
     bool status = battle->start();
     if(!status){
-        std::cout << "Cannot engage in a battle in " << game->player->getCurrentLoc()->getName() << "\n";
+        std::cout << "Cannot engage in a battle in "; ColoredOutput::green(game->player->getCurrentLoc()->getName()) << "\n";
         return;
     }
     std::cout << "Successfully engaged into a battle\n";
@@ -50,7 +53,7 @@ void engage(Game* game){
     while(game->player->isInBattle()){
         // [engaged] commands
         // stuck inside this loop until disengage() or lose or all dead
-        std::cout << game->player->getCurrentLoc()->getName() << "(Battle) >> ";
+        ColoredOutput::red(game->player->getCurrentLoc()->getName()) << "(Battle) >> ";
         std::cin >> userInput;
         if(userInput == "attack"){
             std::cin >> index;
@@ -61,6 +64,11 @@ void engage(Game* game){
         }else if(userInput == "use"){
             std::cin >> index;
             useItem(game, index);
+        }else if(userInput == "loot"){
+            std::cin >> index;
+            lootItem(game, battle, index);
+        }else if(userInput == "lootall"){
+            lootAllItems(game, battle);
         }else if(userInput == "next"){
             battle->endTurn();
         }else if(userInput == "help"){
@@ -71,6 +79,9 @@ void engage(Game* game){
         }else if(userInput == "inventory"){
             printInventory(game);
         }
+
+        if(game->player->isDead())
+            return;
     }
 }
 
@@ -94,7 +105,7 @@ void printShopItems(Game* game){
 }
 
 void helpBase(Game* game){
-    std::cout << "Available commands normally:\n";
+    ColoredOutput::blue("Available commands normally:\n");
     if(!game->hasGameStarted()){
         std::cout << "start" << "\n";
         std::cout << "exit" << "\n";

@@ -2,6 +2,7 @@
 #include "libs/entities/character.h"
 #include "libs/entities/game_item.h"
 #include "libs/utils/random_util.h"
+#include "libs/utils/colored_output.h"
 
 //protected
 void GameCharacter::forceLevelup(){
@@ -166,7 +167,7 @@ void GameCharacter::useItem(GameItem* item){
         }
         deleteItem(item);
     }else{
-        std::cout << "Cannot use non-consumable item: " << item->getName() << "\n";
+        std::cout << "Cannot use non-consumable item: "; ColoredOutput::green(item->getName()) << "\n";
     }
 }
 
@@ -176,7 +177,7 @@ void GameCharacter::equipItem(GameItem* item){
     }else if(item->getItemCategory() & ARMOR){
         // this->armor = item;
     }else{
-        std::cout << "Cannot equip item: " << item->getName() << "\n";
+        std::cout << "Cannot equip item: "; ColoredOutput::green(item->getName()) << "\n";
     }
     this->recalculateAdditionalStat();
 }
@@ -189,10 +190,10 @@ void GameCharacter::attack(GameCharacter* character){
     if(phyDamange > 0) totalDamage += phyDamange;
     if(magDamange > 0) totalDamage += magDamange;
     character->currentHp -= totalDamage;
-    std::cout << character->getName() << " took " << totalDamage << " damage!\n";
+    ColoredOutput::green(character->getName()) << " took "; ColoredOutput::green(totalDamage) << " damage!\n";
     if(character->currentHp < 0){
         character->dead();
-        std::cout << character->getName() << " is dead\n";
+        ColoredOutput::green(character->getName()) << " is dead\n";
         this->addXp(character->xp);
         this->money += character->getMoneyAmount();
     }
@@ -255,7 +256,7 @@ StatModiferStore GameCharacter::block(){
 void GameCharacter::levelup(){
     if(this->xp >= this->nextLevelXp){
         if(this->isPlayer())
-            std::cout << this->getName() << " has leveled up to level " << this->level << "\n";
+            ColoredOutput::green(this->getName()) << " has leveled up to level "; ColoredOutput::green(this->level) << "\n";
         this->forceLevelup();
     }
 }
@@ -266,17 +267,17 @@ void GameCharacter::dead(){
 
 void GameCharacter::displayCharacterStatus(){
     StatModiferStore stat = this->baseStat;
-    std::cout << "Name           : " << this->name << "\n";
-    std::cout << "Is dead?       : " << (this->isDead()? "true" : "false") << "\n";
-    std::cout << "Class Type     : " << this->typeStr << "\n";
-    std::cout << "Current Level  : " << this->level << "\n";
-    std::cout << "Current xp     : " << this->xp << "\n";
-    std::cout << "Next level xp  : " << this->nextLevelXp << "\n";
-    std::cout << "Money          : $" << this->money << "\n";
-    std::cout << "Current Hp     : " << this->currentHp   << ", (max: " << this->maxHp << ")" << "\n";
-    std::cout << "Current Mana   : " << this->currentMana << ", (max: " << this->maxMana << ")" << "\n";
-    std::cout << "Physical Attack: " << stat.phyAttack << ", (add: " << this->additionalStat.phyAttack << ")" << "\n";
-    std::cout << "Physical Resist: " << stat.phyResist << ", (add: " << this->additionalStat.phyResist << ")" << "\n";
-    std::cout << "Magical  Attack: " << stat.magAttack << ", (add: " << this->additionalStat.magAttack << ")" << "\n";
-    std::cout << "Magical  Resist: " << stat.magResist << ", (add: " << this->additionalStat.magResist << ")" << "\n";
+    std::cout << "Name           : " ; ColoredOutput::greenStart() << this->name << "\n"; ColoredOutput::reset();
+    std::cout << "Is dead?       : " ; ColoredOutput::greenStart() << (this->isDead()? "true" : "false") << "\n"; ColoredOutput::reset();
+    std::cout << "Class Type     : " ; ColoredOutput::greenStart() << this->typeStr << "\n"; ColoredOutput::reset();
+    std::cout << "Current Level  : " ; ColoredOutput::greenStart() << this->level << "\n"; ColoredOutput::reset();
+    std::cout << "Current xp     : " ; ColoredOutput::greenStart() << this->xp << "\n"; ColoredOutput::reset();
+    std::cout << "Next level xp  : " ; ColoredOutput::greenStart() << this->nextLevelXp << "\n"; ColoredOutput::reset();
+    std::cout << "Money          : $"; ColoredOutput::greenStart() << this->money << "\n"; ColoredOutput::reset();
+    std::cout << "Current Hp     : " ; ColoredOutput::greenStart() << this->currentHp   << ", (max: " << this->maxHp << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Current Mana   : " ; ColoredOutput::greenStart() << this->currentMana << ", (max: " << this->maxMana << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Physical Attack: " ; ColoredOutput::greenStart() << stat.phyAttack << ", (add: " << this->additionalStat.phyAttack << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Physical Resist: " ; ColoredOutput::greenStart() << stat.phyResist << ", (add: " << this->additionalStat.phyResist << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Magical  Attack: " ; ColoredOutput::greenStart() << stat.magAttack << ", (add: " << this->additionalStat.magAttack << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Magical  Resist: " ; ColoredOutput::greenStart() << stat.magResist << ", (add: " << this->additionalStat.magResist << ")" << "\n"; ColoredOutput::reset();
 }

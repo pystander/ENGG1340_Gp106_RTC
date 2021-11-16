@@ -47,7 +47,7 @@ class Wolf : public GameCharacter{
                 this->forceLevelup();
 
             // Hp Fixed
-            this->maxHp = 50;
+            this->maxHp = 120;
             this->currentHp = this->maxHp;
         };
 
@@ -78,7 +78,7 @@ class DarkFairy : public GameCharacter{
                 this->forceLevelup();
 
             // Hp Fixed
-            this->maxHp = 50;
+            this->maxHp = 150;
             this->currentHp = this->maxHp;
         };
         
@@ -106,7 +106,7 @@ class Dryad : public GameCharacter{
                 this->forceLevelup();
 
             // Hp Fixed
-            this->maxHp = 50;
+            this->maxHp = 180;
             this->currentHp = this->maxHp;
         };
         
@@ -134,7 +134,7 @@ class Zombie : public GameCharacter{
                 this->forceLevelup();
 
             // Hp Fixed
-            this->maxHp = 150;
+            this->maxHp = 200;
             this->currentHp = this->maxHp;
         };
         
@@ -161,7 +161,7 @@ class Spirit : public GameCharacter{
                 this->forceLevelup();
             
             // Hp Fixed
-            this->maxHp = 20;
+            this->maxHp = 50;
             this->currentHp = this->maxHp;
         };
         

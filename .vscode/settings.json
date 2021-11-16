@@ -51,6 +51,9 @@
         "unordered_set": "cpp",
         "list": "cpp",
         "xhash": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "iomanip": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
     }
 }

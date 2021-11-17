@@ -40,6 +40,8 @@ class LichKing : public GameCharacter{
             // Base stats
             this->baseStat.phyAttack = 300;
             this->baseStat.magAttack = 300;
+            this->baseStat.phyResist = 95;
+            this->baseStat.magResist = 80;
 
             // Fixed loots
             this->money = 1500;
@@ -51,6 +53,36 @@ class LichKing : public GameCharacter{
 
             // Hp Fixed
             this->maxHp = 500;
+            this->currentHp = this->maxHp;
+        };
+        
+        std::vector<GameItem*> dropRandomLoots(){
+            return std::vector<GameItem*>();
+        }
+
+        // No inventory
+        void displayInventory(){}
+};
+
+class Magician : public GameCharacter{
+    public:
+        Magician() : GameCharacter("The Magician", false, MONSTER){
+            // Base stats
+            this->baseStat.phyAttack = 100;
+            this->baseStat.magAttack = 550;
+            this->baseStat.phyResist = 70;
+            this->baseStat.magResist = 99;
+
+            // Fixed loots
+            this->money = 1200;
+            this->xp = 1500;
+
+            // Level
+            for(int i = 0; i < 70; i++)
+                this->forceLevelup();
+
+            // Hp Fixed
+            this->maxHp = 350;
             this->currentHp = this->maxHp;
         };
         

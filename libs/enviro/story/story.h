@@ -8,4 +8,9 @@
  */
 void storyLine(Game* game);
 
+/**
+ * @brief display the ending if player walks through the game
+ */
+void endingStory(Game* game);
+
 #endif

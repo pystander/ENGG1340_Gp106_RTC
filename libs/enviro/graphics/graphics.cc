@@ -1,13 +1,21 @@
 #include <iostream>
+#include <iomanip>
 #include "libs/enviro/graphics/graphics.h"
 #include "libs/enviro/game.h"
 
-void displayGraphics(Game* game){
-    std::cout << "" << std::endl;
+void displayStart(Game* game){
+    // ASCII art from https://fsymbols.com/generators/carty/
+    std::cout << "================================================================" << std::endl;
+    std::cout << "▀█▀ █░█ █▀▀   █▀█ █▀█ ▄▀█ █▀▄   ▀█▀ █▀█   █▀▀ ▄▀█ █▀ ▀█▀ █░░ █▀▀" << std::endl;
+    std::cout << "░█░ █▀█ ██▄   █▀▄ █▄█ █▀█ █▄▀   ░█░ █▄█   █▄▄ █▀█ ▄█ ░█░ █▄▄ ██▄" << std::endl;
+    std::cout << "================================================================" << std::endl;
+    std::cout << std::endl;
+    std::cout << std::setw(40) << "A text-based Fantasy RPG" << std::endl;
+    std::cout << std::endl;
 }
 
 void displayFireDragon(Game* game){
-    // Image from https://www.asciiart.eu/mythology/dragons
+    // ASCII art from https://www.asciiart.eu/mythology/dragons
     std::cout << "                                             __----~~~~~~~~~~~------___"      << std::endl;
     std::cout << "                                  .  .   ~~//====......          __--~ ~~"    << std::endl;
     std::cout << "                  -.            \_|//     |||\\  ~~~~~~::::... /~"            << std::endl;
@@ -30,4 +38,33 @@ void displayFireDragon(Game* game){
 
 void displayLichKing(Game* game){
     ;
+}
+
+void displayMagician(Game* game){
+    // ASCII art from https://www.asciiart.eu/people/occupations/wizards
+
+/**
+                    ____ 
+                  .'* *.'
+               __/_*_*(_
+              / _______ \
+             _\_)/___\(_/_ 
+            / _((\- -/))_ \
+            \ \())(-)(()/ /
+             ' \(((()))/ '
+            / ' \)).))/ ' \
+           / _ \ - | - /_  \
+          (   ( .;''';. .'  )
+          _\"__ /    )\ __"/_
+            \/  \   ' /  \/
+             .'  '...' ' )
+              / /  |  \ \
+             / .   .   . \
+            /   .     .   \
+           /   /   |   \   \
+         .'   /    b    '.  '.
+     _.-'    /     Bb     '-. '-._ 
+ _.-'       |      BBb       '-.  '-. 
+(________mrf\____.dBBBb.________)____)
+*/
 }

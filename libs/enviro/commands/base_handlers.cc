@@ -121,6 +121,10 @@ void gameWait(Game* game){
     game->updateMaps();
 }
 
+void printMapDescription(Game* game){
+    game->player->getCurrentLoc()->displayDescription();
+}
+
 void printInventory(Game* game){
     game->player->displayInventory();
 }
@@ -148,6 +152,7 @@ void helpBase(Game* game){
         std::cout << "discard <index>" << "\n";
         std::cout << "shop" << "\n";
         std::cout << "wait" << "\n";
+        std::cout << "mapdesc" << "\n";
         std::cout << "info" << "\n";
         std::cout << "where" << "\n";
         std::cout << "stat" << "\n";

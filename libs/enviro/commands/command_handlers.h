@@ -17,6 +17,11 @@
 void startGame(Game* game);
 
 /**
+ * @brief 
+ */
+void printMapDescription(Game* game);
+
+/**
  * @brief [normal, engaged] 
  */
 void printInventory(Game* game);

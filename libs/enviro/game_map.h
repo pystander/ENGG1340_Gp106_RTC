@@ -18,6 +18,7 @@ class GameMap{
         std::vector<GameCharacter*> enemies;
         std::set<GameMap*> neighbors;
         std::string name;
+        std::string description;
         int difficulty;
         int maxEnemyReserve;
         double enemySpawnRate;
@@ -75,6 +76,7 @@ class GameMap{
         void displayInfo();
         void displayNeighbors();
         void displayShopItems();
+        void displayDescription();
 };
 
 #endif

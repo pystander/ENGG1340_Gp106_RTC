@@ -15,6 +15,7 @@ void Game::createPlayer(){
     this->player = new Player("Player", WARRIOR);
     this->player->forceEnter(this->maps[WAITING_AREA]); // land in the waiting area first
     this->player->getCurrentLoc()->displayInfo();
+    this->player->getCurrentLoc()->displayDescription();
     this->player->addMoney(500);
     for(int i = 0; i < 5; i++)
         this->player->addToInventory(new SmallHpPotion());
@@ -92,6 +93,8 @@ void Game::start(){
                 startGame(this);
             }else if(userInput == "help"){
                 helpBase(this);
+            }else if(userInput == "mapdesc"){
+                this->player->getCurrentLoc()->displayDescription();
             }
         }else{
             if(userInput == "engage"){
@@ -119,6 +122,8 @@ void Game::start(){
                 discardItem(this, index);
             }else if(userInput == "shop"){
                 printShopItems(this);
+            }else if(userInput == "mapdesc"){
+                printMapDescription(this);
             }else if(userInput == "info"){
                 this->player->displayPlayerStatus();
                 this->player->getCurrentLoc()->displayInfo();

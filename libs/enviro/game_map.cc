@@ -197,3 +197,7 @@ void GameMap::displayShopItems(){
         this->itemsOnSold[i]->displayInfo();
     }
 }
+
+void GameMap::displayDescription(){
+    std::cout << this->description << "\n";
+}

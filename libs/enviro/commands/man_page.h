@@ -74,6 +74,11 @@ void showManual(std::string cmd){
     }else if(cmd == "wait"){
         universalHeader(cmd, "base");
         std::cout << "Wait for mobs to spawn." << "\n";
+    }else if(cmd == "mapdesc"){
+        universalHeader(cmd, "base");
+        std::cout << "Shows the description of the current location / map. It " << "\n";
+        std::cout << "will contain the story for the map as well. Guidance may" << "\n";
+        std::cout << "also shown in the description." << "\n";
     }else if(cmd == "info"){
         universalHeader(cmd, "base");
         std::cout << "Shows information of your statistics and map / battle." << "\n";

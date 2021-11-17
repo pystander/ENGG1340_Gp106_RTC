@@ -40,6 +40,7 @@ class GameMatch{
         void loot(GameCharacter* player, int index);
         void lootAll(GameCharacter* player);
 
+        void displayLoots();
         void displayInfo();
 };
 

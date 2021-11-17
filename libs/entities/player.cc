@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "libs/entities/player.h"
+#include "libs/enviro/game.h"
 #include "libs/enviro/match.h"
 #include "libs/enviro/game_map.h"
 #include "libs/utils/colored_output.h"
@@ -13,6 +14,10 @@ bool Player::isInBattle(){
     return this->enteredBattle;
 }
 
+void Player::unlockMap(GameMap* map, GameItem* item){
+    map->unlock(item);
+}
+
 void Player::forceEnter(GameMap* map){
     this->currentLoc = map;
 }
@@ -20,11 +25,16 @@ void Player::forceEnter(GameMap* map){
 void Player::enter(GameMap* map){
     if(this->currentLoc->canGetTo(map)){
         this->currentLoc = map;
-        // 0.4 of chance getting into a battle randomly on your way
-        // Random rng = Random(0, 1);
-        // if(rng.getFloat() < 0.4){
-        //     this->engage();
-        // }
+        if(this->currentLoc->getDifficulty() != DIFFICULTY_EASY){
+            // 0.1 of chance getting into a battle randomly
+            Random rng = Random(0, 1);
+            if(rng.getFloat() < 0.1){
+                std::cout << "Enemies intercepts you on your way to "; ColoredOutput::blue(map->getName()) << "!\n";
+                this->engage();
+            }
+        }
+    }else if(map->isLocked()){
+        ColoredOutput::blue(map->getName()) << " is locked. Use '"; ColoredOutput::blue("unlock") << "' command to unlock it with a key\n";
     }else{
         std::cout << "Cannot get to "; ColoredOutput::green(map->getName()) << "\n";
     }

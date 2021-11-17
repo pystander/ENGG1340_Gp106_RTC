@@ -12,16 +12,13 @@
 //
 
 /**
- * @brief start a new game in the spawn area.
+ * @brief [start] start a new game in the spawn area.
  */
 void startGame(Game* game);
 
 /**
- * @brief currently displays the info of the player 
- * and the info of the current location
+ * @brief [normal, engaged] 
  */
-void printInfo(Game* game);
-
 void printInventory(Game* game);
 
 /**
@@ -45,9 +42,19 @@ void buyItem(Game* game, int index);
 void sellItem(Game* game, int index);
 
 /**
+ * @brief [normal] sell item from inventory 
+ */
+void discardItem(Game* game, int index);
+
+/**
  * @brief [normal] move around the map
  */
 void enterLoc(Game* game, int index);
+
+/**
+ * @brief [normal] unlock map
+ */
+void unlockLoc(Game* game, int mapIndex, int keyIndex);
 
 /**
  * @brief [normal, engaged] use an item 
@@ -85,8 +92,20 @@ void lootItem(Game* game, GameMatch* battle, int index);
 void lootAllItems(Game* game, GameMatch* battle);
 
 /**
+ * @brief [engaged] show loots
+ */
+void showLoots(Game* game, GameMatch* battle);
+
+/**
  * @brief [engaged] get a list of available commands
  */
 void helpBattle(Game* game);
+
+/**
+ * @brief [normal, engaged] get manual of a specified command
+ * 
+ * See ./man_pagge.h
+ */
+void showManual(std::string cmd);
 
 #endif

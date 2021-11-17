@@ -22,6 +22,10 @@ void lootAllItems(Game* game, GameMatch* battle){
     battle->lootAll(game->player);
 }
 
+void showLoots(Game* game, GameMatch* battle){
+    battle->displayLoots();
+}
+
 void helpBattle(Game* game){
     ColoredOutput::blue("Available commands while in battle:\n");
     std::cout << "next" << "\n";
@@ -30,7 +34,11 @@ void helpBattle(Game* game){
     std::cout << "use <index>" << "\n";
     std::cout << "loot <index>" << "\n";
     std::cout << "lootall" << "\n";
-    std::cout << "inventory" << "\n";
+    std::cout << "loots" << "\n";
     std::cout << "info" << "\n";
+    std::cout << "enemies" << "\n";
+    std::cout << "stat" << "\n";
+    std::cout << "inventory" << "\n";
     std::cout << "help" << "\n";
+    std::cout << "man <cmd>" << "\n";
 }

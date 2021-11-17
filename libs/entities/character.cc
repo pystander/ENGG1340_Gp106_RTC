@@ -193,7 +193,7 @@ void GameCharacter::attack(GameCharacter* character){
     ColoredOutput::green(character->getName()) << " took "; ColoredOutput::green(totalDamage) << " damage!\n";
     if(character->currentHp < 0){
         character->dead();
-        ColoredOutput::green(character->getName()) << " is dead\n";
+        ColoredOutput::green(character->getName()) << " is dead, type 'loots' to show loots dropped\n";
         this->addXp(character->xp);
         this->money += character->getMoneyAmount();
     }
@@ -263,6 +263,12 @@ void GameCharacter::levelup(){
 
 void GameCharacter::dead(){
     this->is_dead = true;
+}
+
+void GameCharacter::restore(){
+    this->currentHp = this->maxHp;
+    this->currentMana = this->maxMana;
+    this->resetModifier();
 }
 
 void GameCharacter::displayCharacterStatus(){

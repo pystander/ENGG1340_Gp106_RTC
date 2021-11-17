@@ -108,6 +108,7 @@ class GameCharacter{
         StatModiferStore block(); // generate defense values
         void levelup();
         void dead();
+        void restore(); // for enemies only
 
         virtual std::vector<GameItem*> dropRandomLoots() = 0;
 

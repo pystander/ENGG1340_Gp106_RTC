@@ -22,6 +22,11 @@ void GameMatch::attackEnemy(GameCharacter* from, int index){
         if(index >= 0 && index < this->enemies.size()){
             from->attack(this->enemies[index]);
             this->playerAttackLeft--;
+
+            this->cleanCorpse();
+            if(this->enemiesLeft() == 0){
+                ColoredOutput::blue("No more enemies left. When you are done, type 'next' to exit the battle.\n");
+            }
         }
     }else{
         ColoredOutput::green(from->getName()) << " cannot keep attacking. Please use 'next', to end the round\n";
@@ -33,7 +38,6 @@ void GameMatch::endTurn(){
     this->cleanCorpse();
     if(this->enemiesLeft() == 0){
         this->end();
-        // TODO: drop loots for players to get
     }else{
         this->playerAttackLeft = this->maxAttackPerRound;
         this->enemies[rng.getInt()]->attack(this->player);
@@ -59,8 +63,11 @@ void GameMatch::cleanCorpse(){
 void GameMatch::end(){
     if(!this->finished){
         if(this->enemiesLeft() == 0)
-            std::cout << "All enemies are dead\n";
+            std::cout << "No more enemies\n";
         ColoredOutput::blue("Battle ended, leaving battlefield\n");
+        for(int i = 0; i < this->enemies.size(); i++){
+            this->enemies[i]->restore();
+        }
         this->finished = true;
         this->player->disengage();
     }
@@ -83,15 +90,21 @@ void GameMatch::lootAll(GameCharacter* player){
     }
 }
 
-void GameMatch::displayInfo(){
+void GameMatch::displayLoots(){
     if(this->loots.size() > 0){
         ColoredOutput::blue("Loots available:\n");
+    }else{
+        ColoredOutput::blue("No loots available\n");
     }
     for(int i = 0; i < this->loots.size(); i++){
         ColoredOutput::cyan("~ ~ ~ ~ ~ ~ ~\n");
         std::cout << "Item "; ColoredOutput::cyan(i) << ": \n";
         this->loots[i]->displaySimpleInfo();
     }
+}
+
+void GameMatch::displayInfo(){
+    this->displayLoots();
     
     if(enemies.size() > 0){
         ColoredOutput::blue("Enemies remaining:\n");

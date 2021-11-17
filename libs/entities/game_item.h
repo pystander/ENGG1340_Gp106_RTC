@@ -13,7 +13,7 @@ class GameItem;
 #define MAG_RESIST    0b0001000
 #define HEALING       0b0010000 // for healing hp and restoring mana
 #define STUN          0b0100000
-#define ITEM_DETAILS  0b1000000
+#define MISC          0b1000000
 
 // Different item category (just few categories, hence integer is used)
 //details
@@ -42,7 +42,7 @@ class GameItem{
         int id = GLOBAL_ID++;
         std::string name;
         bool can_sell = true; // eg. Hands cannot be sold
-        int type;             // eg. PHY_ATTACK | MAG_ATTACK | ITEM_DETAILS
+        int type;             // eg. PHY_ATTACK | MAG_ATTACK
         int details;
         int valueMoney = 0;   // how much this item is valued in the market?
         StatModiferStore itemStat;

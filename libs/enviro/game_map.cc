@@ -16,6 +16,7 @@ GameMap::GameMap(std::string name, int difficulty) : name(name){
         maxEnemyReserve = 15;
         enemySpawnRate = 0.6;
     }
+    this->difficulty = difficulty;
 }
 
 void GameMap::connectTo(GameMap* nextMap){
@@ -24,7 +25,7 @@ void GameMap::connectTo(GameMap* nextMap){
 }
 
 bool GameMap::canGetTo(GameMap* nextLoc){
-    if(this->neighbors.count(nextLoc)){
+    if(this->neighbors.count(nextLoc) && !nextLoc->isLocked()){
         return true;
     }
     return false;
@@ -57,6 +58,31 @@ GameMap* GameMap::getNeighborByIndex(int index){
             return place;
     }
     return nullptr;
+}
+
+bool GameMap::isLocked(){
+    return this->locked;
+}
+
+void GameMap::lock(){
+    this->locked = true;
+}
+
+void GameMap::unlock(GameItem* key){
+    if(!this->isLocked()){
+        ColoredOutput::green(this->getName()) << " is already unlocked\n";
+        return;
+    }
+    if((key->getItemCategory() & ITEM_KEY) &&  key->getName() == this->keyName){
+        this->locked = false;
+        std::cout << "Unlocked new map: "; ColoredOutput::green(this->getName()) << " with item "; ColoredOutput::green(key->getName()) << "\n";
+    }else{
+        std::cout << "Cannot unlock map: "; ColoredOutput::green(this->getName()) << " with item "; ColoredOutput::green(key->getName()) << "\n";
+    }
+}
+
+int GameMap::getDifficulty(){
+    return this->difficulty;
 }
 
 int GameMap::getShopType(){
@@ -151,7 +177,11 @@ void GameMap::displayNeighbors(){
     ColoredOutput::blue("Neighbor locations for " + this->getName() + ":\n");
     int i = 0;
     for(const auto& place: this->neighbors){
-        std::cout << "Neighbor "; ColoredOutput::cyan(i++) << ": "; ColoredOutput::green(place->getName()) << "\n";
+        if(place->isLocked()){
+            std::cout << "Neighbor "; ColoredOutput::cyan(i++) << ": "; ColoredOutput::green(place->getName()) << " ("; ColoredOutput::red("locked") << ")\n";
+        }else{
+            std::cout << "Neighbor "; ColoredOutput::cyan(i++) << ": "; ColoredOutput::green(place->getName()) << "\n";
+        }
     }
 }
 

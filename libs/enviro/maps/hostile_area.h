@@ -7,7 +7,11 @@
 
 class UnknownVillage : public GameMap{
     public:
-        UnknownVillage(int difficulty) : GameMap("Unknown Village", difficulty){};
+        UnknownVillage(int difficulty) : GameMap("Unknown Village", difficulty){
+            // see map_keys.h for reference
+            this->keyName = "Unknown Village Key";
+            this->lock();
+        };
 
         GameCharacter* spawnRandomMobs(){
             Random rng = Random(0, 1);

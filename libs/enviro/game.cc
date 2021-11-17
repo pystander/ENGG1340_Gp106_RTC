@@ -3,9 +3,11 @@
 #include "libs/enviro/game.h"
 #include "libs/enviro/maps/hostile_area.h"
 #include "libs/enviro/maps/peaceful_area.h"
+#include "libs/enviro/commands/command_handlers.h"
+#include "libs/enviro/commands/man_page.h"
 #include "libs/entities/enemies/weaker_enemies.h"
 #include "libs/entities/items/consumables.h"
-#include "libs/enviro/commands/command_handlers.h"
+#include "libs/entities/items/map_keys.h"
 
 // private
 void Game::createPlayer(){
@@ -16,6 +18,7 @@ void Game::createPlayer(){
     this->player->addMoney(500);
     for(int i = 0; i < 5; i++)
         this->player->addToInventory(new SmallHpPotion());
+    this->player->addToInventory(new UnknownVillageKey());
 }
 
 void Game::setupMaps(){
@@ -79,7 +82,7 @@ void Game::start(){
 
     std::cout << "Game is ready, type 'help' to get a list of available commands\n";
     std::string userInput;
-    int index;
+    int index, secondIndex;
     while(userInput != "exit" && userInput != "end" && userInput != "quit"){
         ColoredOutput::red(this->player->getCurrentLoc()->getName()) << " >> ";
         std::cin >> userInput;
@@ -91,13 +94,17 @@ void Game::start(){
                 helpBase(this);
             }
         }else{
-            if(userInput == "enter"){
-                std::cin >> index;
-                enterLoc(this, index);
-            }else if(userInput == "engage"){
+            if(userInput == "engage"){
                 engage(this);
             }else if(userInput == "wait"){
                 gameWait(this);
+            }else if(userInput == "enter"){
+                std::cin >> index;
+                enterLoc(this, index);
+            }else if(userInput == "unlock"){
+                std::cin >> index;
+                std::cin >> secondIndex;
+                unlockLoc(this, index, secondIndex);
             }else if(userInput == "use"){
                 std::cin >> index;
                 useItem(this, index);
@@ -107,14 +114,26 @@ void Game::start(){
             }else if(userInput == "sell"){
                 std::cin >> index;
                 sellItem(this, index);
+            }else if(userInput == "discard"){
+                std::cin >> index;
+                discardItem(this, index);
             }else if(userInput == "shop"){
                 printShopItems(this);
             }else if(userInput == "info"){
-                printInfo(this);
+                this->player->displayPlayerStatus();
+                this->player->getCurrentLoc()->displayInfo();
+            }else if(userInput == "where"){
+                this->player->getCurrentLoc()->displayInfo();
+            }else if(userInput == "stat"){
+                this->player->displayPlayerStatus();
             }else if(userInput == "inventory"){
                 printInventory(this);
             }else if(userInput == "help"){
                 helpBase(this);
+            }else if(userInput == "man"){
+                std::string cmd;
+                std::cin >> cmd;
+                showManual(cmd);
             }
         }
 

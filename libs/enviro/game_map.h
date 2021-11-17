@@ -18,8 +18,12 @@ class GameMap{
         std::vector<GameCharacter*> enemies;
         std::set<GameMap*> neighbors;
         std::string name;
+        int difficulty;
         int maxEnemyReserve;
         double enemySpawnRate;
+        
+        bool locked = false;
+        std::string keyName = ""; // used when the map is locked
 
         // For shops
         int shopType = NOT_SHOP;           // eg. NOT_SHOP for being not a shop.
@@ -44,6 +48,11 @@ class GameMap{
         std::set<GameMap*> getNeighbors();
         GameMap* getNeighborByIndex(int);
 
+        bool isLocked();
+        void lock();
+        void unlock(GameItem* key);
+
+        int getDifficulty();
         int getShopType();
         // index from of itemsOnSold
         void buyItem(GameCharacter* buyer, int index);

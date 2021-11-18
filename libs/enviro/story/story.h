@@ -4,9 +4,9 @@
 #include "libs/enviro/game.h"
 
 /**
- * @brief display the story lines
+ * @brief display the starting story lines
  */
-void storyLine(Game* game);
+void startStory(Game* game);
 
 /**
  * @brief display the ending if player walks through the game

@@ -10,28 +10,30 @@ void displayStart(Game* game){
     std::cout << "░█░ █▀█ ██▄   █▀▄ █▄█ █▀█ █▄▀   ░█░ █▄█   █▄▄ █▀█ ▄█ ░█░ █▄▄ ██▄" << std::endl;
     std::cout << "================================================================" << std::endl;
     std::cout << std::endl;
-    std::cout << std::setw(40) << "A text-based Fantasy RPG" << std::endl;
+    std::cout << std::setw(45) << "A text-based Fantasy RPG" << std::endl;
     std::cout << std::endl;
+    std::cout << std::setw(49) << "Press any key to start the game" << std::endl;
+    getchar();
 }
 
 void displayFireDragon(Game* game){
-    // ASCII art from https://www.asciiart.eu/mythology/dragons
+    // ASCII art from https://www.asciiart.eu/mythology/dragons, modified
     std::cout << "                                             __----~~~~~~~~~~~------___"      << std::endl;
     std::cout << "                                  .  .   ~~//====......          __--~ ~~"    << std::endl;
-    std::cout << "                  -.            \_|//     |||\\  ~~~~~~::::... /~"            << std::endl;
-    std::cout << "               ___-==_       _-~o~  \/    |||  \\            _/~~-"           << std::endl;
-    std::cout << "       __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~"                << std::endl;
-    std::cout << "   _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /"                   << std::endl;
-    std::cout << " .~       .~       |   \\ -_    /  /-   /   ||      \   /"                    << std::endl;
-    std::cout << "/  ____  /         |     \\ ~-_/  /|- _/   .||       \ /"                     << std::endl;
-    std::cout << "|~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\""                     << std::endl;
-    std::cout << "         '         ~-|      /|    |-~\~~       __--~~"                        << std::endl;
-    std::cout << "                     |-~~-_/ |    |   ~\_   _-~            /\""               << std::endl;
-    std::cout << "                          /  \     \__   \/~                \__"              << std::endl;
+    std::cout << "                  -.            _|//     |||\\  ~~~~~~::::... /~"            << std::endl;
+    std::cout << "               ___-==_       _-~o~  /    |||  \\            _/~~-"           << std::endl;
+    std::cout << "       __---~~~.==~||/=_    -_--~/_-~|-   |\\   \\        _/~"                << std::endl;
+    std::cout << "   _-~~     .=~    |  \\-_    '-~7  /-   /  ||    /      /"                   << std::endl;
+    std::cout << " .~       .~       |   \\ -_    /  /-   /   ||      /   /"                    << std::endl;
+    std::cout << "/  ____  /         |     \\ ~-_/  /|- _/   .||       / /"                     << std::endl;
+    std::cout << "|~~    ~~|--~~~~--_ /     ~==-/   | /~--===~~        .\""                     << std::endl;
+    std::cout << "         '         ~-|      /|    |-~/~~       __--~~"                        << std::endl;
+    std::cout << "                     |-~~-_/ |    |   ~/_   _-~            /\""               << std::endl;
+    std::cout << "                          /  /     /__   //~                /__"              << std::endl;
     std::cout << "                      _--~ _/ | .-~~____--~-/                  ~~==."         << std::endl;
     std::cout << "                     ((->/~   '.|||' -_|    ~~-/ ,              . _||"        << std::endl;
-    std::cout << "                                -_     ~\      ~~---l__i__i__i--~~_/"         << std::endl;
-    std::cout << "                                _-~-__   ~)  \--______________--~~"           << std::endl;
+    std::cout << "                                -_     ~/      ~~---l__i__i__i--~~_/"         << std::endl;
+    std::cout << "                                _-~-__   ~)  /--______________--~~"           << std::endl;
     std::cout << "                              //.-~~~-~_--~- |-------~~~~~~~~"                << std::endl;
     std::cout << "                                     //.-~~~--\""                             << std::endl;
 }
@@ -41,30 +43,27 @@ void displayLichKing(Game* game){
 }
 
 void displayMagician(Game* game){
-    // ASCII art from https://www.asciiart.eu/people/occupations/wizards
-
-/**
-                    ____ 
-                  .'* *.'
-               __/_*_*(_
-              / _______ \
-             _\_)/___\(_/_ 
-            / _((\- -/))_ \
-            \ \())(-)(()/ /
-             ' \(((()))/ '
-            / ' \)).))/ ' \
-           / _ \ - | - /_  \
-          (   ( .;''';. .'  )
-          _\"__ /    )\ __"/_
-            \/  \   ' /  \/
-             .'  '...' ' )
-              / /  |  \ \
-             / .   .   . \
-            /   .     .   \
-           /   /   |   \   \
-         .'   /    b    '.  '.
-     _.-'    /     Bb     '-. '-._ 
- _.-'       |      BBb       '-.  '-. 
-(________mrf\____.dBBBb.________)____)
-*/
+    // ASCII art from https://www.asciiart.eu/people/occupations/wizards by Morfina, modified
+    std::cout << "                    ____ '"               << std::endl;
+    std::cout << "                  .'* *.'"                << std::endl;
+    std::cout << "               __/_*_*(_"                 << std::endl;
+    std::cout << "              / _______ /"                << std::endl;
+    std::cout << "             _/_)/___/(_/_ "              << std::endl;
+    std::cout << "            / _((/- -/))_ /"              << std::endl;
+    std::cout << "            / /())(-)(()/ /"              << std::endl;
+    std::cout << "             ' /(((()))/ '"               << std::endl;
+    std::cout << "            / ' /)).))/ ' /"              << std::endl;
+    std::cout << "           / _ / - | - /_  /"             << std::endl;
+    std::cout << "          (   ( .;''';. .'  )"            << std::endl;
+    std::cout << "          _/'__ /    )/ __'/_"            << std::endl;
+    std::cout << "            //  /   ' /  //"              << std::endl;
+    std::cout << "             .'  '...' ' )"               << std::endl;
+    std::cout << "              / /  |  / /"                << std::endl;
+    std::cout << "             / .   .   . /"               << std::endl;
+    std::cout << "            /   .     .   /"              << std::endl;
+    std::cout << "           /   /   |   /   /"             << std::endl;
+    std::cout << "         .'   /    /    '.  '."           << std::endl;
+    std::cout << "     _.-'    /     //     '-. '-._"       << std::endl; 
+    std::cout << " _.-'       |      ///       '-.  '-. "   << std::endl;
+    std::cout << "(________////____./////.________)____)"   << std::endl;
 }

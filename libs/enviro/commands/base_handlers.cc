@@ -155,9 +155,10 @@ void helpBase(Game* game){
         std::cout << "engage" << "\n";
         std::cout << "enter <index>" << "\n";
         std::cout << "unlock <map_index> <key_index>" << "\n";
+        std::cout << "equip <index>" << "\n";
         std::cout << "use <index>" << "\n";
         std::cout << "buy <index>" << "\n";
-        std::cout << "sell <index>" << "\n"; //
+        std::cout << "sell <index>" << "\n";
         std::cout << "discard <index>" << "\n";
         std::cout << "shop" << "\n";
         std::cout << "wait" << "\n";

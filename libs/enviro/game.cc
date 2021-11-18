@@ -7,6 +7,8 @@
 #include "libs/enviro/maps/peaceful_area.h"
 #include "libs/enviro/commands/command_handlers.h"
 #include "libs/enviro/commands/man_page.h"
+#include "libs/enviro/graphics/graphics.h"
+#include "libs/enviro/story/story.h"
 #include "libs/entities/enemies/weaker_enemies.h"
 #include "libs/entities/items/consumables.h"
 #include "libs/entities/items/map_keys.h"
@@ -80,6 +82,9 @@ void Game::gameStarted(){
 }
 
 void Game::start(){
+    displayStart(this);
+    startStory(this);
+
     this->setupMaps();
     this->createPlayer();
 

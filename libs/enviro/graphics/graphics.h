@@ -16,6 +16,11 @@ Words from Rain Leung
 void displayStart(Game* game);
 
 /**
+ * @brief display the graphics - The Magician
+ */
+void displayMagician(Game* game);
+
+/**
  * @brief display the graphics for boss - Fire Dragon
  */
 void displayFireDragon(Game* game);
@@ -25,9 +30,5 @@ void displayFireDragon(Game* game);
  */
 void displayLichKing(Game* game);
 
-/**
- * @brief display the graphics for boss - The Magician
- */
-void displayMagician(Game* game);
 
 #endif

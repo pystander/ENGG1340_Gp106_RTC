@@ -26,9 +26,8 @@ void Game::createPlayer(){
     this->player->addToInventory(new UnknownVillageKey());
 
     if(this->difficulty == DIFFICULTY_EASY){
-        this->player->addXp(9999);
-        this->player->levelup();
-        this->player->levelup();
+        this->player->forceLevelup();
+        this->player->forceLevelup();
         this->player->setLevel(1, 100); // just like fresh
     }
     // no statistics boosting for normal / hard

@@ -4,7 +4,6 @@
 #include "libs/utils/random_util.h"
 #include "libs/utils/colored_output.h"
 
-//protected
 void GameCharacter::forceLevelup(){
     Random major = Random(15, 30);
     Random minor = Random(5, 15);
@@ -181,10 +180,14 @@ void GameCharacter::useItem(GameItem* item){
 void GameCharacter::equipItem(GameItem* item){
     if(item->getItemCategory() & WEAPON){
         this->equippedItem = item;
-        std::cout << "Equipped weapon: "; ColoredOutput::green(item->getName()) << "\n";
+        if(this->isPlayer()){
+            std::cout << "Equipping weapon: "; ColoredOutput::green(item->getName()) << "\n";
+        }
     }else if(item->getItemCategory() & ARMOR){
         this->armor = item;
-        std::cout << "Equipped armor: "; ColoredOutput::green(item->getName()) << "\n";
+        if(this->isPlayer()){
+            std::cout << "Equipping armor: "; ColoredOutput::green(item->getName()) << "\n";
+        }
     }else{
         std::cout << "Cannot equip item: "; ColoredOutput::green(item->getName()) << "\n";
     }

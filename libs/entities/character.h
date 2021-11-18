@@ -43,8 +43,6 @@ class GameCharacter{
         float currentMana = 100; // default 100
         float maxMana = 100;
 
-        // different for different character types
-        void forceLevelup();
         /**
          * @param flags types of stat to generate, 0 for all
          */
@@ -108,6 +106,7 @@ class GameCharacter{
         void heal(GameItem*);
         // used in attack(); to block enemy attack according to your resistance
         StatModiferStore block(); // generate defense values
+        void forceLevelup();
         void levelup();
         void dead();
         void restore(); // for enemies only

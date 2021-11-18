@@ -42,6 +42,9 @@ class SpawnArea : public GameMap{
 class ConsumableShop : public GameMap{
     public:
         ConsumableShop(int difficulty) : GameMap("Consumable Shop", difficulty){
+            this->description = "This is a consumable shop. You can buy potions in this area.\n";
+            this->description += "Feel free to type 'shop' to see available potions.\n";
+
             this->shopType = SHOP_CONSUMABLES;
             this->itemsOnSold.push_back(new SmallHpPotion());
             this->itemsOnSold.push_back(new MediumHpPotion());
@@ -56,6 +59,9 @@ class ConsumableShop : public GameMap{
 class WeaponShop : public GameMap{
     public:
         WeaponShop(int difficulty) : GameMap("Weapon Shop", difficulty){
+            this->description = "This is a weapon shop. You can buy and sell weapons in this area.\n";
+            this->description += "Feel free to type 'shop' to see available weapons.\n";
+
             this->shopType = SHOP_WEAPON;
             this->itemsOnSold.push_back(new WoodenSword());
             this->itemsOnSold.push_back(new BronzeDagger());
@@ -72,6 +78,9 @@ class WeaponShop : public GameMap{
 class ArmorShop : public GameMap{
     public:
         ArmorShop(int difficulty) : GameMap("Armor Shop", difficulty){
+            this->description = "This is a armor shop. You can buy and sell armors in this area.\n";
+            this->description += "Feel free to type 'shop' to see available armors.\n";
+
             this->shopType = SHOP_ARMOR;
             this->itemsOnSold.push_back(new LeatherCloth());
             this->itemsOnSold.push_back(new SilverChestplate());

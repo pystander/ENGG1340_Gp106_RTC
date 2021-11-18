@@ -49,6 +49,8 @@ class GameItem{
     
     public:
         GameItem(std::string name, int type, int details) : name(name), type(type), details(details){};
+        virtual ~GameItem(){}
+
         int getId();
         std::string getName();
         bool canSell();

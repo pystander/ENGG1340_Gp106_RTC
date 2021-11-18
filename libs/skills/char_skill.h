@@ -6,6 +6,7 @@ struct CharacterSkill;
 #include <string>
 #include "libs/entities/character.h"
 
+// This one may not be implemented due to time constraint
 typedef struct CharacterSkill{
     std::string name;
     int type;                // type defined in GameItem, eg. PHY_ATTACK | MAG_ATTACK

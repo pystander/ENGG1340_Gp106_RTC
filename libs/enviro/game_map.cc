@@ -174,7 +174,9 @@ void GameMap::displayInfo(){
 }
 
 void GameMap::displayNeighbors(){
-    ColoredOutput::blue("Neighbor locations for " + this->getName() + ":\n");
+    if(this->neighbors.size() > 0){
+        ColoredOutput::blue("Neighbor locations for " + this->getName() + ":\n");
+    }
     int i = 0;
     for(const auto& place: this->neighbors){
         if(place->isLocked()){

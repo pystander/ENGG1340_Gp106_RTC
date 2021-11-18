@@ -1,5 +1,6 @@
 #include <iostream>
 #include <typeinfo>
+#include "libs/utils/basic_converter.h"
 #include "libs/utils/colored_output.h"
 #include "libs/enviro/game.h"
 #include "libs/enviro/maps/hostile_area.h"
@@ -84,7 +85,8 @@ void Game::start(){
 
     std::cout << "Game is ready, type 'help' to get a list of available commands\n";
     std::string userInput;
-    int index, secondIndex;
+    std::string index;
+    std::string secondIndex;
     while(userInput != "exit" && userInput != "end" && userInput != "quit"){
         ColoredOutput::red(this->player->getCurrentLoc()->getName()) << " >> ";
         std::cin >> userInput;
@@ -104,27 +106,26 @@ void Game::start(){
                 gameWait(this);
             }else if(userInput == "enter"){
                 std::cin >> index;
-                enterLoc(this, index);
+                enterLoc(this, BasicConverter::intFromString(index));
             }else if(userInput == "unlock"){
                 std::cin >> index;
                 std::cin >> secondIndex;
-                if (typeid(index) == typeid(int) && typeid(secondIndex) == typeid(int))
-                    unlockLoc(this, index, secondIndex);
+                unlockLoc(this, BasicConverter::intFromString(index), BasicConverter::intFromString(secondIndex));
             }else if(userInput == "equip"){
                 std::cin >> index;
-                equipItem(this, index);
+                equipItem(this, BasicConverter::intFromString(index));
             }else if(userInput == "use"){
                 std::cin >> index;
-                useItem(this, index);
+                useItem(this, BasicConverter::intFromString(index));
             }else if(userInput == "buy"){
                 std::cin >> index;
-                buyItem(this, index);
+                buyItem(this, BasicConverter::intFromString(index));
             }else if(userInput == "sell"){
                 std::cin >> index;
-                sellItem(this, index);
+                sellItem(this, BasicConverter::intFromString(index));
             }else if(userInput == "discard"){
                 std::cin >> index;
-                discardItem(this, index);
+                discardItem(this, BasicConverter::intFromString(index));
             }else if(userInput == "shop"){
                 printShopItems(this);
             }else if(userInput == "mapdesc"){

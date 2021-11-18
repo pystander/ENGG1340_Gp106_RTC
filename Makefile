@@ -2,6 +2,8 @@ COMPILE_CMD=g++ --std=c++11 -I.
 ccsrc = $(wildcard libs/enviro/*.cc) \
 		$(wildcard libs/enviro/maps/*.cc) \
 		$(wildcard libs/enviro/commands/*.cc) \
+		$(wildcard libs/enviro/graphics/*.cc) \
+		$(wildcard libs/enviro/story/*.cc) \
 		$(wildcard libs/entities/*.cc) \
 		$(wildcard libs/entities/enemies/*.cc) \
 		$(wildcard libs/entities/items/*.cc) \

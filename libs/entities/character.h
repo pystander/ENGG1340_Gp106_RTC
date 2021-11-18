@@ -65,7 +65,7 @@ class GameCharacter{
             }
             this->setup();
         };
-        ~GameCharacter(){
+        virtual ~GameCharacter(){
             for(int i = 0; i < inventory.size(); i++)
                 delete inventory[i];
         }

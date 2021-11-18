@@ -2,6 +2,7 @@
 #include <string>
 #include "libs/enviro/commands/command_handlers.h"
 #include "libs/enviro/game.h"
+#include "libs/utils/basic_converter.h"
 #include "libs/utils/colored_output.h"
 
 void startGame(Game* game){
@@ -82,7 +83,7 @@ void engage(Game* game){
     std::cout << "Successfully engaged into a battle\n";
     battle->displayInfo();
 
-    int index;
+    std::string index;
     std::string userInput;
     while(game->player->isInBattle()){
         // [engaged] commands
@@ -91,16 +92,16 @@ void engage(Game* game){
         std::cin >> userInput;
         if(userInput == "attack"){
             std::cin >> index;
-            attackEnemy(game, battle, index);
+            attackEnemy(game, battle, BasicConverter::intFromString(index));
         }else if(userInput == "disengage"){
             disengage(game);
             break;
         }else if(userInput == "use"){
             std::cin >> index;
-            useItem(game, index);
+            useItem(game, BasicConverter::intFromString(index));
         }else if(userInput == "loot"){
             std::cin >> index;
-            lootItem(game, battle, index);
+            lootItem(game, battle, BasicConverter::intFromString(index));
         }else if(userInput == "lootall"){
             lootAllItems(game, battle);
         }else if(userInput == "loots"){

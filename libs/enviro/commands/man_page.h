@@ -42,6 +42,12 @@ void showManual(std::string cmd){
         std::cout << "Second parameter <key_index> indicates the inventory index of an item of" << "\n";
         std::cout << "a type 'key' which you can find out using the 'inventory' command." << "\n";
         std::cout << "The name of the key is going to let you know what map it can open." << "\n";
+    }else if(cmd == "equip"){
+        universalHeader(cmd, "base");
+        std::cout << "Equip an item from inventory" << "\n";
+        std::cout << "\n";
+        std::cout << "First parameter <index> indicates the inventory index of an item" << "\n";
+        std::cout << "you want to equip which you can find out using the 'inventory' command." << "\n";
     }else if(cmd == "use"){
         universalHeader(cmd, "base");
         std::cout << "Use an item from inventory" << "\n";

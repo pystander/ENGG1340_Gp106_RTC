@@ -81,7 +81,7 @@ void GameItem::showStatisticsOnly(){
         std::cout << "Magical  Attack (by): " ; ColoredOutput::greenStart() << stat.magAttack << "\n"; ColoredOutput::reset();
         std::cout << "Magical  Resist (by): " ; ColoredOutput::greenStart() << stat.magResist << "\n"; ColoredOutput::reset();
         std::cout << "Stuns               : " ; ColoredOutput::greenStart() << (stat.stun? "true" : "false") << "\n"; ColoredOutput::reset();
-        std::cout << "Sellable            : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
+        std::cout << "Tradable            : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
     }else{
         std::cout << "Item Value     : $"; ColoredOutput::greenStart() << this->valueMoney << "\n"; ColoredOutput::reset();
         std::cout << "Heal     Amount: " ; ColoredOutput::greenStart() << stat.healAmount << "\n"; ColoredOutput::reset();
@@ -90,6 +90,6 @@ void GameItem::showStatisticsOnly(){
         std::cout << "Magical  Attack: " ; ColoredOutput::greenStart() << stat.magAttack << "\n"; ColoredOutput::reset();
         std::cout << "Magical  Resist: " ; ColoredOutput::greenStart() << stat.magResist << "\n"; ColoredOutput::reset();
         std::cout << "Stuns          : " ; ColoredOutput::greenStart() << (stat.stun? "true" : "false") << "\n"; ColoredOutput::reset();
-        std::cout << "Sellable       : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
+        std::cout << "Tradable       : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
     }
 }

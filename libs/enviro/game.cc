@@ -108,6 +108,9 @@ void Game::start(){
                 std::cin >> index;
                 std::cin >> secondIndex;
                 unlockLoc(this, index, secondIndex);
+            }else if(userInput == "equip"){
+                std::cin >> index;
+                equipItem(this, index);
             }else if(userInput == "use"){
                 std::cin >> index;
                 useItem(this, index);

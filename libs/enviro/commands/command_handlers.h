@@ -62,6 +62,11 @@ void enterLoc(Game* game, int index);
 void unlockLoc(Game* game, int mapIndex, int keyIndex);
 
 /**
+ * @brief [normal, engaged] equip an item
+ */
+void equipItem(Game* game, int index);
+
+/**
  * @brief [normal, engaged] use an item 
  */
 void useItem(Game* game, int index);

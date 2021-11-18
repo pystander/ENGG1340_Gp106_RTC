@@ -175,7 +175,7 @@ void GameCharacter::equipItem(GameItem* item){
     if(item->getItemCategory() & WEAPON){
         this->equippedItem = item;
     }else if(item->getItemCategory() & ARMOR){
-        // this->armor = item;
+        this->armor = item;
     }else{
         std::cout << "Cannot equip item: "; ColoredOutput::green(item->getName()) << "\n";
     }

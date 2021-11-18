@@ -54,6 +54,15 @@ void unlockLoc(Game* game, int mapIndex, int keyIndex){
     }
 }
 
+void equipItem(Game* game, int index){
+    GameItem* item = game->player->getFromInventory(index);
+    if(item != nullptr){
+        game->player->equipItem(item);
+    }else{
+        std::cout << "Cannot use item with index: "; ColoredOutput::green(index) << "\n";
+    }
+}
+
 void useItem(Game* game, int index){
     GameItem* item = game->player->getFromInventory(index);
     if(item != nullptr){

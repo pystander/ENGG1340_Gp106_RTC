@@ -23,7 +23,11 @@ class Goblin : public GameCharacter{
 
         std::vector<GameItem*> dropRandomLoots(){
             std::vector<GameItem*> loots;
-            loots.push_back(new WoodenSword());
+
+            // Random loots
+            if(Random(0, 1).getFloat() >= 0.5)
+                loots.push_back(new WoodenSword());
+
             return loots;
         }
 

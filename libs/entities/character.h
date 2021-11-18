@@ -82,6 +82,8 @@ class GameCharacter{
         bool isStunned();
         bool isDead();
         void setBaseStat(StatModiferStore);
+        // set displayed level and next level xp required to levelup
+        void setLevel(int lvl, int nextLevelXp);
         void addXp(int);
         void addToInventory(GameItem*);
         void addMoney(int);

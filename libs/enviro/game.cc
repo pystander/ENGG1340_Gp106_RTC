@@ -22,6 +22,14 @@ void Game::createPlayer(){
     for(int i = 0; i < 5; i++)
         this->player->addToInventory(new SmallHpPotion());
     this->player->addToInventory(new UnknownVillageKey());
+
+    if(this->difficulty == DIFFICULTY_EASY){
+        this->player->addXp(9999);
+        this->player->levelup();
+        this->player->levelup();
+        this->player->setLevel(1, 100); // just like fresh
+    }
+    // no statistics boosting for normal / hard
 }
 
 void Game::setupMaps(){

@@ -115,6 +115,13 @@ void GameCharacter::setBaseStat(StatModiferStore stat){
     this->baseStat.magResist = stat.magResist;
 }
 
+void GameCharacter::setLevel(int lvl, int nextLevelXp){
+    if(lvl > 0)
+        this->level = lvl;
+    if(nextLevelXp > 0)
+        this->nextLevelXp = nextLevelXp;
+}
+
 void GameCharacter::addXp(int xp){
     this->xp += xp;
     this->levelup(); // try to level up

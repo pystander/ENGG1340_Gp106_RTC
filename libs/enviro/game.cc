@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 #include "libs/utils/colored_output.h"
 #include "libs/enviro/game.h"
 #include "libs/enviro/maps/hostile_area.h"
@@ -107,7 +108,8 @@ void Game::start(){
             }else if(userInput == "unlock"){
                 std::cin >> index;
                 std::cin >> secondIndex;
-                unlockLoc(this, index, secondIndex);
+                if (typeid(index) == typeid(int) && typeid(secondIndex) == typeid(int))
+                    unlockLoc(this, index, secondIndex);
             }else if(userInput == "equip"){
                 std::cin >> index;
                 equipItem(this, index);

@@ -72,6 +72,11 @@ void equipItem(Game* game, int index);
 void useItem(Game* game, int index);
 
 /**
+ * @brief [normal, engaged] use an skill 
+ */
+void useSkill(Game* game, int index);
+
+/**
  * @brief [normal] engage in a battle in the current location.
  */
 void engage(Game* game);

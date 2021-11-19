@@ -30,6 +30,7 @@ void Game::createPlayer(){
         std::cin >> classType;
     }else{
         name = this->player->getName();
+        classType = std::to_string(this->player->getClassType()+1);
     }
     
     this->player = new Player(name, BasicConverter::safeToInt(classType)-1);
@@ -39,6 +40,8 @@ void Game::createPlayer(){
     this->player->addMoney(500);
     for(int i = 0; i < 5; i++)
         this->player->addToInventory(new SmallHpPotion());
+    for(int i = 0; i < 2; i++)
+        this->player->addToInventory(new StrengthPotion());
     this->player->addToInventory(new UnknownVillageKey());
 
     if(this->difficulty == DIFFICULTY_EASY){
@@ -189,6 +192,8 @@ void Game::start(){
                 this->player->getCurrentLoc()->displayInfo();
             }else if(userInput == "stat"){
                 this->player->displayPlayerStatus();
+            }else if(userInput == "skills"){
+                this->player->displaySkills();
             }else if(userInput == "inventory"){
                 printInventory(this);
             }else if(userInput == "help"){

@@ -42,10 +42,17 @@ void GameMatch::endTurn(){
         this->playerAttackLeft = this->maxAttackPerRound;
         this->enemies[rng.getInt()]->attack(this->player);
     }
+
+    // reset skills modifier / strength potion modifier
     this->player->manaRegen();
+    this->player->resetModifier();
+    this->player->updateCooldownSkills();
     for(int i = 0; i < this->enemies.size(); i++){
         this->enemies[i]->manaRegen();
+        this->enemies[i]->resetModifier();
+        this->enemies[i]->updateCooldownSkills();
     }
+    
 }
 
 void GameMatch::cleanCorpse(){
@@ -74,6 +81,7 @@ void GameMatch::end(){
         }
         this->finished = true;
         this->player->disengage();
+        this->player->resetModifier();
     }
 }
 

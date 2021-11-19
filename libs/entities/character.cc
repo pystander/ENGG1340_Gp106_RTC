@@ -168,12 +168,44 @@ void GameCharacter::useItem(GameItem* item){
     if((item->getItemCategory() & CONSUMABLE)){
         int type = item->getType();
         this->applyModifier(item->getItemStat());
+        std::cout << "Using item: "; ColoredOutput::green(item->getName()) << "\n";
         if(type & HEALING){
             this->heal(item);
         }
         deleteItem(item);
     }else{
         std::cout << "Cannot use non-consumable item: "; ColoredOutput::green(item->getName()) << "\n";
+    }
+}
+
+void GameCharacter::useSkill(int index){
+    if(this->isSkillOnCooldown(index)){
+        std::cout << "Skill "; ColoredOutput::green(this->skills[index].name) << " is on cooldown\n";
+        return;
+    }
+    if(index >= 0 && index < this->skills.size()){
+        std::cout << "Using skill: "; ColoredOutput::green(this->skills[index].name) << "\n";
+        applyModifier(this->skills[index].modifier);
+        this->onCooldown.push_back(index);
+        this->onCooldownRoundsLeft.push_back(this->skills[index].cooldown);
+    }
+}
+
+bool GameCharacter::isSkillOnCooldown(int index){
+    for(int i = 0; i < this->onCooldown.size(); i++){
+        if(index == this->onCooldown[i]) return true;
+    }
+    return false;
+}
+
+void GameCharacter::updateCooldownSkills(){
+    for(int i = this->onCooldown.size()-1; i >= 0; i--){
+        this->onCooldownRoundsLeft[i]--;
+        if(this->onCooldownRoundsLeft[i] == 0){
+            // delete skill from cooldown list
+            this->onCooldown.erase(this->onCooldown.begin() + i);
+            this->onCooldownRoundsLeft.erase(this->onCooldownRoundsLeft.begin() + i);
+        }
     }
 }
 
@@ -217,6 +249,7 @@ void GameCharacter::applyModifier(StatModiferStore modifier){
     this->modifierStat.phyResist *= modifier.phyResist == 0? 1 : modifier.phyResist;
     this->modifierStat.magAttack *= modifier.magAttack == 0? 1 : modifier.magAttack;
     this->modifierStat.magResist *= modifier.magResist == 0? 1 : modifier.magResist;
+    this->recalculateAdditionalStat();
 }
 
 void GameCharacter::resetModifier(){
@@ -224,6 +257,7 @@ void GameCharacter::resetModifier(){
     this->modifierStat.phyResist = 1;
     this->modifierStat.magAttack = 1;
     this->modifierStat.magResist = 1;
+    this->recalculateAdditionalStat();
 }
 
 void GameCharacter::recalculateAdditionalStat(){
@@ -233,7 +267,13 @@ void GameCharacter::recalculateAdditionalStat(){
     this->additionalStat.magAttack = equippedItemStat.magAttack * this->modifierStat.magAttack;
     this->additionalStat.magResist = equippedItemStat.magResist * this->modifierStat.magResist;
 
-    // armor calculations...
+    if(this->armor){
+        StatModiferStore armorStat = this->armor->getItemStat();
+        this->additionalStat.phyAttack += armorStat.phyAttack * this->modifierStat.phyAttack;
+        this->additionalStat.phyResist += armorStat.phyResist * this->modifierStat.phyResist;
+        this->additionalStat.magAttack += armorStat.magAttack * this->modifierStat.magAttack;
+        this->additionalStat.magResist += armorStat.magResist * this->modifierStat.magResist;
+    }
 }
 
 void GameCharacter::heal(GameItem* item){
@@ -275,8 +315,9 @@ StatModiferStore GameCharacter::block(){
 
 void GameCharacter::levelup(){
     if(this->xp >= this->nextLevelXp){
-        if(this->isPlayer())
+        if(this->isPlayer()){
             ColoredOutput::green(this->getName()) << " has leveled up to level "; ColoredOutput::green(this->level) << "\n";
+        }
         this->forceLevelup();
     }
 }
@@ -302,8 +343,8 @@ void GameCharacter::displayCharacterStatus(){
     std::cout << "Money          : $"; ColoredOutput::greenStart() << this->money << "\n"; ColoredOutput::reset();
     std::cout << "Current Hp     : " ; ColoredOutput::greenStart() << this->currentHp   << ", (max: " << this->maxHp << ")" << "\n"; ColoredOutput::reset();
     std::cout << "Current Mana   : " ; ColoredOutput::greenStart() << this->currentMana << ", (max: " << this->maxMana << ")" << "\n"; ColoredOutput::reset();
-    std::cout << "Physical Attack: " ; ColoredOutput::greenStart() << stat.phyAttack << ", (add: " << this->additionalStat.phyAttack << ")" << "\n"; ColoredOutput::reset();
-    std::cout << "Physical Resist: " ; ColoredOutput::greenStart() << stat.phyResist << ", (add: " << this->additionalStat.phyResist << ")" << "\n"; ColoredOutput::reset();
-    std::cout << "Magical  Attack: " ; ColoredOutput::greenStart() << stat.magAttack << ", (add: " << this->additionalStat.magAttack << ")" << "\n"; ColoredOutput::reset();
-    std::cout << "Magical  Resist: " ; ColoredOutput::greenStart() << stat.magResist << ", (add: " << this->additionalStat.magResist << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Physical Attack: " ; ColoredOutput::greenStart() << stat.phyAttack << ", (add: " << this->additionalStat.phyAttack << "; mod: " << this->modifierStat.phyAttack << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Physical Resist: " ; ColoredOutput::greenStart() << stat.phyResist << ", (add: " << this->additionalStat.phyResist << "; mod: " << this->modifierStat.phyResist << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Magical  Attack: " ; ColoredOutput::greenStart() << stat.magAttack << ", (add: " << this->additionalStat.magAttack << "; mod: " << this->modifierStat.magAttack << ")" << "\n"; ColoredOutput::reset();
+    std::cout << "Magical  Resist: " ; ColoredOutput::greenStart() << stat.magResist << ", (add: " << this->additionalStat.magResist << "; mod: " << this->modifierStat.magResist << ")" << "\n"; ColoredOutput::reset();
 }

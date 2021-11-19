@@ -15,7 +15,6 @@ class Player;
 class Player : public GameCharacter{
     private:
         // not planning to add skill to mobs
-        std::vector<CharacterSkill> skills;
         std::vector<GameItem*> mapsUnlocked; // will be used to unlock maps after loading
         GameMap* currentLoc;
         GameMatch* recentMatch;
@@ -41,6 +40,7 @@ class Player : public GameCharacter{
 
         std::vector<GameItem*> dropRandomLoots();
 
+        void displaySkills();
         void displayInventory();
         void displayPlayerStatus();
 

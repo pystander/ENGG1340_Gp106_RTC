@@ -3,6 +3,12 @@
 
 class GameCharacter;
 
+#define WARRIOR  0 // balanced     (good armor, good attack)
+#define WIZARD   1 // balanced     (normal armor, very good attack)
+#define ASSASSIN 2 // over-powered (very low armor, super good attack)
+#define MONSTER  3 // enemy-only type
+
+#include <iostream>
 #include <stdlib.h>
 #include <string>
 #include <vector>
@@ -11,11 +17,7 @@ class GameCharacter;
 #include "libs/entities/game_item.h"
 #include "libs/entities/items/weapons.h"
 #include "libs/utils/random_util.h"
-
-#define WARRIOR  0 // balanced     (good armor, good attack)
-#define WIZARD   1 // balanced     (normal armor, very good attack)
-#define ASSASSIN 2 // over-powered (very low armor, super good attack)
-#define MONSTER  3 // enemy-only type
+#include "libs/skills/char_skill.h"
 
 class GameCharacter{
     protected:
@@ -23,6 +25,9 @@ class GameCharacter{
         std::string typeStr; // eg. warrior, wizard, assassin
         int classType;       // eg. WARRIOR (0)
         std::vector<GameItem*> inventory;
+        std::vector<CharacterSkill> skills;
+        std::vector<int> onCooldown;           // index of this->skills
+        std::vector<int> onCooldownRoundsLeft; // parallel with this->onCooldown
         GameItem* equippedItem = nullptr;
         GameItem* armor = nullptr;
         Random statRng = Random(0, 100);
@@ -54,12 +59,15 @@ class GameCharacter{
         GameCharacter(std::string name, bool is_player, int classType) : name(name), is_player(is_player), classType(classType){
             if(classType == WIZARD){
                 this->typeStr = "WIZARD";
+                skills = SkillSets::wizardSkills();
             }else if(classType == ASSASSIN){
                 this->typeStr = "ASSASSIN";
+                skills = SkillSets::assassinSkills();
             }else if(classType == MONSTER){
                 this->typeStr = "MONSTER";
             }else{
                 this->typeStr = "WARRIOR";
+                skills = SkillSets::warriorSkills();
             }
             this->setup();
         };
@@ -96,6 +104,10 @@ class GameCharacter{
         // delete an item from inventory
         void deleteItem(GameItem*);
         void useItem(GameItem*);
+        void useSkill(int index);
+        bool isSkillOnCooldown(int index);
+        // remove skills from cooldown list
+        void updateCooldownSkills();
         void equipItem(GameItem*); // weapons only
 
         void attack(GameCharacter*);

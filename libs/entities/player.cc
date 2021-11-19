@@ -89,6 +89,28 @@ std::vector<GameItem*> Player::dropRandomLoots(){
     return std::vector<GameItem*>();
 }
 
+void Player::displaySkills(){
+    std::cout << "Displaying skills for class: "; ColoredOutput::green(this->typeStr) << "\n";
+    std::vector<CharacterSkill> skills = this->skills;
+    for(int i = 0; i < skills.size(); i++){
+        ColoredOutput::cyan("~ ~ ~ ~ ~ ~ ~\n");
+        std::cout << "Skill "; ColoredOutput::cyan(i) << ":\n";
+        std::cout << "Name       : "; ColoredOutput::green(skills[i].name) << "\n";
+        std::cout << "Cooldown   : "; ColoredOutput::green(skills[i].cooldown) << "\n";
+        std::cout << "Mana needed: "; ColoredOutput::green(skills[i].manaDeduction) << "\n";
+        std::cout << "Phy  attack: "; ColoredOutput::green(skills[i].modifier.phyAttack) << "\n";
+        std::cout << "Phy  resist: "; ColoredOutput::green(skills[i].modifier.phyResist) << "\n";
+        std::cout << "Mag  attack: "; ColoredOutput::green(skills[i].modifier.magAttack) << "\n";
+        std::cout << "Mag  resist: "; ColoredOutput::green(skills[i].modifier.magResist) << "\n";
+    }
+    if(this->onCooldown.size() > 0){
+        ColoredOutput::blue("Displaying skills on cooldown:\n");
+        for(int i = 0; i < this->onCooldown.size(); i++){
+            std::cout << this->skills[this->onCooldown[i]].name << " ("; ColoredOutput::blue(this->onCooldownRoundsLeft[i]) << " rounds left)\n";
+        }
+    }
+}
+
 void Player::displayInventory(){
     std::cout << "Currently equipped item: "; ColoredOutput::green(this->equippedItem->getName()) << "\n";
     std::vector<GameItem*> inv = this->inventory;

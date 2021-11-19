@@ -99,6 +99,9 @@ void engage(Game* game){
         }else if(userInput == "use"){
             std::cin >> arg1;
             useItem(game, BasicConverter::safeToInt(arg1));
+        }else if(userInput == "skill"){
+            std::cin >> arg1;
+            useSkill(game, BasicConverter::safeToInt(arg1));
         }else if(userInput == "loot"){
             std::cin >> arg1;
             lootItem(game, battle, BasicConverter::safeToInt(arg1));
@@ -117,6 +120,8 @@ void engage(Game* game){
             battle->displayInfo();
         }else if(userInput == "stat"){
             game->player->displayPlayerStatus();
+        }else if(userInput == "skills"){
+            game->player->displaySkills();
         }else if(userInput == "inventory"){
             printInventory(game);
         }
@@ -169,6 +174,7 @@ void helpBase(Game* game){
         std::cout << "info" << "\n";
         std::cout << "where" << "\n";
         std::cout << "stat" << "\n";
+        std::cout << "skills" << "\n";
         std::cout << "inventory" << "\n";
         std::cout << "help" << "\n";
         std::cout << "exit" << "\n";

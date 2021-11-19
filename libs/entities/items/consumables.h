@@ -7,9 +7,8 @@
 class StrengthPotion : public GameItem{
     public:
         StrengthPotion() : GameItem("Strength Potion", PHY_ATTACK, CONSUMABLE){
-            Random rng = Random(10, 20);
             this->valueMoney = 100;
-            this->itemStat.phyAttack = rng.getInt();
+            this->itemStat.phyAttack = Random(1, 2).getFloat(); // scalar for non hp / mana
         };
 
         GameItem* copy(){

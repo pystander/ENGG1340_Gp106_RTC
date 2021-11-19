@@ -14,6 +14,10 @@ void attackEnemy(Game* game, GameMatch* battle, int index){
     battle->cleanCorpse();
 }
 
+void useSkill(Game* game, int index){
+    game->player->useSkill(index);
+}
+
 void lootItem(Game* game, GameMatch* battle, int index){
     battle->loot(game->player, index);
 }
@@ -32,12 +36,14 @@ void helpBattle(Game* game){
     std::cout << "disengage" << "\n";
     std::cout << "attack <index>" << "\n";
     std::cout << "use <index>" << "\n";
+    std::cout << "skill <index>" << "\n";
     std::cout << "loot <index>" << "\n";
     std::cout << "lootall" << "\n";
     std::cout << "loots" << "\n";
     std::cout << "info" << "\n";
     std::cout << "enemies" << "\n";
     std::cout << "stat" << "\n";
+    std::cout << "skills" << "\n";
     std::cout << "inventory" << "\n";
     std::cout << "help" << "\n";
     std::cout << "man <cmd>" << "\n";

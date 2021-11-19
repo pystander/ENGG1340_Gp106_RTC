@@ -113,6 +113,10 @@ void showManual(std::string cmd){
     }else if(cmd == "stat"){
         universalHeader(cmd, "base");
         std::cout << "Shows information of the player." << "\n";
+    }else if(cmd == "skills"){
+        universalHeader(cmd, "base");
+        std::cout << "Shows information of the player's skills. Skills which are " << "\n";
+        std::cout << "cooling down will also be shown, if any." << "\n";
     }else if(cmd == "inventory"){
         universalHeader(cmd, "base");
         std::cout << "Shows information of player's inventory." << "\n";
@@ -138,6 +142,12 @@ void showManual(std::string cmd){
         std::cout << "\n";
         std::cout << "First parameter <index> indicates the enemy index which you" << "\n";
         std::cout << "can find out using the 'enemies' command during the battle." << "\n";
+    }else if(cmd == "skill"){
+        universalHeader(cmd, "battle");
+        std::cout << "Activate a skill for one round, then it will be on cooldown." << "\n";
+        std::cout << "\n";
+        std::cout << "First parameter <index> indicates the skill index which you" << "\n";
+        std::cout << "can find out using the 'skills' command during the battle." << "\n";
     }else if(cmd == "loot"){
         universalHeader(cmd, "battle");
         std::cout << "Get a loot from the battle." << "\n";

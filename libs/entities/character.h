@@ -9,8 +9,8 @@ class GameCharacter;
 #include <math.h>
 
 #include "libs/entities/game_item.h"
-#include "libs/utils/random_util.h"
 #include "libs/entities/items/weapons.h"
+#include "libs/utils/random_util.h"
 
 #define WARRIOR  0 // balanced     (good armor, good attack)
 #define WIZARD   1 // balanced     (normal armor, very good attack)
@@ -52,14 +52,14 @@ class GameCharacter{
 
     public:
         GameCharacter(std::string name, bool is_player, int classType) : name(name), is_player(is_player), classType(classType){
-            if(classType == WARRIOR){
-                this->typeStr = "WARRIOR";
-            }else if(classType == WIZARD){
+            if(classType == WIZARD){
                 this->typeStr = "WIZARD";
             }else if(classType == ASSASSIN){
                 this->typeStr = "ASSASSIN";
             }else if(classType == MONSTER){
                 this->typeStr = "MONSTER";
+            }else{
+                this->typeStr = "WARRIOR";
             }
             this->setup();
         };
@@ -104,6 +104,7 @@ class GameCharacter{
         void resetModifier();
         void recalculateAdditionalStat();
         void heal(GameItem*);
+        void manaRegen();
         // used in attack(); to block enemy attack according to your resistance
         StatModiferStore block(); // generate defense values
         void forceLevelup();

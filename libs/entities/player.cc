@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include "libs/entities/player.h"
 #include "libs/enviro/game.h"
@@ -15,7 +17,10 @@ bool Player::isInBattle(){
 }
 
 void Player::unlockMap(GameMap* map, GameItem* item){
-    map->unlock(item);
+    if(map->unlock(item)){
+        this->mapsUnlocked.push_back(item->copy());
+        this->deleteItem(item);
+    }
 }
 
 void Player::forceEnter(GameMap* map){
@@ -28,7 +33,7 @@ void Player::enter(GameMap* map){
         if(this->currentLoc->getDifficulty() != DIFFICULTY_EASY){
             // 0.1 of chance getting into a battle randomly
             Random rng = Random(0, 1);
-            if(rng.getFloat() < 0.1){
+            if(rng.getFloat() < 0.1 && !map->isPeaceful()){
                 std::cout << "Enemies intercepts you on your way to "; ColoredOutput::blue(map->getName()) << "!\n";
                 this->engage();
             }
@@ -52,6 +57,10 @@ void Player::disengage(){
     this->currentLoc->cleanCorpse();
     this->recentMatch = nullptr;
     this->enteredBattle = false;
+}
+
+std::vector<GameItem*> Player::getMapsUnlocked(){
+    return this->mapsUnlocked;
 }
 
 GameMatch* Player::getRecentMatch(){
@@ -93,9 +102,114 @@ void Player::displayInventory(){
 }
 
 void Player::displayPlayerStatus(){
+    std::cout << "Currently equipped item: "; ColoredOutput::green(this->equippedItem->getName()) << "\n";
     StatModiferStore stat = this->baseStat;
     ColoredOutput::blue("Your current statistics:\n");
     this->displayCharacterStatus();
     std::cout << "Current Location: "; ColoredOutput::green(this->currentLoc->getName()) << "\n";
     std::cout << "Is in battle    : "; ColoredOutput::green(this->isInBattle()? "true" : "false") << "\n";
+}
+
+Player* Player::load(std::fstream& instream, Game* game){
+    std::string in;
+    std::string name;
+    std::string classType;
+    instream >> in;
+    if(in == "[player]") // just in case
+        instream >> in;
+    instream >> name;
+    instream >> in; instream >> classType;
+    Player* player = new Player(name, std::stoi(classType));
+    player->inventory.clear();
+
+    instream >> in;
+    if(in == "mapsUnlocked:"){
+        instream >> in;
+        while(in == "[item]"){
+            player->addToInventory(GameItem::load(instream));
+            instream >> in;
+        }
+    }else{
+        ColoredOutput::red("Error: ") << "Invalid sequence of properties\n";
+    }
+    // instream >> in;
+    if(in == "inventory:"){
+        instream >> in;
+        while(in == "[item]"){
+            player->addToInventory(GameItem::load(instream));
+            instream >> in;
+        }
+    }else{
+        ColoredOutput::red("Error: ") << "Invalid sequence of properties\n";
+    }
+    // instream >> in;
+    if(in == "equippedItem:"){
+        instream >> in;
+        if(in == "[item]"){
+            player->equipItem(GameItem::load(instream));
+        }
+    }else{
+        ColoredOutput::red("Error: ") << "Invalid sequence of properties\n";
+    }
+    instream >> in;
+    if(in == "armor:"){
+        instream >> in;
+        if(in == "[item]"){
+            player->equipItem(GameItem::load(instream));
+        }
+    }else{
+        ColoredOutput::red("Error: ") << "Invalid sequence of properties\n";
+    }
+    instream >> in; instream >> in; 
+    player->money = std::stoi(in);
+    instream >> in; instream >> in; 
+    player->level = std::stoi(in);
+    instream >> in; instream >> in; 
+    player->xp = std::stoi(in);
+    instream >> in; instream >> in; 
+    player->nextLevelXp = std::stoi(in);
+    instream >> in;
+    player->baseStat = GameItem::importStat(instream);
+    instream >> in;
+    player->additionalStat = GameItem::importStat(instream);
+    instream >> in;
+    player->modifierStat = GameItem::importStat(instream);
+    instream >> in; instream >> in; 
+    player->currentHp = std::stof(in);
+    instream >> in; instream >> in; 
+    player->maxHp = std::stof(in);
+    instream >> in; instream >> in; 
+    player->currentMana = std::stof(in);
+    instream >> in; instream >> in; 
+    player->maxMana = std::stof(in);
+
+    player->forceEnter(game->maps[SPAWN_AREA]);
+    return player;
+}
+
+std::string Player::exportData(Player* player){
+    std::string data = "[player]";
+    data += "\nname: " + player->name;
+    data += "\ntype: " + std::to_string(player->classType);
+    data += "\nmapsUnlocked: \n";
+    for(int i = 0; i < player->mapsUnlocked.size(); i++)
+        data += GameItem::exportData(player->mapsUnlocked[i]);
+    data += "\ninventory: \n";
+    for(int i = 0; i < player->inventory.size(); i++)
+        data += GameItem::exportData(player->getFromInventory(i));
+    data += "\nequippedItem: \n" + GameItem::exportData(player->equippedItem);
+    data += "\narmor: \n" + (player->armor? GameItem::exportData(player->armor) : "null");
+    data += "\nmoney: " + std::to_string(player->money);
+    data += "\nlevel: " + std::to_string(player->level);
+    data += "\nxp: " + std::to_string(player->xp);
+    data += "\nnextLevelXp: " + std::to_string(player->nextLevelXp);
+    data += "\nbaseStat: " + GameItem::exportStat(player->baseStat);
+    data += "\nadditionalStat: " + GameItem::exportStat(player->additionalStat);
+    data += "\nmodifierStat: " + GameItem::exportStat(player->modifierStat);
+    data += "\ncurrentHp: " + std::to_string(player->currentHp);
+    data += "\nmaxHp: " + std::to_string(player->maxHp);
+    data += "\ncurrentMana: " + std::to_string(player->currentMana);
+    data += "\nmaxMana: " + std::to_string(player->maxMana);
+    data += "\n";
+    return data;
 }

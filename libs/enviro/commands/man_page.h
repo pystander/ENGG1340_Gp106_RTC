@@ -22,6 +22,23 @@ void showManual(std::string cmd){
     }else if(cmd == "exit" || cmd == "end" || cmd == "quit"){
         universalHeader(cmd, "base");
         std::cout << "Used when you want to exit game" << "\n";
+    }else if(cmd == "save"){
+        universalHeader(cmd, "base");
+        std::cout << "Save current player statistics. Map stats are not saved for now." << "\n";
+        std::cout << "It is yet to be implemented. It is not possible to save in battle." << "\n";
+        std::cout << "See 'load' for loading data from a file." << "\n";
+        std::cout << "\n";
+        std::cout << "First parameter <filename> indicates the filename where the data" << "\n";
+        std::cout << "will be saved. '.rtc' file extension will be automatically appended" << "\n";
+        std::cout << "at the end of the filename. Hence, do not include any file extension." << "\n";
+    }else if(cmd == "load"){
+        universalHeader(cmd, "base");
+        std::cout << "Load data from a file. It is not possible to load during a battle" << "\n";
+        std::cout << "See 'save' manual to find out what data is being saved" << "\n";
+        std::cout << "\n";
+        std::cout << "First parameter <filename> indicates the filename where the data" << "\n";
+        std::cout << "will be loaded. '.rtc' file extension will be automatically appended" << "\n";
+        std::cout << "at the end of the filename. Hence, do not include any file extension." << "\n";
     }else if(cmd == "engage"){
         universalHeader(cmd, "base");
         std::cout << "Engage in a battle. But you need to be in a map where mobs will spawn." << "\n";

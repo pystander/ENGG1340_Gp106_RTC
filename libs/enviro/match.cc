@@ -42,6 +42,10 @@ void GameMatch::endTurn(){
         this->playerAttackLeft = this->maxAttackPerRound;
         this->enemies[rng.getInt()]->attack(this->player);
     }
+    this->player->manaRegen();
+    for(int i = 0; i < this->enemies.size(); i++){
+        this->enemies[i]->manaRegen();
+    }
 }
 
 void GameMatch::cleanCorpse(){

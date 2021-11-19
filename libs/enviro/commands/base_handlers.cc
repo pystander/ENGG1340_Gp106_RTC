@@ -83,25 +83,25 @@ void engage(Game* game){
     std::cout << "Successfully engaged into a battle\n";
     battle->displayInfo();
 
-    std::string index;
     std::string userInput;
+    std::string arg1;
     while(game->player->isInBattle()){
         // [engaged] commands
         // stuck inside this loop until disengage() or lose or all dead
         ColoredOutput::red(game->player->getCurrentLoc()->getName()) << "(Battle) >> ";
         std::cin >> userInput;
         if(userInput == "attack"){
-            std::cin >> index;
-            attackEnemy(game, battle, BasicConverter::intFromString(index));
+            std::cin >> arg1;
+            attackEnemy(game, battle, BasicConverter::safeToInt(arg1));
         }else if(userInput == "disengage"){
             disengage(game);
             break;
         }else if(userInput == "use"){
-            std::cin >> index;
-            useItem(game, BasicConverter::intFromString(index));
+            std::cin >> arg1;
+            useItem(game, BasicConverter::safeToInt(arg1));
         }else if(userInput == "loot"){
-            std::cin >> index;
-            lootItem(game, battle, BasicConverter::intFromString(index));
+            std::cin >> arg1;
+            lootItem(game, battle, BasicConverter::safeToInt(arg1));
         }else if(userInput == "lootall"){
             lootAllItems(game, battle);
         }else if(userInput == "loots"){
@@ -148,10 +148,12 @@ void helpBase(Game* game){
     ColoredOutput::blue("Available commands normally:\n");
     if(!game->hasGameStarted()){
         std::cout << "start" << "\n";
+        std::cout << "load <filename>" << "\n";
         std::cout << "exit" << "\n";
         std::cout << "end" << "\n";
         std::cout << "quit" << "\n";
         std::cout << "help" << "\n";
+        std::cout << "man <cmd>" << "\n";
     }else{
         std::cout << "engage" << "\n";
         std::cout << "enter <index>" << "\n";
@@ -172,6 +174,8 @@ void helpBase(Game* game){
         std::cout << "exit" << "\n";
         std::cout << "end" << "\n";
         std::cout << "quit" << "\n";
+        std::cout << "save <filename>" << "\n";
+        std::cout << "load <filename>" << "\n";
         std::cout << "man <cmd>" << "\n";
     }
 }

@@ -1,0 +1,30 @@
+[start]
+[player]
+name: vin
+type: 1
+mapsUnlocked: 
+[item]
+name: Unknown Village Key
+
+inventory: 
+[item]
+name: Hands
+
+equippedItem: 
+[item]
+name: Hands
+
+armor: 
+null
+money: 645
+level: 1
+xp: 20
+nextLevelXp: 100
+baseStat: 11.000000 37.000000 10.000000 12.000000 0.000000 0.000000 160
+additionalStat: 5.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0
+modifierStat: 1.000000 1.000000 1.000000 1.000000 0.000000 0.000000 0
+currentHp: 106.799995
+maxHp: 107.000000
+currentMana: 107.000000
+maxMana: 107.000000
+[end]

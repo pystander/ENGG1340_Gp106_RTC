@@ -1,9 +1,46 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include "libs/entities/game_item.h"
+#include "libs/entities/items/armors.h"
+#include "libs/entities/items/weapons.h"
+#include "libs/entities/items/consumables.h"
+#include "libs/entities/items/map_keys.h"
 #include "libs/utils/colored_output.h"
 
 int GLOBAL_ID = 0;
+
+// there is a more efficient way, no time for that.
+std::unordered_map<std::string, GameItem*> NAME_TO_ITEM = {
+    // armors
+    {"Leather Cloth", new LeatherCloth()},
+    {"Silver Chestplate", new SilverChestplate()},
+    {"Mage Cloak", new MageCloak()},
+
+    // weapons
+    {"Hands", new WeaponHands()},
+    {"Wooden Sword", new WoodenSword()},
+    {"Bronze Dagger", new BronzeDagger()},
+    {"Iron Scimitar", new IronScimitar()},
+    {"Pale Justice", new PaleJustice()},
+    {"Wooden Wand", new WoodenWand()},
+    {"Mithril Sword", new MithrilSword()},
+    {"Mage Staff", new MageStaff()},
+
+    // consumables
+    {"Strength Potion", new StrengthPotion()},
+    {"Small HP potion", new SmallHpPotion()},
+    {"Medium HP potion", new MediumHpPotion()},
+    {"Extra HP potion", new ExtraHpPotion()},
+    {"Phoenix Tear", new PhoenixTear()},
+    {"Small MP Potion", new SmallMpPotion()},
+    {"Medium MP Potion", new MediumMpPotion()},
+    {"Extra MP Potion", new ExtraMpPotion()},
+
+    // map keys
+    {"Unknown Village Key", new UnknownVillageKey()},
+};
 
 int GameItem::getId(){
     return this->id;
@@ -92,4 +129,61 @@ void GameItem::showStatisticsOnly(){
         std::cout << "Stuns          : " ; ColoredOutput::greenStart() << (stat.stun? "true" : "false") << "\n"; ColoredOutput::reset();
         std::cout << "Tradable       : " ; ColoredOutput::greenStart() << (this->can_sell? "true" : "false") << "\n"; ColoredOutput::reset();
     }
+}
+
+GameItem* GameItem::load(std::fstream& instream){
+    std::string in;
+    instream >> in;
+    if(in == "[item]") // just in case
+        instream >> in;
+    if(in == "null")
+        return nullptr;
+    if(in == "name:"){
+        instream.ignore(1); // skip ' '
+        std::getline(instream, in);
+        return NAME_TO_ITEM[in];
+    }else{
+        ColoredOutput::red("Error: ") << "Cannot parse item\n";
+    }
+    return nullptr;
+}
+
+std::string GameItem::exportData(GameItem* item){
+    std::string data = "[item]";
+    data += "\nname: " + item->getName();
+    data += "\n";
+    return data;
+}
+
+
+StatModiferStore GameItem::importStat(std::fstream& instream){
+    StatModiferStore stat;
+    std::string arg;
+    instream >> arg;
+    stat.phyAttack = std::stof(arg); 
+    instream >> arg;
+    stat.magAttack = std::stof(arg); 
+    instream >> arg;
+    stat.phyResist = std::stof(arg); 
+    instream >> arg;
+    stat.magResist = std::stof(arg); 
+    instream >> arg;
+    stat.healAmount = std::stof(arg);
+    instream >> arg;
+    stat.manaAmount = std::stof(arg);
+    instream >> arg;
+    stat.stun = std::stoi(arg);
+    return stat;
+}
+
+std::string GameItem::exportStat(StatModiferStore stat){
+    std::string data = "";
+    data += std::to_string(stat.phyAttack) + " ";
+    data += std::to_string(stat.magAttack) + " ";
+    data += std::to_string(stat.phyResist) + " ";
+    data += std::to_string(stat.magResist) + " ";
+    data += std::to_string(stat.healAmount) + " ";
+    data += std::to_string(stat.manaAmount) + " ";
+    data += std::to_string(stat.stun);
+    return data;
 }

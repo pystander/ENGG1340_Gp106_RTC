@@ -12,7 +12,7 @@ class BasicConverter{
          * -1 if error occured. That's why you should 
          * use this function for positive integers.
          */
-        static int intFromString(std::string str){
+        static int safeToInt(std::string str){
             try{
                 return std::stoi(str);
             }catch(std::invalid_argument exception){

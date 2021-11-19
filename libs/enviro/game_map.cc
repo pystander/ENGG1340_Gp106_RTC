@@ -64,21 +64,27 @@ bool GameMap::isLocked(){
     return this->locked;
 }
 
+bool GameMap::isPeaceful(){
+    return this->peaceful;
+}
+
 void GameMap::lock(){
     this->locked = true;
 }
 
-void GameMap::unlock(GameItem* key){
+bool GameMap::unlock(GameItem* key){
     if(!this->isLocked()){
         ColoredOutput::green(this->getName()) << " is already unlocked\n";
-        return;
+        return false;
     }
     if((key->getItemCategory() & ITEM_KEY) &&  key->getName() == this->keyName){
         this->locked = false;
         std::cout << "Unlocked new map: "; ColoredOutput::green(this->getName()) << " with item "; ColoredOutput::green(key->getName()) << "\n";
+        return true;
     }else{
         std::cout << "Cannot unlock map: "; ColoredOutput::green(this->getName()) << " with item "; ColoredOutput::green(key->getName()) << "\n";
     }
+    return false;
 }
 
 int GameMap::getDifficulty(){

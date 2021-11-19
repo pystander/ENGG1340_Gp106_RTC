@@ -4,6 +4,19 @@
 #include "libs/entities/game_item.h"
 #include "libs/utils/random_util.h"
 
+class StrengthPotion : public GameItem{
+    public:
+        StrengthPotion() : GameItem("Strength Potion", PHY_ATTACK, CONSUMABLE){
+            Random rng = Random(10, 20);
+            this->valueMoney = 100;
+            this->itemStat.phyAttack = rng.getInt();
+        };
+
+        GameItem* copy(){
+            return new StrengthPotion();
+        }
+};
+
 class SmallHpPotion : public GameItem{
     public:
         SmallHpPotion() : GameItem("Small HP potion", HEALING, CONSUMABLE){

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <typeinfo>
+#include <fstream>
 #include "libs/utils/basic_converter.h"
 #include "libs/utils/colored_output.h"
 #include "libs/enviro/game.h"
@@ -15,8 +15,24 @@
 
 // private
 void Game::createPlayer(){
-    std::cout << "Creating player...\n";
-    this->player = new Player("Player", WARRIOR);
+    ColoredOutput::blue("Creating") << " player...\n";
+
+    std::string name;
+    std::string classType;
+    if(this->player == nullptr){
+        std::cout << "What do you want your in-game name to be? ";
+        std::cin >> name;
+        std::cout << "What class you want your character to be? (type in a number)\n";
+        std::cout << "1. warrior (default)\n";
+        std::cout << "2. wizard\n";
+        std::cout << "3. assassin\n";
+        std::cout << "Ans: ";
+        std::cin >> classType;
+    }else{
+        name = this->player->getName();
+    }
+    
+    this->player = new Player(name, BasicConverter::safeToInt(classType)-1);
     this->player->forceEnter(this->maps[WAITING_AREA]); // land in the waiting area first
     this->player->getCurrentLoc()->displayInfo();
     this->player->getCurrentLoc()->displayDescription();
@@ -34,7 +50,7 @@ void Game::createPlayer(){
 }
 
 void Game::setupMaps(){
-    std::cout << "Setting up maps...\n";
+    ColoredOutput::blue("Setting") << " up maps...\n";
 
     // Peaceful maps
     WaitingArea* waitingArea = new WaitingArea(this->difficulty);
@@ -75,7 +91,22 @@ void Game::setupMaps(){
     this->maps.push_back(castle_F2);
 }
 
-// public
+void Game::setupDifficulty(){
+    std::string difficultyStr;
+    std::cout << "What difficulty do you want? (type in a number)\n";
+    std::cout << "1. easy\n";
+    std::cout << "2. normal (default)\n";
+    std::cout << "3. hard\n";
+    std::cout << "Ans: ";
+    std::cin >> difficultyStr;
+    int difficultyInt = BasicConverter::safeToInt(difficultyStr)-1;
+    if(difficultyInt == DIFFICULTY_EASY || difficultyInt == DIFFICULTY_NORMAL || difficultyInt == DIFFICULTY_HARD){
+        this->difficulty = difficultyInt;
+    }else{
+        this->difficulty = DIFFICULTY_NORMAL;
+    }
+}
+
 Game::Game(int difficulty){
     this->difficulty = difficulty;
 }
@@ -93,12 +124,13 @@ void Game::start(){
     startStory(this);
 
     this->setupMaps();
+    this->setupDifficulty();
     this->createPlayer();
 
-    std::cout << "Game is ready, type 'help' to get a list of available commands\n";
+    ColoredOutput::blue("Game is ready") << ", type 'help' to get a list of available commands\n";
     std::string userInput;
-    std::string index;
-    std::string secondIndex;
+    std::string arg1;
+    std::string arg2;
     while(userInput != "exit" && userInput != "end" && userInput != "quit"){
         ColoredOutput::red(this->player->getCurrentLoc()->getName()) << " >> ";
         std::cin >> userInput;
@@ -110,6 +142,13 @@ void Game::start(){
                 helpBase(this);
             }else if(userInput == "mapdesc"){
                 this->player->getCurrentLoc()->displayDescription();
+            }else if(userInput == "load"){
+                std::cin >> arg1;
+                this->load(arg1);
+            }else if(userInput == "man"){
+                std::string cmd;
+                std::cin >> cmd;
+                showManual(cmd);
             }
         }else{
             if(userInput == "engage"){
@@ -117,32 +156,33 @@ void Game::start(){
             }else if(userInput == "wait"){
                 gameWait(this);
             }else if(userInput == "enter"){
-                std::cin >> index;
-                enterLoc(this, BasicConverter::intFromString(index));
+                std::cin >> arg1;
+                enterLoc(this, BasicConverter::safeToInt(arg1));
             }else if(userInput == "unlock"){
-                std::cin >> index;
-                std::cin >> secondIndex;
-                unlockLoc(this, BasicConverter::intFromString(index), BasicConverter::intFromString(secondIndex));
+                std::cin >> arg1;
+                std::cin >> arg2;
+                unlockLoc(this, BasicConverter::safeToInt(arg1), BasicConverter::safeToInt(arg2));
             }else if(userInput == "equip"){
-                std::cin >> index;
-                equipItem(this, BasicConverter::intFromString(index));
+                std::cin >> arg1;
+                equipItem(this, BasicConverter::safeToInt(arg1));
             }else if(userInput == "use"){
-                std::cin >> index;
-                useItem(this, BasicConverter::intFromString(index));
+                std::cin >> arg1;
+                useItem(this, BasicConverter::safeToInt(arg1));
             }else if(userInput == "buy"){
-                std::cin >> index;
-                buyItem(this, BasicConverter::intFromString(index));
+                std::cin >> arg1;
+                buyItem(this, BasicConverter::safeToInt(arg1));
             }else if(userInput == "sell"){
-                std::cin >> index;
-                sellItem(this, BasicConverter::intFromString(index));
+                std::cin >> arg1;
+                sellItem(this, BasicConverter::safeToInt(arg1));
             }else if(userInput == "discard"){
-                std::cin >> index;
-                discardItem(this, BasicConverter::intFromString(index));
+                std::cin >> arg1;
+                discardItem(this, BasicConverter::safeToInt(arg1));
             }else if(userInput == "shop"){
                 printShopItems(this);
             }else if(userInput == "mapdesc"){
                 printMapDescription(this);
             }else if(userInput == "info"){
+                std::cout << "Game difficulty: "; ColoredOutput::blue(std::to_string(this->difficulty)) << "\n";
                 this->player->displayPlayerStatus();
                 this->player->getCurrentLoc()->displayInfo();
             }else if(userInput == "where"){
@@ -153,6 +193,12 @@ void Game::start(){
                 printInventory(this);
             }else if(userInput == "help"){
                 helpBase(this);
+            }else if(userInput == "save"){
+                std::cin >> arg1;
+                this->save(arg1);
+            }else if(userInput == "load"){
+                std::cin >> arg1;
+                this->load(arg1);
             }else if(userInput == "man"){
                 std::string cmd;
                 std::cin >> cmd;
@@ -183,10 +229,44 @@ void Game::updateMaps(){
     }
 }
 
-void Game::save(){
-
+void Game::save(std::string filename){
+    ColoredOutput::blue("Saving...\n");
+    std::fstream instream(filename + ".rtc");
+    if(instream.good()){
+        ColoredOutput::blue(filename + ".rtc") << " exists. Please use another filename.\n";
+        return;
+    }
+    instream.open(filename + ".rtc", std::ios::out);
+    instream << "[start]\n";
+    instream << this->player->exportData(this->player);
+    instream << "[end]\n";
+    
+    instream.close();
 }
 
-void Game::load(){
-
+void Game::load(std::string filename){
+    ColoredOutput::blue("Loading...\n");
+    std::fstream instream;
+    instream.open(filename + ".rtc", std::ios::in);
+    if(instream.fail()){
+        ColoredOutput::red("Error: ") << "Cannot open file of name "; ColoredOutput::blue(filename + ".rtc") << "\n";
+        return;
+    }
+    std::string line;
+    std::getline(instream, line);
+    if(line != "[start]"){
+        ColoredOutput::red("Error: ") << "Invalid game save header\n";
+        return;
+    }
+    while(std::getline(instream, line)){
+        if(line == "[player]"){
+            Player* p = Player::load(instream, this);
+            p->displayPlayerStatus();
+            this->player = p;
+            continue;
+        }else if(line == "[end]"){
+            break;
+        }
+    }
+    instream.close();
 }

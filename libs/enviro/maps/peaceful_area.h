@@ -9,6 +9,7 @@
 class WaitingArea : public GameMap{
     public:
         WaitingArea(int difficulty) : GameMap("Waiting Area", difficulty){
+            this->peaceful = true;
             this->description = "This is the waiting area. You have to type 'start' in order to start \n";
             this->description += "the game. Feel free to type 'mapdesc' to show description of the map\n";
             this->description += "which you are currently in.\n";
@@ -22,6 +23,7 @@ class WaitingArea : public GameMap{
 class SpawnArea : public GameMap{
     public:
         SpawnArea(int difficulty) : GameMap("Spawn Area", difficulty){
+            this->peaceful = true;
             this->description = "Welcome to the spawn area. This area is regarded as a peaceful area\n";
             this->description += "where monsters / enemies will not spawn here. For available commands\n";
             this->description += "feel free to use type 'help'. If you don't know what the command does\n";
@@ -42,6 +44,7 @@ class SpawnArea : public GameMap{
 class ConsumableShop : public GameMap{
     public:
         ConsumableShop(int difficulty) : GameMap("Consumable Shop", difficulty){
+            this->peaceful = true;
             this->description = "This is a consumable shop. You can buy potions in this area.\n";
             this->description += "Feel free to type 'shop' to see available potions.\n";
 
@@ -59,6 +62,7 @@ class ConsumableShop : public GameMap{
 class WeaponShop : public GameMap{
     public:
         WeaponShop(int difficulty) : GameMap("Weapon Shop", difficulty){
+            this->peaceful = true;
             this->description = "This is a weapon shop. You can buy and sell weapons in this area.\n";
             this->description += "Feel free to type 'shop' to see available weapons.\n";
 
@@ -78,6 +82,7 @@ class WeaponShop : public GameMap{
 class ArmorShop : public GameMap{
     public:
         ArmorShop(int difficulty) : GameMap("Armor Shop", difficulty){
+            this->peaceful = true;
             this->description = "This is a armor shop. You can buy and sell armors in this area.\n";
             this->description += "Feel free to type 'shop' to see available armors.\n";
 

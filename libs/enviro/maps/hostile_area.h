@@ -8,6 +8,7 @@
 class UnknownVillage : public GameMap{
     public:
         UnknownVillage(int difficulty) : GameMap("Unknown Village", difficulty){
+            this->peaceful = false;
             this->description = "This seems to be an abandoned village, nothing special.\n";
             this->description += "But the broken walls and windows remind you to be careful.\n";
             this->description += "You hear a few sharp noises coming from the woods,\n";
@@ -33,6 +34,7 @@ class UnknownVillage : public GameMap{
 class LostWoods : public GameMap{
     public:
         LostWoods(int difficulty) : GameMap("The Lost Woods", difficulty){
+            this->peaceful = false;
             this->description = "You step into the forest with bravery.\n";
             this->description += "The Woods is always covered with a heavy mist,\n";
             this->description += "and most travellers eventually end up losing their directions.\n";
@@ -50,6 +52,7 @@ class LostWoods : public GameMap{
 class DawnDungeon : public GameMap{
     public:
         DawnDungeon(int difficulty) : GameMap("Dungeon of the Dawn", difficulty){
+            this->peaceful = false;
             this->description = "You gradually walk down to the dungeon entrance.\n";
             this->description += "The gate is rotten, opening it would be an effortful task.\n";
             this->description += "You push the gate so hard, that finally it fell down.\n";
@@ -67,7 +70,9 @@ class DawnDungeon : public GameMap{
 
 class Castle_F1 : public GameMap{
     public:
-        Castle_F1(int difficulty) : GameMap("The Castle - 1/F", difficulty){};
+        Castle_F1(int difficulty) : GameMap("The Castle - 1/F", difficulty){
+            this->peaceful = false;
+        };
 
         GameCharacter* spawnRandomMobs(){
             return new FireDragon();
@@ -76,7 +81,9 @@ class Castle_F1 : public GameMap{
 
 class Castle_F2 : public GameMap{
     public:
-        Castle_F2(int difficulty) : GameMap("The Castle - 2/F", difficulty){};
+        Castle_F2(int difficulty) : GameMap("The Castle - 2/F", difficulty){
+            this->peaceful = false;
+        };
 
         GameCharacter* spawnRandomMobs(){
             return new LichKing();

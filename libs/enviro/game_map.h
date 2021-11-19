@@ -8,10 +8,10 @@ class GameMap;
 #include <set>
 #include "libs/entities/character.h"
 
-#define NOT_SHOP         0b0001
-#define SHOP_WEAPON      0b0010
-#define SHOP_ARMOR       0b0100
-#define SHOP_CONSUMABLES 0b1000
+#define NOT_SHOP         1 << 0 // 0b0001
+#define SHOP_WEAPON      1 << 1 // 0b0010
+#define SHOP_ARMOR       1 << 2 // 0b0100
+#define SHOP_CONSUMABLES 1 << 3 // 0b1000
 
 class GameMap{
     protected:
@@ -24,6 +24,7 @@ class GameMap{
         double enemySpawnRate;
         
         bool locked = false;
+        bool peaceful = false;
         std::string keyName = ""; // used when the map is locked
 
         // For shops
@@ -50,8 +51,10 @@ class GameMap{
         GameMap* getNeighborByIndex(int);
 
         bool isLocked();
+        bool isPeaceful();
         void lock();
-        void unlock(GameItem* key);
+        // returns whether the unlock is successful or not
+        bool unlock(GameItem* key);
 
         int getDifficulty();
         int getShopType();

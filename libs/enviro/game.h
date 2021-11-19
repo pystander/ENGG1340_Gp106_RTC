@@ -5,6 +5,7 @@ class Game;
 
 #include <stdlib.h>
 #include <vector>
+#include <string>
 #include "libs/utils/random_util.h"
 #include "libs/entities/player.h"
 #include "libs/enviro/game_map.h"
@@ -16,9 +17,6 @@ class Game;
 // Maps constants (of course we need a system to "travel" preferably)
 #define WAITING_AREA    0
 #define SPAWN_AREA      1
-#define UNKNOWN_VILLAGE 2
-#define LOST_WOODS      3
-#define DAWN_DUNGEON    4
 
 /**
  * Main game.
@@ -28,10 +26,11 @@ class Game{
         bool started = false;
         void createPlayer();
         void setupMaps();
+        void setupDifficulty();
 
     public:
         int difficulty;
-        Player* player;
+        Player* player = nullptr;
         std::vector<GameMap*> maps;
 
         Game(int difficulty);
@@ -45,11 +44,19 @@ class Game{
 
         void exitGame();
 
-        // only player stat is saved
-        void save();
+        /**
+         * @brief only player stat is saved (because of time constraint)
+         * 
+         * File structure (all case-sensitive):
+         * [start]
+         * [player]
+         * <player data defined in Player::save()>
+         * [end]
+         */
+        void save(std::string filename);
 
         // only player stat can be loaded
-        void load();
+        void load(std::string filename);
 };
 
 #endif

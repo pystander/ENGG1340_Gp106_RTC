@@ -254,6 +254,14 @@ void GameCharacter::heal(GameItem* item){
     }
 }
 
+void GameCharacter::manaRegen(){
+    int regenAmount = this->maxMana/5 + Random(10, 20).getFloat();
+    this->currentMana += regenAmount;
+    if(this->currentMana > this->maxMana){
+        this->currentMana = this->maxMana;
+    }
+}
+
 StatModiferStore GameCharacter::block(){
     StatModiferStore stat = this->baseStat;
     // 0 is the min

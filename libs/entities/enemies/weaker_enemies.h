@@ -3,6 +3,7 @@
 
 #include "libs/entities/character.h"
 #include "libs/entities/items/weapons.h"
+#include "libs/entities/items/consumables.h"
 #include "libs/utils/random_util.h"
 
 class Goblin : public GameCharacter{
@@ -23,11 +24,13 @@ class Goblin : public GameCharacter{
 
         std::vector<GameItem*> dropRandomLoots(){
             std::vector<GameItem*> loots;
-
             // Random loots
-            if(Random(0, 1).getFloat() >= 0.5)
+            if(Random(0, 1).getFloat() >= 0.7)
                 loots.push_back(new WoodenSword());
-
+            if(Random(0, 1).getFloat() >= 0.7)
+                loots.push_back(new WoodenWand());
+            if(Random(0, 1).getFloat() >= 0.5)
+                loots.push_back(new SmallHpPotion());
             return loots;
         }
 
@@ -57,7 +60,13 @@ class Wolf : public GameCharacter{
 
         std::vector<GameItem*> dropRandomLoots(){
             std::vector<GameItem*> loots;
-            loots.push_back(new WoodenSword());
+            // Random loots
+            if(Random(0, 1).getFloat() >= 0.7)
+                loots.push_back(new WoodenSword());
+            if(Random(0, 1).getFloat() >= 0.7)
+                loots.push_back(new WoodenWand());
+            if(Random(0, 1).getFloat() >= 0.5)
+                loots.push_back(new SmallHpPotion());
             return loots;
         }
 

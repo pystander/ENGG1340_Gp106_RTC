@@ -1,4 +1,4 @@
-COMPILE_CMD=g++ --std=c++11 -I.
+COMPILE_CMD=g++ -pedantic-errors --std=c++11 -I. -g
 ccsrc = $(wildcard libs/enviro/*.cc) \
 		$(wildcard libs/enviro/maps/*.cc) \
 		$(wildcard libs/enviro/commands/*.cc) \

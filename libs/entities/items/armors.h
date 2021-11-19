@@ -7,6 +7,7 @@ class LeatherCloth : public GameItem{
     public:
         LeatherCloth() : GameItem("Leather Cloth", PHY_RESIST, ARMOR){
             this->itemStat.phyResist = 3;
+            this->itemStat.magResist = 2;
             this->valueMoney = 150;
         };
 
@@ -19,6 +20,7 @@ class SilverChestplate : public GameItem{
     public:
         SilverChestplate() : GameItem("Silver Chestplate", PHY_RESIST, ARMOR){
             this->itemStat.phyResist = 10;
+            this->itemStat.magResist = 5;
             this->valueMoney = 500;
         };
 
@@ -31,6 +33,7 @@ class MageCloak : public GameItem{
     public:
         MageCloak() : GameItem("Mage Cloak", MAG_RESIST, ARMOR){
             this->itemStat.magResist = 15;
+            this->itemStat.phyResist = 5;
             this->valueMoney = 800;
         };
 

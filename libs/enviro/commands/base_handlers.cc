@@ -8,6 +8,8 @@
 void startGame(Game* game){
     if(!game->hasGameStarted()){
         game->player->forceEnter(game->maps[SPAWN_AREA]);
+        game->player->getCurrentLoc()->hasComeHereBefore = true;
+        game->player->getCurrentLoc()->displayDescription();
         game->gameStarted();
     }
 }
@@ -93,6 +95,8 @@ void engage(Game* game){
         if(userInput == "attack"){
             std::cin >> arg1;
             attackEnemy(game, battle, BasicConverter::safeToInt(arg1));
+            if(battle->enemiesLeft() > 0)
+                battle->endTurn();
         }else if(userInput == "disengage"){
             disengage(game);
             break;
@@ -124,6 +128,10 @@ void engage(Game* game){
             game->player->displaySkills();
         }else if(userInput == "inventory"){
             printInventory(game);
+        }else if(userInput == "man"){
+            std::string cmd;
+            std::cin >> cmd;
+            showManual(cmd);
         }
 
         if(game->player->isDead())

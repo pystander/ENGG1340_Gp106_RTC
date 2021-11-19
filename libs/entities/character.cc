@@ -185,9 +185,19 @@ void GameCharacter::useSkill(int index){
     }
     if(index >= 0 && index < this->skills.size()){
         std::cout << "Using skill: "; ColoredOutput::green(this->skills[index].name) << "\n";
-        applyModifier(this->skills[index].modifier);
-        this->onCooldown.push_back(index);
-        this->onCooldownRoundsLeft.push_back(this->skills[index].cooldown);
+        if(this->currentMana - this->skills[index].manaDeduction >= 0){
+            this->currentMana -= this->skills[index].manaDeduction;
+            if(this->skills[index].manaDeduction > 0){
+                std::cout << "Mana decreases by "; ColoredOutput::green(this->skills[index].manaDeduction) << "\n";
+            }
+            applyModifier(this->skills[index].modifier);
+            this->onCooldown.push_back(index);
+            this->onCooldownRoundsLeft.push_back(this->skills[index].cooldown);
+        }else{
+            ColoredOutput::blue(this->getName() + " do not have enough mana!\n");
+        }
+    }else{
+        std::cout << "Cannot use skill with index: "; ColoredOutput::green(index) << "\n";
     }
 }
 
@@ -261,18 +271,20 @@ void GameCharacter::resetModifier(){
 }
 
 void GameCharacter::recalculateAdditionalStat(){
+    // never multiply by 0 (if you want no effect on mobs, 
+    // use 99999 on mobs phy/mag resistance instead)
     StatModiferStore equippedItemStat = this->equippedItem->getItemStat();
-    this->additionalStat.phyAttack = equippedItemStat.phyAttack * this->modifierStat.phyAttack;
-    this->additionalStat.phyResist = equippedItemStat.phyResist * this->modifierStat.phyResist;
-    this->additionalStat.magAttack = equippedItemStat.magAttack * this->modifierStat.magAttack;
-    this->additionalStat.magResist = equippedItemStat.magResist * this->modifierStat.magResist;
+    this->additionalStat.phyAttack = (equippedItemStat.phyAttack? equippedItemStat.phyAttack : 1) * this->modifierStat.phyAttack;
+    this->additionalStat.phyResist = (equippedItemStat.phyResist? equippedItemStat.phyResist : 1) * this->modifierStat.phyResist;
+    this->additionalStat.magAttack = (equippedItemStat.magAttack? equippedItemStat.magAttack : 1) * this->modifierStat.magAttack;
+    this->additionalStat.magResist = (equippedItemStat.magResist? equippedItemStat.magResist : 1) * this->modifierStat.magResist;
 
     if(this->armor){
         StatModiferStore armorStat = this->armor->getItemStat();
-        this->additionalStat.phyAttack += armorStat.phyAttack * this->modifierStat.phyAttack;
-        this->additionalStat.phyResist += armorStat.phyResist * this->modifierStat.phyResist;
-        this->additionalStat.magAttack += armorStat.magAttack * this->modifierStat.magAttack;
-        this->additionalStat.magResist += armorStat.magResist * this->modifierStat.magResist;
+        this->additionalStat.phyAttack += (armorStat.phyAttack? armorStat.phyAttack : 1) * this->modifierStat.phyAttack;
+        this->additionalStat.phyResist += (armorStat.phyResist? armorStat.phyResist : 1) * this->modifierStat.phyResist;
+        this->additionalStat.magAttack += (armorStat.magAttack? armorStat.magAttack : 1) * this->modifierStat.magAttack;
+        this->additionalStat.magResist += (armorStat.magResist? armorStat.magResist : 1) * this->modifierStat.magResist;
     }
 }
 
@@ -283,7 +295,7 @@ void GameCharacter::heal(GameItem* item){
             this->currentHp += item->getItemStat().healAmount;
             if(this->currentHp > this->maxHp)
                 this->currentHp = this->maxHp;
-            std::cout << "You healed for " << item->getItemStat().healAmount << " HP\n";
+            ColoredOutput::green(this->getName()) << " healed for " << item->getItemStat().healAmount << " HP\n";
         }
         if(stat.manaAmount != 0){
             this->currentMana += item->getItemStat().manaAmount;
@@ -295,7 +307,7 @@ void GameCharacter::heal(GameItem* item){
 }
 
 void GameCharacter::manaRegen(){
-    int regenAmount = this->maxMana/5 + Random(10, 20).getFloat();
+    int regenAmount = Random(0, 30).getFloat();
     this->currentMana += regenAmount;
     if(this->currentMana > this->maxMana){
         this->currentMana = this->maxMana;

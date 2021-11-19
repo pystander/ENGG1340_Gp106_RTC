@@ -46,7 +46,8 @@ class ConsumableShop : public GameMap{
         ConsumableShop(int difficulty) : GameMap("Consumable Shop", difficulty){
             this->peaceful = true;
             this->description = "This is a consumable shop. You can buy potions in this area.\n";
-            this->description += "Feel free to type 'shop' to see available potions.\n";
+            this->description += "Feel free to type 'shop' to see available potions. Use 'sell' to\n";
+            this->description += "sell consumables from your inventory\n";
 
             this->shopType = SHOP_CONSUMABLES;
             this->itemsOnSold.push_back(new SmallHpPotion());
@@ -64,7 +65,8 @@ class WeaponShop : public GameMap{
         WeaponShop(int difficulty) : GameMap("Weapon Shop", difficulty){
             this->peaceful = true;
             this->description = "This is a weapon shop. You can buy and sell weapons in this area.\n";
-            this->description += "Feel free to type 'shop' to see available weapons.\n";
+            this->description += "Feel free to type 'shop' to see available weapons. Use 'sell' to\n";
+            this->description += "sell weapons from your inventory\n";
 
             this->shopType = SHOP_WEAPON;
             this->itemsOnSold.push_back(new WoodenSword());
@@ -84,7 +86,8 @@ class ArmorShop : public GameMap{
         ArmorShop(int difficulty) : GameMap("Armor Shop", difficulty){
             this->peaceful = true;
             this->description = "This is a armor shop. You can buy and sell armors in this area.\n";
-            this->description += "Feel free to type 'shop' to see available armors.\n";
+            this->description += "Feel free to type 'shop' to see available armors. Use 'sell' to\n";
+            this->description += "sell armors from your inventory\n";
 
             this->shopType = SHOP_ARMOR;
             this->itemsOnSold.push_back(new LeatherCloth());

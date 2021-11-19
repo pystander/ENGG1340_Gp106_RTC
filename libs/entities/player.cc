@@ -29,7 +29,10 @@ void Player::forceEnter(GameMap* map){
 
 void Player::enter(GameMap* map){
     if(this->currentLoc->canGetTo(map)){
+        if(!map->hasComeHereBefore)
+            map->displayDescription();
         this->currentLoc = map;
+        map->hasComeHereBefore = true;
     }else if(map->isLocked()){
         ColoredOutput::blue(map->getName()) << " is locked. Use '"; ColoredOutput::blue("unlock") << "' command to unlock it with a key\n";
     }else{

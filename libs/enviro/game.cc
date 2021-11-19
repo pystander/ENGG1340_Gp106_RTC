@@ -47,9 +47,13 @@ void Game::createPlayer(){
     if(this->difficulty == DIFFICULTY_EASY){
         this->player->forceLevelup();
         this->player->forceLevelup();
-        this->player->setLevel(1, 100); // just like fresh
+        this->player->setLevel(1, 100); // just like a fresh start
     }
-    // no statistics boosting for normal / hard
+    if(this->difficulty == DIFFICULTY_NORMAL){
+        this->player->forceLevelup();
+        this->player->setLevel(1, 100);
+    }
+    // no statistics boosting for hard
 }
 
 void Game::setupMaps(){
@@ -130,7 +134,9 @@ void Game::start(){
     this->setupDifficulty();
     this->createPlayer();
 
-    ColoredOutput::blue("Game is ready") << ", type 'help' to get a list of available commands\n";
+    ColoredOutput::blue("Game is ready") << ", type '"; ColoredOutput::blue("help") << "' to get a list of available commands\n";
+    std::cout << "Type '"; ColoredOutput::blue("man <command>") << "' to see what the command do\n";
+    std::cout << "For example, you can type '"; ColoredOutput::blue("man help") << "' to see what 'help' do\n";
     std::string userInput;
     std::string arg1;
     std::string arg2;

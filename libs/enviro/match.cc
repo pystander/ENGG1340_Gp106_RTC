@@ -73,8 +73,6 @@ void GameMatch::cleanCorpse(){
 
 void GameMatch::end(){
     if(!this->finished){
-        if(this->enemiesLeft() == 0)
-            std::cout << "No more enemies\n";
         ColoredOutput::blue("Battle ended, leaving battlefield\n");
         for(int i = 0; i < this->enemies.size(); i++){
             this->enemies[i]->restore();

@@ -32,6 +32,8 @@ class GameMap{
         std::vector<GameItem*> itemsOnSold;
 
     public:
+        bool hasComeHereBefore = false;
+
         // spawn rate is defined inside the constructor
         GameMap(std::string name, int difficulty);
         ~GameMap(){

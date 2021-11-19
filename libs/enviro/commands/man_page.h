@@ -138,7 +138,7 @@ void showManual(std::string cmd){
         std::cout << "hp and mana." << "\n";
     }else if(cmd == "attack"){
         universalHeader(cmd, "battle");
-        std::cout << "Attack an enemy." << "\n";
+        std::cout << "Attack an enemy and end turn automatically." << "\n";
         std::cout << "\n";
         std::cout << "First parameter <index> indicates the enemy index which you" << "\n";
         std::cout << "can find out using the 'enemies' command during the battle." << "\n";

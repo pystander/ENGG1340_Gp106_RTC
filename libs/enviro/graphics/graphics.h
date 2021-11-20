@@ -16,6 +16,11 @@ Words from Rain Leung
 void displayStart(Game* game);
 
 /**
+ * @brief display game map
+ */
+void displayMap(Game* game);
+
+/**
  * @brief display the graphics - The Magician
  */
 void displayMagician(Game* game);

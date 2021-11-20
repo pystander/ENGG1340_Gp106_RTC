@@ -6,6 +6,8 @@
 #include "libs/entities/items/weapons.h"
 #include "libs/entities/items/armors.h"
 
+// Too hard to build a maze, so we have maps instead
+
 class WaitingArea : public GameMap{
     public:
         WaitingArea(int difficulty) : GameMap("Waiting Area", difficulty){
@@ -50,6 +52,8 @@ class ConsumableShop : public GameMap{
             this->description += "sell consumables from your inventory\n";
 
             this->shopType = SHOP_CONSUMABLES;
+            this->itemsOnSold.push_back(new StrengthPotion());
+            this->itemsOnSold.push_back(new MagicFruit());
             this->itemsOnSold.push_back(new SmallHpPotion());
             this->itemsOnSold.push_back(new MediumHpPotion());
             this->itemsOnSold.push_back(new ExtraHpPotion());
@@ -72,8 +76,11 @@ class WeaponShop : public GameMap{
             this->itemsOnSold.push_back(new WoodenSword());
             this->itemsOnSold.push_back(new BronzeDagger());
             this->itemsOnSold.push_back(new IronScimitar());
+            this->itemsOnSold.push_back(new BattleAxe());
+            this->itemsOnSold.push_back(new WarHammer());
             this->itemsOnSold.push_back(new WoodenWand());
             this->itemsOnSold.push_back(new MithrilSword());
+            this->itemsOnSold.push_back(new RuneStone());
         };
 
         GameCharacter* spawnRandomMobs(){
@@ -92,7 +99,9 @@ class ArmorShop : public GameMap{
             this->shopType = SHOP_ARMOR;
             this->itemsOnSold.push_back(new LeatherCloth());
             this->itemsOnSold.push_back(new SilverChestplate());
+            this->itemsOnSold.push_back(new AssassinRobe());
             this->itemsOnSold.push_back(new MageCloak());
+            this->itemsOnSold.push_back(new DragonVest());
         };
 
         GameCharacter* spawnRandomMobs(){

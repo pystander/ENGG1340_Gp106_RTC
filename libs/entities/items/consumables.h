@@ -4,15 +4,29 @@
 #include "libs/entities/game_item.h"
 #include "libs/utils/random_util.h"
 
+// So many ideas, but so little time
+
 class StrengthPotion : public GameItem{
     public:
         StrengthPotion() : GameItem("Strength Potion", PHY_ATTACK, CONSUMABLE){
-            this->valueMoney = 100;
+            this->valueMoney = 200;
             this->itemStat.phyAttack = Random(1, 2).getFloat(); // scalar for non hp / mana
         };
 
         GameItem* copy(){
             return new StrengthPotion();
+        }
+};
+
+class MagicFruit : public GameItem{
+    public:
+        MagicFruit() : GameItem("Magic Fruit", MAG_ATTACK, CONSUMABLE){
+            this->valueMoney = 150;
+            this->itemStat.magAttack = Random(1, 2).getFloat(); // scalar for non hp / mana
+        };
+
+        GameItem* copy(){
+            return new MagicFruit();
         }
 };
 

@@ -16,12 +16,22 @@ void displayStart(Game* game){
     getchar();
 }
 
+void displayMap(Game* game){
+    std::cout << "-------------     -------------     -----------------     ---------------------"  << std::endl;
+    std::cout << "|Weapon Shop|-----|Spawn  Area|-----|Unknown Village|-----|Dungeon of the Dawn|"  << std::endl;
+    std::cout << "-------------    /-------------     -----------------     ---------------------"  << std::endl;
+    std::cout << "                /       |                   |                       |"            << std::endl;
+    std::cout << "------------   / -----------------   ----------------          ------------"      << std::endl;
+    std::cout << "|Armor Shop|---  |Consumable Shop|   |The Lost Woods|          |The Castle|"      << std::endl;
+    std::cout << "------------     -----------------   ----------------          ------------"      << std::endl;
+}
+
 void displayFireDragon(Game* game){
     // ASCII art from https://www.asciiart.eu/mythology/dragons, modified
     std::cout << "                                             __----~~~~~~~~~~~------___"      << std::endl;
     std::cout << "                                  .  .   ~~//====......          __--~ ~~"    << std::endl;
-    std::cout << "                  -.            _|//     |||\\  ~~~~~~::::... /~"            << std::endl;
-    std::cout << "               ___-==_       _-~o~  /    |||  \\            _/~~-"           << std::endl;
+    std::cout << "                  -.            _|//     |||\\  ~~~~~~::::... /~"             << std::endl;
+    std::cout << "               ___-==_       _-~o~  /    |||  \\            _/~~-"            << std::endl;
     std::cout << "       __---~~~.==~||/=_    -_--~/_-~|-   |\\   \\        _/~"                << std::endl;
     std::cout << "   _-~~     .=~    |  \\-_    '-~7  /-   /  ||    /      /"                   << std::endl;
     std::cout << " .~       .~       |   \\ -_    /  /-   /   ||      /   /"                    << std::endl;
@@ -39,7 +49,26 @@ void displayFireDragon(Game* game){
 }
 
 void displayLichKing(Game* game){
-    ;
+    // ASCII art from https://www.asciiart.eu/people/occupations/knights, modified
+    std::cout << "      _,."                    << std::endl;
+    std::cout << "    ,` -.)"                   << std::endl;
+    std::cout << "   ( _/-\\-._"                << std::endl;
+    std::cout << "  /,|`--._,-^|           ,"   << std::endl;
+    std::cout << "  /_| |`-._/||         ,'|"   << std::endl;
+    std::cout << "    |  `-, / |        /  /"   << std::endl;
+    std::cout << "     `r-._||/   __   /  /"    << std::endl;
+    std::cout << " __,-<_     )`-/  `./  /"     << std::endl;
+    std::cout << "'  |   `---'   |   /  /"      << std::endl;
+    std::cout << "    |           |./  /"       << std::endl;
+    std::cout << "    /           //  /"        << std::endl;
+    std::cout << "__/' |         |/  /"         << std::endl;
+    std::cout << " |    |   _,^-'/  /"          << std::endl;
+    std::cout << " |    , ``   _/  /_"          << std::endl;
+    std::cout << "  |,.->._   ((_O_)/"          << std::endl;
+    std::cout << "  (  /   `-._//^`"            << std::endl;
+    std::cout << "   `Y-.____(__}"              << std::endl;
+    std::cout << "    |     {__)"               << std::endl;
+    std::cout << "          //"                 << std::endl;
 }
 
 void displayMagician(Game* game){

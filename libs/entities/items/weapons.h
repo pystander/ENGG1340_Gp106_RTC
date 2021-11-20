@@ -3,6 +3,8 @@
 
 #include "libs/entities/game_item.h"
 
+// Who needs a weapon if a punch solves everything
+
 class WeaponHands : public GameItem{
     public:
         WeaponHands() : GameItem("Hands", PHY_ATTACK, WEAPON){
@@ -19,7 +21,7 @@ class WeaponHands : public GameItem{
 class WoodenSword : public GameItem{
     public:
         WoodenSword() : GameItem("Wooden Sword", PHY_ATTACK, WEAPON){
-            this->itemStat.phyAttack = 15;
+            this->itemStat.phyAttack = 10;
             this->valueMoney = 100;
         };
 
@@ -31,7 +33,7 @@ class WoodenSword : public GameItem{
 class BronzeDagger : public GameItem{
     public:
         BronzeDagger() : GameItem("Bronze Dagger", PHY_ATTACK, WEAPON){
-            this->itemStat.phyAttack = 20;
+            this->itemStat.phyAttack = 15;
             this->valueMoney = 300;
         };
 
@@ -43,12 +45,36 @@ class BronzeDagger : public GameItem{
 class IronScimitar : public GameItem{
     public:
         IronScimitar() : GameItem("Iron Scimitar", PHY_ATTACK, WEAPON){
-            this->itemStat.phyAttack = 25;
+            this->itemStat.phyAttack = 20;
             this->valueMoney = 750;
         };
 
         GameItem* copy(){
             return new IronScimitar();
+        }
+};
+
+class BattleAxe : public GameItem{
+    public:
+        BattleAxe() : GameItem("Battle Axe", PHY_ATTACK, WEAPON){
+            this->itemStat.phyAttack = 35;
+            this->valueMoney = 1000;
+        };
+
+        GameItem* copy(){
+            return new BattleAxe();
+        }
+};
+
+class WarHammer : public GameItem{
+    public:
+        WarHammer() : GameItem("War Hammer", PHY_ATTACK, WEAPON){
+            this->itemStat.phyAttack = 50;
+            this->valueMoney = 1500;
+        };
+
+        GameItem* copy(){
+            return new WarHammer();
         }
 };
 
@@ -67,7 +93,7 @@ class PaleJustice : public GameItem{
 class WoodenWand : public GameItem{
     public:
         WoodenWand() : GameItem("Wooden Wand", MAG_ATTACK, WEAPON){
-            this->itemStat.magAttack = 20;
+            this->itemStat.magAttack = 15;
             this->valueMoney = 200;
         };
         
@@ -79,7 +105,7 @@ class WoodenWand : public GameItem{
 class MithrilSword : public GameItem{
     public:
         MithrilSword() : GameItem("Mithril Sword", MAG_ATTACK, WEAPON){
-            this->itemStat.magAttack = 30;
+            this->itemStat.magAttack = 35;
             this->valueMoney = 600;
         };
 
@@ -97,6 +123,18 @@ class MageStaff : public GameItem{
 
         GameItem* copy(){
             return new MageStaff();
+        }
+};
+
+class RuneStone : public GameItem{
+    public:
+        RuneStone() : GameItem("Runestone", MAG_ATTACK, WEAPON){
+            this->itemStat.magAttack = 85;
+            this->valueMoney = 2000;
+        };
+
+        GameItem* copy(){
+            return new RuneStone();
         }
 };
 

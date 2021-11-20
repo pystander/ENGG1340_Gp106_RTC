@@ -202,6 +202,8 @@ void Game::start(){
                 this->player->displaySkills();
             }else if(userInput == "inventory"){
                 printInventory(this);
+            }else if(userInput == "map"){
+                displayMap(this);
             }else if(userInput == "help"){
                 helpBase(this);
             }else if(userInput == "save"){

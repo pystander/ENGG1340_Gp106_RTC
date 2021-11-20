@@ -16,20 +16,26 @@ std::unordered_map<std::string, GameItem*> NAME_TO_ITEM = {
     // armors
     {"Leather Cloth", new LeatherCloth()},
     {"Silver Chestplate", new SilverChestplate()},
+    {"Assassin Robe", new AssassinRobe()},
     {"Mage Cloak", new MageCloak()},
+    {"Dragon Vest", new DragonVest()},
 
     // weapons
     {"Hands", new WeaponHands()},
     {"Wooden Sword", new WoodenSword()},
     {"Bronze Dagger", new BronzeDagger()},
     {"Iron Scimitar", new IronScimitar()},
+    {"Battle Axe", new BattleAxe()},
+    {"War Hammer", new WarHammer()},
     {"Pale Justice", new PaleJustice()},
     {"Wooden Wand", new WoodenWand()},
     {"Mithril Sword", new MithrilSword()},
     {"Mage Staff", new MageStaff()},
+    {"Runestone", new RuneStone()},
 
     // consumables
     {"Strength Potion", new StrengthPotion()},
+    {"Magic Fruit", new MagicFruit()},
     {"Small HP potion", new SmallHpPotion()},
     {"Medium HP potion", new MediumHpPotion()},
     {"Extra HP potion", new ExtraHpPotion()},

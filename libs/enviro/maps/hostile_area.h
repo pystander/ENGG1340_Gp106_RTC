@@ -17,6 +17,7 @@ class UnknownVillage : public GameMap{
             this->description += "/|\\/|\\/|\\ /|\\    /\\-_--\\    /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\\n";
             this->description += "/|\\/|\\/|\\ /|\\   /  \\_-__\\   /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\\n";
             this->description += "/|\\/|\\/|\\ /|\\   |[]| [] |   /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\\n";
+            this->description += "\n";
 
             // Text description
             this->description += "This seems to be an abandoned village, nothing special.\n";

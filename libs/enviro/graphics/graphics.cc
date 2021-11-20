@@ -20,14 +20,14 @@ void displayMap(Game* game){
     std::cout << "             ┌───────────────┐ ┌──────────────┐                        " << "\n";
     std::cout << "             │Consumable Shop│ │The Lost Woods│                        " << "\n";
     std::cout << "             └───────────────┘ └──────────────┘                        " << "\n";
-    std::cout << "                     ^                ^                                " << "\n";
+    std::cout << "                     ⇧                ⇧                                " << "\n";
     std::cout << "┌──────────┐   ┌──────────┐   ┌───────────────┐   ┌───────────────────┐" << "\n";
     std::cout << "│Armor Shop│---│Spawn Area│---│Unknown Village│---│Dungeon of the Dawn│" << "\n";
     std::cout << "└──────────┘   └──────────┘   └───────────────┘   └───────────────────┘" << "\n";
-    std::cout << "                     v                v                                " << "\n";
-    std::cout << "               ┌───────────┐    ┌──────────┐                           " << "\n";
-    std::cout << "               │Weapon Shop│    │The Castle│                           " << "\n";
-    std::cout << "               └───────────┘    └──────────┘                           " << "\n";
+    std::cout << "                     ⇩                                      ⇩          " << "\n";
+    std::cout << "               ┌───────────┐                           ┌──────────┐    " << "\n";
+    std::cout << "               │Weapon Shop│                           │The Castle│    " << "\n";
+    std::cout << "               └───────────┘                           └──────────┘    " << "\n";
 }
 
 void displayFireDragon(Game* game){

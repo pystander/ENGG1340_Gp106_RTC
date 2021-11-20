@@ -17,13 +17,17 @@ void displayStart(Game* game){
 }
 
 void displayMap(Game* game){
-    std::cout << "+-----------+     +------------+     +-----------------+     +-------------------+"  << std::endl;
-    std::cout << "|Weapon Shop|-----| Spawn Area |-----| Unknown Village |-----|Dungeon of the Dawn|"  << std::endl;
-    std::cout << "+-----------+    /+------------+     +-----------------+     +-------------------+"  << std::endl;
-    std::cout << "                /        |                    |                        |"            << std::endl;
-    std::cout << "+----------+   / +---------------+    +--------------+           +----------+"      << std::endl;
-    std::cout << "|Armor Shop|---  |Consumable Shop|    |The Lost Woods|           |The Castle|"      << std::endl;
-    std::cout << "+----------+     +---------------+    +--------------+           +----------+"      << std::endl;
+    std::cout << "             ┌───────────────┐    ┌──────────────┐                        " << "\n";
+    std::cout << "             │Consumable Shop│    │The Lost Woods│                        " << "\n";
+    std::cout << "             └───────────────┘    └──────────────┘                        " << "\n";
+    std::cout << "                    ^                   ^                                 " << "\n";
+    std::cout << "┌───────────┐   ┌───────────┐   ┌───────────────┐   ┌───────────────────┐ " << "\n";
+    std::cout << "│Armor  Shop│---│Spawn  Area│---│Unknown Village│---│Dungeon of the Dawn│ " << "\n";
+    std::cout << "└───────────┘   └───────────┘   └───────────────┘   └───────────────────┘ " << "\n";
+    std::cout << "                    v                   v                                 " << "\n";
+    std::cout << "                ┌───────────┐     ┌───────────┐                           " << "\n";
+    std::cout << "                │Weapon Shop│     │The Castle │                           " << "\n";
+    std::cout << "                └───────────┘     └───────────┘                           " << "\n";
 }
 
 void displayFireDragon(Game* game){

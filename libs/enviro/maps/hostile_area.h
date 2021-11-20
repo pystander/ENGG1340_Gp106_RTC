@@ -9,13 +9,20 @@ class UnknownVillage : public GameMap{
     public:
         UnknownVillage(int difficulty) : GameMap("Unknown Village", difficulty){
             this->peaceful = false;
-            this->description = "This seems to be an abandoned village, nothing special.\n";
+
+            // Graphical description
+            // ASCII art from https://ascii.co.uk/art/forest, by ejm96, modified
+            // May seem a little bit broken as escape character (\) is used
+            this->description = " ^  ^  ^   ^      ___I_      ^  ^   ^  ^  ^   ^  ^\n";
+            this->description += "/|\\/|\\/|\\ /|\\    /\\-_--\\    /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\\n";
+            this->description += "/|\\/|\\/|\\ /|\\   /  \\_-__\\   /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\\n";
+            this->description += "/|\\/|\\/|\\ /|\\   |[]| [] |   /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\\n";
+
+            // Text description
+            this->description += "This seems to be an abandoned village, nothing special.\n";
             this->description += "But the broken walls and windows remind you to be careful.\n";
             this->description += "You hear a few sharp noises coming from the woods,\n";
             this->description += "and the sound suddenly vanished, just like hallucinations.\n";
-            this->description += "\n";
-            this->description += "You see some goblins and wolfs wandering around.\n";
-            this->description += "To engage into a battle, type 'engage'.\n";
 
             // see map_keys.h for reference
             this->keyName = "Unknown Village Key";

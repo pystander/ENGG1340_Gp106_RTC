@@ -47,8 +47,7 @@ class SkillSets{
             charge.characterType = WARRIOR;
             charge.cooldown = 1;
             StatModiferStore chargeModifier;
-            chargeModifier.phyResist = 1.2;
-            chargeModifier.magResist = 1.2;
+            chargeModifier.phyAttack = 1.2;
             charge.modifier = chargeModifier;
             skills.push_back(charge);
             // 3nd
@@ -58,8 +57,7 @@ class SkillSets{
             cleave.characterType = WARRIOR;
             cleave.cooldown = 2;
             StatModiferStore cleaveModifier;
-            cleaveModifier.phyResist = 1.5;
-            cleaveModifier.magResist = 1.5;
+            cleaveModifier.phyAttack = 1.5;
             cleave.modifier = cleaveModifier;
             skills.push_back(cleave);
             return skills;
@@ -126,8 +124,8 @@ class SkillSets{
             onYourBack.characterType = ASSASSIN;
             onYourBack.cooldown = 4;
             StatModiferStore onYourBackModifier;
-            onYourBackModifier.phyResist = 4.0;
-            onYourBackModifier.magResist = 4.0;
+            onYourBackModifier.phyAttack = 5.0;
+            onYourBackModifier.magAttack = 5.0;
             onYourBack.modifier = onYourBackModifier;
             skills.push_back(onYourBack);
             // 2nd
@@ -144,11 +142,13 @@ class SkillSets{
             // 3nd
             CharacterSkill sneakAttack;
             sneakAttack.name = "Sneak Attack";
-            sneakAttack.type = PHY_ATTACK | MAG_RESIST | PHY_RESIST | MAG_RESIST;
+            sneakAttack.type = PHY_ATTACK | MAG_ATTACK | PHY_RESIST | MAG_RESIST;
             sneakAttack.characterType = ASSASSIN;
             sneakAttack.cooldown = 4;
             StatModiferStore sneakAttackModifier;
+            sneakAttackModifier.phyAttack = 1.5;
             sneakAttackModifier.phyResist = 1.5;
+            sneakAttackModifier.magAttack = 1.5;
             sneakAttackModifier.magResist = 1.5;
             sneakAttack.modifier = sneakAttackModifier;
             skills.push_back(sneakAttack);

@@ -288,7 +288,7 @@ class UndeadMage : public GameCharacter{
             this->currentHp = this->maxHp;
         };
         
-        std::vector<GameItem*> dropRandomLoots(){}
+        std::vector<GameItem*> dropRandomLoots(){
             std::vector<GameItem*> loots;
             // Random loots
             if(Random(0, 1).getFloat() >= 0.9)

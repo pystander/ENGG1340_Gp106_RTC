@@ -2,6 +2,8 @@
 #define BOSSES_H
 
 #include "libs/entities/character.h"
+#include "libs/entities/items/weapons.h"
+#include "libs/entities/items/armors.h"
 #include "libs/entities/items/map_keys.h"
 #include "libs/utils/random_util.h"
 

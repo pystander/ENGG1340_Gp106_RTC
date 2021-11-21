@@ -40,6 +40,7 @@ void helpBattle(Game* game){
     std::cout << "loot <index>" << "\n";
     std::cout << "lootall" << "\n";
     std::cout << "loots" << "\n";
+    std::cout << "iteminfo <index>" << "\n";
     std::cout << "info" << "\n";
     std::cout << "enemies" << "\n";
     std::cout << "stat" << "\n";

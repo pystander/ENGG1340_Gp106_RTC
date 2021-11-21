@@ -326,7 +326,7 @@ StatModiferStore GameCharacter::block(){
 }
 
 void GameCharacter::levelup(){
-    if(this->xp >= this->nextLevelXp){
+    while(this->xp >= this->nextLevelXp){
         if(this->isPlayer()){
             ColoredOutput::green(this->getName()) << " has leveled up to level "; ColoredOutput::green(this->level) << "\n";
         }

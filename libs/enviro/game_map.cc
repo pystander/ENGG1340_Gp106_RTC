@@ -68,7 +68,8 @@ bool GameMap::isPeaceful(){
     return this->peaceful;
 }
 
-void GameMap::lock(){
+void GameMap::lockWith(std::string keyName){
+    this->keyName = keyName;
     this->locked = true;
 }
 
@@ -101,7 +102,7 @@ void GameMap::buyItem(GameCharacter* buyer, int index){
         if(buyer->getMoneyAmount() >= itemBeBought->getValueMoney()){
             buyer->subMoney(itemBeBought->getValueMoney());
             buyer->addToInventory(itemBeBought->copy());
-            std::cout << "You bought "; ColoredOutput::green(itemBeBought->getName()) << " for "; ColoredOutput::green(itemBeBought->getValueMoney()) << "\n";
+            std::cout << "You bought "; ColoredOutput::green(itemBeBought->getName()) << " for $"; ColoredOutput::green(itemBeBought->getValueMoney()) << "\n";
         }else{
             std::cout << "You do not have enough money to buy "; ColoredOutput::green(itemBeBought->getName()) << "\n";
         }

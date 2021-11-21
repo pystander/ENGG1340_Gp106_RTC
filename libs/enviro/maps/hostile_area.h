@@ -26,16 +26,17 @@ class UnknownVillage : public GameMap{
             this->description += "and the sound suddenly vanished, just like hallucinations.\n";
 
             // see map_keys.h for reference
-            this->keyName = "Unknown Village Key";
-            this->lock();
+            this->lockWith("Unknown Village Key");
         };
 
         GameCharacter* spawnRandomMobs(){
             Random rng = Random(0, 1);
             if(rng.getFloat() < 0.5){
                 return new Goblin();
+            }else if(rng.getFloat() < 0.5){
+                return new Wolf();
             }
-            return new Wolf();
+            return nullptr;
         }
 };
 
@@ -52,8 +53,10 @@ class LostWoods : public GameMap{
             Random rng = Random(0, 1);
             if(rng.getFloat() < 0.5){
                 return new DarkFairy();
+            }else if(rng.getFloat() < 0.5){
+                return new Dryad();
             }
-            return new Dryad();
+            return nullptr;
         }
 };
 
@@ -71,30 +74,48 @@ class DawnDungeon : public GameMap{
             Random rng = Random(0, 1);
             if(rng.getFloat() < 0.3){
                 return new Zombie();
+            }else if(rng.getFloat() < 0.7){
+                return new Spirit();
             }
-            return new Spirit();
+            return nullptr;
         }
 };
 
 class Castle_F1 : public GameMap{
+    private:
+        int spawnCooldown = 0;
+
     public:
         Castle_F1(int difficulty) : GameMap("The Castle - 1/F", difficulty){
             this->peaceful = false;
         };
 
         GameCharacter* spawnRandomMobs(){
-            return new FireDragon();
+            if(spawnCooldown == 0){
+                spawnCooldown = 3;
+                return new FireDragon();
+            }
+            spawnCooldown--;
+            return nullptr;
         }
 };
 
 class Castle_F2 : public GameMap{
+    private:
+        int spawnCooldown = 0;
+        
     public:
         Castle_F2(int difficulty) : GameMap("The Castle - 2/F", difficulty){
             this->peaceful = false;
         };
 
         GameCharacter* spawnRandomMobs(){
-            return new LichKing();
+            if(spawnCooldown == 0){
+                spawnCooldown = 3;
+                return new LichKing();
+            }
+            spawnCooldown--;
+            return nullptr;
         }
 };
 

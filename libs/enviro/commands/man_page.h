@@ -107,6 +107,14 @@ void showManual(std::string cmd){
         std::cout << "Shows information of your statistics and map / battle." << "\n";
         std::cout << "You may also use other commands to get information of the game." << "\n";
         std::cout << "For example, 'stat', 'inventory', 'where'." << "\n";
+    }else if(cmd == "iteminfo"){
+        universalHeader(cmd, "base");
+        std::cout << "Shows the statistics of the item and it's type." << "\n";
+        std::cout << "You can find out, for example, its physical damage" << "\n";
+        std::cout << "physical resistance, whether its sellable and so on" << "\n";
+        std::cout << "\n";
+        std::cout << "First parameter <index> indicates the inventory index of an item" << "\n";
+        std::cout << "which you can find out using the 'inventory' command." << "\n";
     }else if(cmd == "where"){
         universalHeader(cmd, "base");
         std::cout << "Shows information of the current map and neighboring maps." << "\n";

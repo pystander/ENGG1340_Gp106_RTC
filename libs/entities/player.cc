@@ -6,6 +6,7 @@
 #include "libs/enviro/game.h"
 #include "libs/enviro/match.h"
 #include "libs/enviro/game_map.h"
+#include "libs/enviro/graphics/graphics.h"
 #include "libs/utils/colored_output.h"
 
 GameMap* Player::getCurrentLoc(){
@@ -108,14 +109,18 @@ void Player::displaySkills(){
 
 void Player::displayInventory(){
     std::cout << "Currently equipped item: "; ColoredOutput::green(this->equippedItem->getName()) << "\n";
+    if(this->armor){
+        std::cout << "Currently wearing: "; ColoredOutput::green(this->armor->getName()) << "\n";
+    }
     std::vector<GameItem*> inv = this->inventory;
     if(inv.size() > 0)
         ColoredOutput::blue("Your current inventory:\n");
+    
+    std::vector<std::string> cellContent;
     for(int i = 0; i < inv.size(); i++){
-        ColoredOutput::cyan("~~~~~~~~~~~~~\n");
-        std::cout << "Item "; ColoredOutput::cyan(i) << ":\n";
-        inv[i]->displayInfo();
+        cellContent.push_back(std::to_string(i) + ") " + inv[i]->getName());
     }
+    printTable(cellContent);
 }
 
 void Player::displayPlayerStatus(){

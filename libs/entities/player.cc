@@ -51,6 +51,8 @@ GameMatch* Player::engage(){
 
 void Player::disengage(){
     this->currentLoc->cleanCorpse();
+    this->clearCooldownSkills();
+    this->resetModifier();
     this->recentMatch = nullptr;
     this->enteredBattle = false;
 }

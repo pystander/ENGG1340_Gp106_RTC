@@ -108,6 +108,7 @@ class GameCharacter{
         bool isSkillOnCooldown(int index);
         // remove skills from cooldown list
         void updateCooldownSkills();
+        void clearCooldownSkills();
         void equipItem(GameItem*); // weapons only
 
         void attack(GameCharacter*);

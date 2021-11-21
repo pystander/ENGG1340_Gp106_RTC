@@ -79,7 +79,6 @@ void GameMatch::end(){
         }
         this->finished = true;
         this->player->disengage();
-        this->player->resetModifier();
     }
 }
 
@@ -95,7 +94,7 @@ void GameMatch::loot(GameCharacter* player, int index){
 }
 
 void GameMatch::lootAll(GameCharacter* player){
-    for(int i = 0; i < this->loots.size(); i++){
+    for(int i = this->loots.size()-1; i >= 0; i--){
         this->loot(player, i);
     }
 }

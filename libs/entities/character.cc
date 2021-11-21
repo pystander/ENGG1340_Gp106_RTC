@@ -219,6 +219,11 @@ void GameCharacter::updateCooldownSkills(){
     }
 }
 
+void GameCharacter::clearCooldownSkills(){
+    this->onCooldown.clear();
+    this->onCooldownRoundsLeft.clear();
+}
+
 void GameCharacter::equipItem(GameItem* item){
     if(item->getItemCategory() & WEAPON){
         this->equippedItem = item;

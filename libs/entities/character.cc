@@ -311,12 +311,22 @@ void GameCharacter::heal(GameItem* item){
     }
 }
 
-void GameCharacter::manaRegen(){
+int GameCharacter::manaRegen(){
     int regenAmount = Random(0, 30).getFloat();
     this->currentMana += regenAmount;
     if(this->currentMana > this->maxMana){
         this->currentMana = this->maxMana;
     }
+    return regenAmount;
+}
+
+int GameCharacter::hpRegen(){
+    int regenAmount = Random(0, 10).getFloat();
+    this->currentHp += regenAmount;
+    if(this->currentHp > this->maxHp){
+        this->currentHp = this->maxHp;
+    }
+    return regenAmount;
 }
 
 StatModiferStore GameCharacter::block(){

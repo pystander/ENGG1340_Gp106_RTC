@@ -117,7 +117,9 @@ class GameCharacter{
         void resetModifier();
         void recalculateAdditionalStat();
         void heal(GameItem*);
-        void manaRegen();
+        // returns regen amount
+        int manaRegen();
+        int hpRegen();
         // used in attack(); to block enemy attack according to your resistance
         StatModiferStore block(); // generate defense values
         void forceLevelup();

@@ -145,6 +145,7 @@ void engage(Game* game){
 void gameWait(Game* game){
     std::cout << "You chose to take a rest\n";
     game->updateMaps();
+    ColoredOutput::blue(game->player->getName()) << " regenerated "; ColoredOutput::blue(game->player->hpRegen()) << " HP";
 }
 
 void printMapDescription(Game* game){

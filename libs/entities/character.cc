@@ -219,6 +219,11 @@ void GameCharacter::updateCooldownSkills(){
     }
 }
 
+void GameCharacter::clearCooldownSkills(){
+    this->onCooldown.clear();
+    this->onCooldownRoundsLeft.clear();
+}
+
 void GameCharacter::equipItem(GameItem* item){
     if(item->getItemCategory() & WEAPON){
         this->equippedItem = item;
@@ -306,12 +311,26 @@ void GameCharacter::heal(GameItem* item){
     }
 }
 
-void GameCharacter::manaRegen(){
+int GameCharacter::manaRegen(){
+    if(this->currentMana == this->maxMana)
+        return 0;
     int regenAmount = Random(0, 30).getFloat();
     this->currentMana += regenAmount;
     if(this->currentMana > this->maxMana){
         this->currentMana = this->maxMana;
     }
+    return regenAmount;
+}
+
+int GameCharacter::hpRegen(){
+    if(this->currentHp == this->maxHp)
+        return 0;
+    int regenAmount = Random(0, 10).getFloat();
+    this->currentHp += regenAmount;
+    if(this->currentHp > this->maxHp){
+        this->currentHp = this->maxHp;
+    }
+    return regenAmount;
 }
 
 StatModiferStore GameCharacter::block(){

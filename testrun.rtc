@@ -1,0 +1,44 @@
+[start]
+[player]
+name: vince
+type: 2
+mapsUnlocked: 
+[item]
+name: Unknown Village Key
+
+inventory: 
+[item]
+name: Hands
+[item]
+name: Small HP potion
+[item]
+name: Small HP potion
+[item]
+name: Small HP potion
+[item]
+name: Small HP potion
+[item]
+name: Small HP potion
+[item]
+name: Strength Potion
+[item]
+name: Small HP potion
+
+equippedItem: 
+[item]
+name: Hands
+
+armor: 
+null
+money: 570
+level: 1
+xp: 90
+nextLevelXp: 100
+baseStat: 31.000000 39.000000 0.000000 0.000000 0.000000 0.000000 0
+additionalStat: 5.000000 1.000000 1.000000 1.000000 0.000000 0.000000 0
+modifierStat: 1.000000 1.000000 1.000000 1.000000 0.000000 0.000000 0
+currentHp: 68.690002
+maxHp: 113.000000
+currentMana: 113.000000
+maxMana: 113.000000
+[end]

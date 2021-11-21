@@ -312,6 +312,8 @@ void GameCharacter::heal(GameItem* item){
 }
 
 int GameCharacter::manaRegen(){
+    if(this->currentMana == this->maxMana)
+        return 0;
     int regenAmount = Random(0, 30).getFloat();
     this->currentMana += regenAmount;
     if(this->currentMana > this->maxMana){
@@ -321,6 +323,8 @@ int GameCharacter::manaRegen(){
 }
 
 int GameCharacter::hpRegen(){
+    if(this->currentHp == this->maxHp)
+        return 0;
     int regenAmount = Random(0, 10).getFloat();
     this->currentHp += regenAmount;
     if(this->currentHp > this->maxHp){

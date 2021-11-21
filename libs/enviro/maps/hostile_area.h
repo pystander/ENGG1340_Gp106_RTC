@@ -6,6 +6,7 @@
 #include "libs/entities/enemies/bosses.h"
 
 // Visual elements and stories match perfectly
+// No time for a well-rounded story and formatting
 
 class UnknownVillage : public GameMap{
     public:
@@ -107,9 +108,6 @@ class DawnDungeon : public GameMap{
 };
 
 class CastleEntrance : public GameMap{
-    private:
-        int spawnCooldown = 0;
-
     public:
         CastleEntrance(int difficulty) : GameMap("The Castle Entrance", difficulty){
             this->peaceful = false;
@@ -144,11 +142,12 @@ class CastleEntrance : public GameMap{
         };
 
         GameCharacter* spawnRandomMobs(){
-            if(spawnCooldown == 0){
-                spawnCooldown = 3;
-                return new FireDragon();
+            Random rng = Random(0, 1);
+            if(rng.getFloat() < 0.3){
+                return new UndeadWarrior();
+            }else if(rng.getFloat() < 0.5){
+                return new UndeadMage();
             }
-            spawnCooldown--;
             return nullptr;
         }
 };
@@ -255,8 +254,34 @@ class Castle_3F : public GameMap{
             this->peaceful = false;
 
             // Text description
+            this->description = "\"Finally, you come, to fulfill the Prophecy...\"\n";
+            this->description += "Once you step in, you see a wizard in front of a giant door.\n";
+            this->description += "\"I am sorry, child, I cannot let you pass, the Gods must leave.\"\n";
+            this->description += "\"Why? They are protecting us from monsters.\"\n";
+            this->description += "The wizard laughed, \"No, Gods are just bystanders, they never give anything.\n";
+            this->description += "\"Enough talk, fight me!\"\n";
+            this->description += "\n";
 
             // Graphical description
+            // ASCII art from https://www.asciiart.eu/people/occupations/wizards, by hjm, modified
+            this->description += "              _,-'|\n";
+            this->description += "           ,-'._  |\n";
+            this->description += " .||,      |####\\ |\n";
+            this->description += "\\.`',/     \\####| |\n";
+            this->description += "= ,. =      |###| |\n";
+            this->description += "/ || \\    ,-'\\#/,'`.\n";
+            this->description += "  ||     ,'   `,,. `.\n";
+            this->description += "  ,|____,' , ,;' \\| |\n";
+            this->description += " (3|\\    _/|/'   _| |\n";
+            this->description += "  ||/,-''  | >-'' _,\\\n";
+            this->description += "  ||'      ==\\ ,-'  ,'\n";
+            this->description += "  ||       |  V \\ ,|\n";
+            this->description += "  ||       |    |   \\\n";
+            this->description += "  ||       |     |    \\n";
+            this->description += "  ||       |      \\_,-'\n";
+            this->description += "  ||       |___,,---)_\\\n";
+            this->description += "  ||         |_|   (__/\n";
+            this->description += "  ||        (__/\n";
 
             this->lockWith("The Castle 3/F Key");
         };

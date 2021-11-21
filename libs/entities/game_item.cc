@@ -46,6 +46,10 @@ std::unordered_map<std::string, GameItem*> NAME_TO_ITEM = {
 
     // map keys
     {"Unknown Village Key", new UnknownVillageKey()},
+    {"The Castle Key", new CastleKey()},
+    {"The Castle 2/F Key", new CastleKey_2F()},
+    {"The Castle 3/F Key", new CastleKey_3F()},
+    {"Door Key", new DoorKey()},
 };
 
 int GameItem::getId(){

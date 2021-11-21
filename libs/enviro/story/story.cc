@@ -39,15 +39,3 @@ void startStory(Game* game){
     ColoredOutput::blue("Press any key to continue...\n");
     getchar();
 }
-
-void endingStory(Game* game){
-    std::cout << "You put the key into the lock, turn it and unlock the door." << std::endl;
-    std::cout << "After the door, you only see a dull and hollow entrance." << std::endl;
-    std::cout << "You are determined, and walk into the darkness." << std::endl;
-    getchar();
-    std::cout << "It is completely dark, a little spark will be a dazzle for you." << std::endl;
-    std::cout << "You continue to walk, alone." << std::endl;
-    std::cout << "Not knowing how long, or how far have you gone." << std::endl;
-    std::cout << "Eventually, you see a soft, but bright light in front." << std::endl;
-    // Not finished
-}

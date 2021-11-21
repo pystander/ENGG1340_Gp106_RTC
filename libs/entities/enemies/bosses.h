@@ -2,6 +2,7 @@
 #define BOSSES_H
 
 #include "libs/entities/character.h"
+#include "libs/entities/items/map_keys.h"
 #include "libs/utils/random_util.h"
 
 class FireDragon : public GameCharacter{
@@ -26,7 +27,9 @@ class FireDragon : public GameCharacter{
         };
 
         std::vector<GameItem*> dropRandomLoots(){
-            return std::vector<GameItem*>();
+            std::vector<GameItem*> loots;
+            loots.push_back(new CastleKey_2F());
+            return loots;
         }
 
         // No inventory
@@ -57,7 +60,10 @@ class LichKing : public GameCharacter{
         };
         
         std::vector<GameItem*> dropRandomLoots(){
-            return std::vector<GameItem*>();
+            std::vector<GameItem*> loots;
+            loots.push_back(new PaleJustice());
+            loots.push_back(new CastleKey_3F());
+            return loots;
         }
 
         // No inventory
@@ -87,7 +93,9 @@ class Magician : public GameCharacter{
         };
         
         std::vector<GameItem*> dropRandomLoots(){
-            return std::vector<GameItem*>();
+            std::vector<GameItem*> loots;
+            loots.push_back(new DoorKey());
+            return loots;
         }
 
         // No inventory

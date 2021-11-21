@@ -47,4 +47,15 @@ class CastleKey_3F : public GameItem{
         }
 };
 
+class DoorKey : public GameItem{
+    public:
+        DoorKey() : GameItem("Door Key", MISC, ITEM_KEY){
+            this->can_sell = false;
+        };
+
+        GameItem* copy(){
+            return new DoorKey();
+        }
+};
+
 #endif

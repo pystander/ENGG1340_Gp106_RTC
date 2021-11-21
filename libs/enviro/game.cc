@@ -65,6 +65,8 @@ void Game::setupMaps(){
     ConsumableShop* consumableShop = new ConsumableShop(this->difficulty);
     WeaponShop* weaponShop = new WeaponShop(this->difficulty);
     ArmorShop* armorShop = new ArmorShop(this->difficulty);
+    TheDoor* theDoor = new TheDoor(this->difficulty);
+    Ending* ending = new Ending(this->difficulty);
 
     // Hostile maps
     UnknownVillage* unknownVillage = new UnknownVillage(this->difficulty);
@@ -89,6 +91,8 @@ void Game::setupMaps(){
     castleEntrance->connectTo(castle_1F);
     castle_1F->connectTo(castle_2F);
     castle_2F->connectTo(castle_3F);
+    castle_3F->connectTo(theDoor);
+    theDoor->connectTo(ending);
 
     this->maps.push_back(waitingArea);
     this->maps.push_back(spawnArea);
@@ -101,6 +105,8 @@ void Game::setupMaps(){
     this->maps.push_back(castle_1F);
     this->maps.push_back(castle_2F);
     this->maps.push_back(castle_3F);
+    this->maps.push_back(theDoor);
+    this->maps.push_back(ending);
 }
 
 void Game::setupDifficulty(){

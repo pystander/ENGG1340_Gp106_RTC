@@ -25,9 +25,9 @@ void displayMap(Game* game){
     std::cout << "│Armor Shop│---│Spawn Area│---│Unknown Village│---│Dungeon of the Dawn│" << "\n";
     std::cout << "└──────────┘   └──────────┘   └───────────────┘   └───────────────────┘" << "\n";
     std::cout << "                     ⇩                                      ⇩          " << "\n";
-    std::cout << "               ┌───────────┐                           ┌──────────┐    " << "\n";
-    std::cout << "               │Weapon Shop│                           │The Castle│    " << "\n";
-    std::cout << "               └───────────┘                           └──────────┘    " << "\n";
+    std::cout << "               ┌───────────┐         ┌──────────┐   ┌───────────────┐  " << "\n";
+    std::cout << "               │Weapon Shop│         │The Castle|---│Castle Entrance│  " << "\n";
+    std::cout << "               └───────────┘         └──────────┘   └───────────────┘  " << "\n";
 }
 
 void displayFireDragon(Game* game){

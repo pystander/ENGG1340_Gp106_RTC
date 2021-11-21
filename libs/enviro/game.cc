@@ -195,6 +195,9 @@ void Game::start(){
                 printShopItems(this);
             }else if(userInput == "mapdesc"){
                 printMapDescription(this);
+            }else if(userInput == "iteminfo"){
+                std::cin >> arg1;
+                this->player->getFromInventory(BasicConverter::safeToInt(arg1))->displayInfo();
             }else if(userInput == "info"){
                 std::cout << "Game difficulty: "; ColoredOutput::blue(std::to_string(this->difficulty)) << "\n";
                 this->player->displayPlayerStatus();

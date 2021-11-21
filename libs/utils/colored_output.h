@@ -21,6 +21,9 @@ class ColoredOutput{
             std::cout << "\x1B[31m" << str << "\x1B[0m";
             return std::cout;
         }
+        static std::string redStr(std::string str){
+            return "\x1B[31m" + str + "\x1B[0m";
+        }
 
         // green
         static std::ostream& greenStart(){
@@ -34,6 +37,9 @@ class ColoredOutput{
         static std::ostream& green(double str){
             std::cout << "\x1B[32m" << str << "\x1B[0m";
             return std::cout;
+        }
+        static std::string greenStr(std::string str){
+            return "\x1B[32m" + str + "\x1B[0m";
         }
 
         // yellow
@@ -49,6 +55,9 @@ class ColoredOutput{
             std::cout << "\x1B[33m" << str << "\x1B[0m";
             return std::cout;
         }
+        static std::string yellowStr(std::string str){
+            return "\x1B[33m" + str + "\x1B[0m";
+        }
 
         // blue
         static std::ostream& blueStart(){
@@ -63,6 +72,9 @@ class ColoredOutput{
             std::cout << "\x1B[38;5;75m" << str << "\x1B[0m";
             return std::cout;
         }
+        static std::string blueStr(std::string str){
+            return "\x1B[38;5;75m" + str + "\x1B[0m";
+        }
 
         // cyan
         static std::ostream& cyanStart(){
@@ -76,6 +88,9 @@ class ColoredOutput{
         static std::ostream& cyan(double str){
             std::cout << "\x1B[36m" << str << "\x1B[0m";
             return std::cout;
+        }
+        static std::string cyanStr(std::string str){
+            return "\x1B[36m" + str + "\x1B[0m";
         }
 
         // reset

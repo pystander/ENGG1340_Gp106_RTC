@@ -1,6 +1,8 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include <string>
+#include <vector>
 #include "libs/enviro/game.h"
 
 /*
@@ -9,6 +11,13 @@ Isn't it interesting to add some visual elements in a text-based game?
 
 Words from Rain Leung
 */
+
+std::string repeatString(std::string str, int amount);
+
+/**
+ * @brief display game start screen
+ */
+void printTable(std::vector<std::string> content);
 
 /**
  * @brief display game start screen

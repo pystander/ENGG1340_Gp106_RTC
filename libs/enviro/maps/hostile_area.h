@@ -29,16 +29,17 @@ class UnknownVillage : public GameMap{
             this->description += "\n";
 
             // see map_keys.h for reference
-            this->keyName = "Unknown Village Key";
-            this->lock();
+            this->lockWith("Unknown Village Key");
         };
 
         GameCharacter* spawnRandomMobs(){
             Random rng = Random(0, 1);
             if(rng.getFloat() < 0.5){
                 return new Goblin();
+            }else if(rng.getFloat() < 0.5){
+                return new Wolf();
             }
-            return new Wolf();
+            return nullptr;
         }
 };
 
@@ -57,8 +58,10 @@ class LostWoods : public GameMap{
             Random rng = Random(0, 1);
             if(rng.getFloat() < 0.5){
                 return new DarkFairy();
+            }else if(rng.getFloat() < 0.5){
+                return new Dryad();
             }
-            return new Dryad();
+            return nullptr;
         }
 };
 
@@ -96,12 +99,17 @@ class DawnDungeon : public GameMap{
             Random rng = Random(0, 1);
             if(rng.getFloat() < 0.3){
                 return new Zombie();
+            }else if(rng.getFloat() < 0.7){
+                return new Spirit();
             }
-            return new Spirit();
+            return nullptr;
         }
 };
 
 class CastleEntrance : public GameMap{
+    private:
+        int spawnCooldown = 0;
+
     public:
         CastleEntrance(int difficulty) : GameMap("The Castle Entrance", difficulty){
             this->peaceful = false;
@@ -136,11 +144,19 @@ class CastleEntrance : public GameMap{
         };
 
         GameCharacter* spawnRandomMobs(){
-            return new FireDragon();
+            if(spawnCooldown == 0){
+                spawnCooldown = 3;
+                return new FireDragon();
+            }
+            spawnCooldown--;
+            return nullptr;
         }
 };
 
 class Castle_1F : public GameMap{
+    private:
+        int spawnCooldown = 0;
+
     public:
         Castle_1F(int difficulty) : GameMap("The Castle - 1/F", difficulty){
             this->peaceful = false;
@@ -171,8 +187,7 @@ class Castle_1F : public GameMap{
             this->description += "                   ((,(,__(    ((,(,__,'  ``'-- `'`.(\\  `.,..______\n";
             this->description += "                                                      ``--------..._``--.__\n";
 
-            this->keyName = "The Castle Key";
-            this->lock();
+            this->lockWith("The Castle Key");
         };
 
         GameCharacter* spawnRandomMobs(){
@@ -181,6 +196,9 @@ class Castle_1F : public GameMap{
 };
 
 class Castle_2F : public GameMap{
+    private:
+        int spawnCooldown = 0;
+
     public:
         Castle_2F(int difficulty) : GameMap("The Castle - 2/F", difficulty){
             this->peaceful = false;
@@ -215,16 +233,23 @@ class Castle_2F : public GameMap{
             this->description += "      ||    | || |    ||\n";
             this->description += "      |;.__.' || '.__.;|\n";
 
-            this->keyName = "The Castle 2/F Key";
-            this->lock();
+            this->lockWith("The Castle 2/F Key");
         };
 
         GameCharacter* spawnRandomMobs(){
-            return new LichKing();
+            if(spawnCooldown == 0){
+                spawnCooldown = 3;
+                return new LichKing();
+            }
+            spawnCooldown--;
+            return nullptr;
         }
 };
 
 class Castle_3F : public GameMap{
+    private:
+        int spawnCooldown = 0;
+
     public:
         Castle_3F(int difficulty) : GameMap("The Castle - 3/F", difficulty){
             this->peaceful = false;
@@ -233,8 +258,7 @@ class Castle_3F : public GameMap{
 
             // Graphical description
 
-            this->keyName = "The Castle 3/F Key";
-            this->lock();
+            this->lockWith("The Castle 3/F Key");
         };
 
         GameCharacter* spawnRandomMobs(){

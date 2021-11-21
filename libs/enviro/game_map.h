@@ -54,7 +54,7 @@ class GameMap{
 
         bool isLocked();
         bool isPeaceful();
-        void lock();
+        void lockWith(std::string keyName);
         // returns whether the unlock is successful or not
         bool unlock(GameItem* key);
 

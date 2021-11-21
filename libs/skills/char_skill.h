@@ -23,8 +23,7 @@ typedef struct CharacterSkill{
  * Functions doing the main logic:
  * GameCharacter::updateCooldownSkills()
  * 
- * 
- * 
+ * GameMatch::endTurn()
  */
 class SkillSets{
     public:
@@ -121,38 +120,38 @@ class SkillSets{
         static std::vector<CharacterSkill> assassinSkills(){
             std::vector<CharacterSkill> skills;
             // 1st
-            CharacterSkill defensive;
-            defensive.name = "Defensive";
-            defensive.type = PHY_RESIST | MAG_RESIST;
-            defensive.characterType = ASSASSIN;
-            defensive.cooldown = 2;
-            StatModiferStore defensiveModifier;
-            defensiveModifier.phyResist = 1.2;
-            defensiveModifier.magResist = 1.2;
-            defensive.modifier = defensiveModifier;
-            skills.push_back(defensive);
+            CharacterSkill onYourBack;
+            onYourBack.name = "On your back";
+            onYourBack.type = PHY_ATTACK | MAG_ATTACK;
+            onYourBack.characterType = ASSASSIN;
+            onYourBack.cooldown = 4;
+            StatModiferStore onYourBackModifier;
+            onYourBackModifier.phyResist = 4.0;
+            onYourBackModifier.magResist = 4.0;
+            onYourBack.modifier = onYourBackModifier;
+            skills.push_back(onYourBack);
             // 2nd
-            CharacterSkill charge;
-            charge.name = "Charge";
-            charge.type = PHY_ATTACK;
-            charge.characterType = ASSASSIN;
-            charge.cooldown = 1;
-            StatModiferStore chargeModifier;
-            chargeModifier.phyResist = 1.2;
-            chargeModifier.magResist = 1.2;
-            charge.modifier = chargeModifier;
-            skills.push_back(charge);
+            CharacterSkill dodge;
+            dodge.name = "Dodge";
+            dodge.type = PHY_RESIST | MAG_RESIST;
+            dodge.characterType = ASSASSIN;
+            dodge.cooldown = 2;
+            StatModiferStore dodgeModifier;
+            dodgeModifier.phyResist = 3.0;
+            dodgeModifier.magResist = 3.0;
+            dodge.modifier = dodgeModifier;
+            skills.push_back(dodge);
             // 3nd
-            CharacterSkill cleave;
-            cleave.name = "Cleave";
-            cleave.type = PHY_ATTACK;
-            cleave.characterType = ASSASSIN;
-            cleave.cooldown = 2;
-            StatModiferStore cleaveModifier;
-            cleaveModifier.phyResist = 1.5;
-            cleaveModifier.magResist = 1.5;
-            cleave.modifier = cleaveModifier;
-            skills.push_back(cleave);
+            CharacterSkill sneakAttack;
+            sneakAttack.name = "Sneak Attack";
+            sneakAttack.type = PHY_ATTACK | MAG_RESIST | PHY_RESIST | MAG_RESIST;
+            sneakAttack.characterType = ASSASSIN;
+            sneakAttack.cooldown = 4;
+            StatModiferStore sneakAttackModifier;
+            sneakAttackModifier.phyResist = 1.5;
+            sneakAttackModifier.magResist = 1.5;
+            sneakAttack.modifier = sneakAttackModifier;
+            skills.push_back(sneakAttack);
             return skills;
         }
 };

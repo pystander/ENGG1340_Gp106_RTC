@@ -10,7 +10,7 @@ class WeaponHands : public GameItem{
         WeaponHands() : GameItem("Hands", PHY_ATTACK, WEAPON){
             this->can_sell = false;
             this->itemStat.phyAttack = 5;
-            // this->itemStat.phyAttack = 155; // testing
+            // this->itemStat.phyAttack = 1000; // testing
         };
 
         GameItem* copy(){

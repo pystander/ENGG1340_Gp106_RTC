@@ -117,6 +117,9 @@ void engage(Game* game){
             battle->endTurn();
         }else if(userInput == "help"){
             helpBattle(game);
+        }else if(userInput == "iteminfo"){
+            std::cin >> arg1;
+            game->player->getFromInventory(BasicConverter::safeToInt(arg1))->displayInfo();
         }else if(userInput == "info"){
             game->player->displayPlayerStatus();
             battle->displayInfo();
@@ -179,6 +182,7 @@ void helpBase(Game* game){
         std::cout << "shop" << "\n";
         std::cout << "wait" << "\n";
         std::cout << "mapdesc" << "\n";
+        std::cout << "iteminfo <index>" << "\n";
         std::cout << "info" << "\n";
         std::cout << "where" << "\n";
         std::cout << "stat" << "\n";

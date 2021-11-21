@@ -1,7 +1,61 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
+#include <vector>
 #include "libs/enviro/graphics/graphics.h"
 #include "libs/enviro/game.h"
+
+std::string repeatString(std::string str, int amount){
+    std::string result = "";
+    for(int i = 0; i < amount; i++){
+        result += str;
+    }
+    return result;
+}
+
+void printTable(std::vector<std::string> content){
+    int longestLength = 0;
+    for(int i = 0; i < content.size(); i++){
+        if(content[i].length() > longestLength){
+            longestLength = content[i].length();
+        }
+    }
+    std::string printStr = "";
+    std::string cellContent = "";
+    // upper frame
+    if(content.size() >= 2){
+        printStr += "┌" + repeatString("─", longestLength) + "";
+        printStr += "┬" + repeatString("─", longestLength) + "┐\n";
+    }else{
+        printStr += "┌" + repeatString("─", longestLength) + "┐\n";
+    }
+    for(int i = 0; i < content.size(); i++){
+        // left cell
+        cellContent = content[i];
+        cellContent += repeatString(" ", longestLength-cellContent.length());
+        printStr += "│" + cellContent + "";
+        if(i+1 < content.size()){
+            // right
+            cellContent = content[i+1];
+            cellContent += repeatString(" ", longestLength-cellContent.length());
+            printStr += "│" + cellContent + "│\n";
+            i++;
+        }else{
+            // right empty
+            cellContent = "";
+            cellContent += repeatString(" ", longestLength-cellContent.length());
+            printStr += "│" + cellContent + "│\n";
+        }
+    }
+    // lower frame
+    if(content.size() >= 2){
+        printStr += "└" + repeatString("─", longestLength) + "";
+        printStr += "┴" + repeatString("─", longestLength) + "┘\n";
+    }else{
+        printStr += "└" + repeatString("─", longestLength) + "┘\n";
+    }
+    std::cout << printStr;
+}
 
 void displayStart(Game* game){
     // ASCII art from https://fsymbols.com/generators/carty/
@@ -12,7 +66,7 @@ void displayStart(Game* game){
     std::cout << std::endl;
     std::cout << std::setw(45) << "A text-based Fantasy RPG" << std::endl;
     std::cout << std::endl;
-    std::cout << std::setw(49) << "Press any key to start the game" << std::endl;
+    std::cout << std::setw(49) << "Press any enter to start the game" << std::endl;
     getchar();
 }
 

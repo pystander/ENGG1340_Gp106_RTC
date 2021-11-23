@@ -104,17 +104,17 @@ class WeaponShop : public GameMap{
             this->description = "This is a weapon shop. You can buy and sell weapons in this area.\n";
             this->description += "Feel free to type 'shop' to see available weapons. Use 'sell' to\n";
             this->description += "sell weapons from your inventory\n";
-            this->description += "/n";
+            this->description += "\n";
 
             // Graphical description
             // ASCII art from https://www.asciiart.eu/buildings-and-places/houses, modified
             this->description += "                          (    )\n";
             this->description += "                            )  )\n";
-            this->description += "                           (  (                  /\\n";
-            this->description += "                            (_)                 /  \\  /\\n";
-            this->description += "                    ________[_]________      /\\/    \\/  \\n";
-            this->description += "           /\\      /\\        ______    \\    /   /\\/\\  /\\/\\n";
-            this->description += "          /  \\    //_\\       \\    /\\    \\  /\\/\\/    \\/    \\n";
+            this->description += "                           (  (                  /\\\n";
+            this->description += "                            (_)                 /  \\  /\\\n";
+            this->description += "                    ________[_]________      /\\/    \\/  \\\n";
+            this->description += "           /\\      /\\        ______    \\    /   /\\/\\  /\\/\\\n";
+            this->description += "          /  \\    //_\\       \\    /\\    \\  /\\/\\/    \\/    \\\n";
             this->description += "   /\\    / /\\/\\  //___\\       \\__/  \\    \\/\n";
             this->description += "  /  \\  /\\/    \\//_____\\       \\ |[]|     \\\n";
             this->description += " /\\/\\/\\/       //_______\\       \\|__|      \\\n";
@@ -123,7 +123,7 @@ class WeaponShop : public GameMap{
             this->description += "               I_I|  I__I_____[]_|_[]_____I\n";
             this->description += "               I_II  I__I_____[]_|_[]_____I\n";
             this->description += "               I II__I  I     XXXXXXX     I\n";
-            this->description += "            ~~~~~"   "~~~~~~~~~~~~~~~~~~~~~~~~\n";
+            this->description += "               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
             // Shop items
             this->shopType = SHOP_WEAPON;
@@ -151,7 +151,7 @@ class ArmorShop : public GameMap{
             this->description = "This is a armor shop. You can buy and sell armors in this area.\n";
             this->description += "Feel free to type 'shop' to see available armors. Use 'sell' to\n";
             this->description += "sell armors from your inventory\n";
-            this->description += "/n";
+            this->description += "\n";
 
             // Graphical description
             // ASCII art from https://www.asciiart.eu/buildings-and-places/houses, modified

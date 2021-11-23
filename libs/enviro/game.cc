@@ -102,6 +102,7 @@ void Game::setupMaps(){
     this->maps.push_back(unknownVillage);
     this->maps.push_back(lostWoods);
     this->maps.push_back(dawnDungeon);
+    this->maps.push_back(castleEntrance);
     this->maps.push_back(castle_1F);
     this->maps.push_back(castle_2F);
     this->maps.push_back(castle_3F);

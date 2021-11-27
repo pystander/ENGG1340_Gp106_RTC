@@ -66,7 +66,7 @@ void displayStart(Game* game){
     std::cout << std::endl;
     std::cout << std::setw(45) << "A text-based Fantasy RPG" << std::endl;
     std::cout << std::endl;
-    std::cout << std::setw(49) << "Press any enter to start the game" << std::endl;
+    std::cout << std::setw(48) << "Press ENTER to start the game" << std::endl;
     getchar();
 }
 

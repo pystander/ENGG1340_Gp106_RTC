@@ -20,7 +20,7 @@ void startStory(Game* game){
     std::cout << "Without protection from the Gods, people were miserably ravaged by monsters." << std::endl;
     std::cout << "But people did not lose their faith and had been waiting for their return" << std::endl;
     std::cout << std::endl;
-    ColoredOutput::blue("Press any key to continue...\n");
+    ColoredOutput::blue("Press ENTER to continue...\n");
     getchar();
     displayMagician(game);
     std::cout << std::endl;
@@ -36,6 +36,6 @@ void startStory(Game* game){
     std::cout << "When the key meets the lock," << std::endl;
     std::cout << "the land shall speak his name and yarn." << std::endl;
     std::cout << std::endl;
-    ColoredOutput::blue("Press any key to continue...\n");
+    ColoredOutput::blue("Press ENTER to continue...\n");
     getchar();
 }

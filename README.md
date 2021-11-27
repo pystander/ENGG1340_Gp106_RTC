@@ -10,7 +10,7 @@ The Road to Castle is a fantasy text-based RPG. Players will act as the main pro
 The ultimate goal of this game is to slay the monsters amid the road, arive to the Castle, and defeat all bosses.
 
 ## Installation
-You can clone this repository over HTTPS into your local folder<\n>
+You can clone this repository over HTTPS into your local folder
 ```bash
 git clone https://github.com/pystander/ENGG1340_Gp106_RTC.git
 ```

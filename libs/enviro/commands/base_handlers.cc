@@ -188,6 +188,7 @@ void helpBase(Game* game){
         std::cout << "mapdesc" << "\n";
         std::cout << "iteminfo <index>" << "\n";
         std::cout << "info" << "\n";
+        std::cout << "map" << "\n";
         std::cout << "where" << "\n";
         std::cout << "stat" << "\n";
         std::cout << "skills" << "\n";

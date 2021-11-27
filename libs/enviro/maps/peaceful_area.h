@@ -186,19 +186,23 @@ class TheDoor : public GameMap{
 
             // Text description
             this->description = "You defeat the wizard with all you effort.\n";
-            this->description = "\"You are talented, cough..., I just don't know why...\"\n";
-            this->description = "You are determined and said:\n";
-            this->description = "\"Gods may not be kind, but they are the symbols for all people.\n";
-            this->description = "And they give us Hope and Peace, that is more than anything.\"\n";
-            this->description = "\n";
-            this->description = "You leave the wizard here and put the key into the door.\n";
+            this->description += "\"You are talented, cough..., I just don't know why...\"\n";
+            this->description += "You are determined and said:\n";
+            this->description += "\"Gods may not exist, but they are the symbols for all people.\n";
+            this->description += "They give us Hope and Peace, which keep us motivated.\n";
+            this->description += "But the truth should be told, even if it hurts.\"\n";
+            this->description += "\n";
+            this->description += "You leave the wizard here and put the key into the door.\n";
             this->description += "With a clean sound from the lock, the door is slowly opening.\n";
             this->description += "After the door, you only see a dull and hollow entrance.\n";
+            this->description += "\n";
             this->description += "You are determined, and walk into the darkness.\n";
             this->description += "It is completely dark, a little spark will be a dazzle for you.\n";
             this->description += "You continue to walk, alone.\n";
             this->description += "Not knowing how long, or how far have you gone.\n";
-            this->description += "Eventually, you see a soft, but warm light in front.\n";
+            this->description += "Eventually, you see a soft, but warm light coming from a room.\n";
+            this->description += "You found it empty, just like your heart at the moment.\n";
+            this->description += "The Gods do not exist, but you will be there, a hero for all people.\n";
 
             this->lockWith("Door Key");
         };

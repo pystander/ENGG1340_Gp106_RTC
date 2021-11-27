@@ -256,9 +256,10 @@ class Castle_3F : public GameMap{
             // Text description
             this->description = "\"Finally, you come, to fulfill the Prophecy...\"\n";
             this->description += "Once you step in, you see a wizard in front of a giant door.\n";
-            this->description += "\"I am sorry, child, I cannot let you pass, the Gods must leave.\"\n";
-            this->description += "\"Why? They are protecting us from monsters.\"\n";
-            this->description += "The wizard laughed, \"No, Gods are just bystanders, they never give anything.\n";
+            this->description += "\"I am sorry, child, I cannot let you pass, the secret must be kept.\"\n";
+            this->description += "\"What secret? Aren't the Gods protecting us from monsters?\"\n";
+            this->description += "The wizard laughed, \"No, they never exist, that were just a lie for everyone.\"\n";
+            this->description += "You are shocked, with silence.\n";
             this->description += "\"Enough talk, fight me!\"\n";
             this->description += "\n";
 

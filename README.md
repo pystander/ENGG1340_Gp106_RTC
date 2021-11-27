@@ -1,15 +1,31 @@
 # The Road to Castle
 A text-based RPG for HKU ENGG1340 group project.
 
-
 ## Group Members
 - Leung Chiu Yuen, Rain
 - Ko King Nam, Vincent
 
-
 ## Introduction
-The Ultimate Goal is to defeat the monsters amid the road and arive to the Castle.
+The Road to Castle is a fantasy text-based RPG. Players will act as the main protagonist, a hero under a prophecy who dooms to conquer and save the land.
+The ultimate goal of this game is to slay the monsters amid the road, arive to the Castle, and defeat all bosses.
 
+## Installation
+You can clone this repository over HTTPS into your local folder<\n>
+```bash
+git clone https://github.com/pystander/ENGG1340_Gp106_RTC.git
+```
+
+Enter the directory to make files
+```bash
+cd ENGG1340_Gp106_RTC/
+make all
+```
+
+Run the executable `main` created in `bin/`
+```bash
+cd bin/
+./main
+```
 
 ## Features
 - Multiple Character Classes: Warrior, Mage, Assassin
@@ -46,7 +62,7 @@ The Ultimate Goal is to defeat the monsters amid the road and arive to the Castl
 - CR6 - indentation is definitely proper. Codes are definitely readable.
 - CR7 - since Vincent is the one who created the framework, documentation is definitely needed. However, if you got good naming styles, no documentation is really needed. Often, `.h` contains the most comments acting as documentation.
 
-### project structure
+## Project Structure
 `libs/` and `src/` are the source codes.
 
 `libs/` is essentially the game source code files with headers.

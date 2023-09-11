@@ -2,8 +2,8 @@
 A text-based RPG for HKU ENGG1340 group project.
 
 ## Group Members
-- Leung Chiu Yuen, Rain
-- Ko King Nam, Vincent
+- Rain
+- Vincent
 
 ## Introduction
 The Road to Castle is a fantasy text-based RPG. Players will act as the main protagonist, a hero under a prophecy who dooms to conquer and save the land.
